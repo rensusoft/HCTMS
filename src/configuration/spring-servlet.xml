@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	default-autowire="byName"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+ 
+	<!-- ***************配置数据源************** -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- <property name="driverClass">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:mysql://127.0.0.1:3306/test</value>
+		</property>
+		<property name="user"> 
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property> -->
+		<property name="driverClass">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<!--
+		<property name="jdbcUrl">
+			<value>jdbc:oracle:thin:@127.0.0.1:1521:orcl</value>
+		</property> -->
+		<property name="jdbcUrl">
+			 
+				<value>jdbc:oracle:thin:@localhost:1521:orcl</value>
+			
+				<!--<value>jdbc:oracle:thin:@7.211.57.249:1521:tpmsdb</value>-->
+		</property>
+		<property name="user">
+			<value>hctadmin</value>
+		</property>
+		<property name="password">
+			<value>123</value>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>500</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>1800</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>2</value>
+		</property>
+		<property name="maxStatements">
+			<value>0</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>10</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>1800</value>
+		</property>
+		<property name="acquireRetryAttempts">
+			<value>3</value>
+		</property>
+		<property name="breakAfterAcquireFailure">
+			<value>true</value>
+		</property>
+		<property name="testConnectionOnCheckout">
+			<value>false</value>
+		</property>
+	</bean>
+
+	<!-- 配置mybatis拦截器，实现分页功能。 -->
+	<bean id="paginationInterceptor" class="com.rensu.education.hctms.util.PaginationInterceptor"></bean>
+	
+	<!-- MyBatis Sql -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:configuration/SqlMapperConfig.xml" />
+		<property name="plugins">
+			<list>
+				<ref bean="paginationInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="configuration.mapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+
+	</bean>
+
+	<!-- ***************事务配置************** -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<aop:config>  
+        <aop:advisor pointcut="execution(* com.rensu.education.hctms.*.service.*.*(..))"  
+            advice-ref="txAdvice" />  
+    </aop:config>  
+  
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">  
+        <tx:attributes>  
+            <tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />  
+        </tx:attributes>  
+    </tx:advice>  
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="dataSource" /> </bean> <aop:config> <aop:advisor 
+		pointcut="execution(* com.rensu.medical.rsts.*.service.*.*(..))" advice-ref="txAdvice" 
+		/> </aop:config> <tx:advice id="txAdvice" transaction-manager="transactionManager"> 
+		<tx:attributes> <tx:method name="get*" read-only="true" /> <tx:method name="query*" 
+		read-only="true" /> <tx:method name="find*" read-only="true" /> <tx:method 
+		name="load*" read-only="true" /> <tx:method name="select*" read-only="true" 
+		/> <tx:method name="*" propagation="REQUIRED" rollback-for="Exception" /> 
+		</tx:attributes> </tx:advice> -->
+
+	<!-- 扫描classpath的包下的所有类，该包路径下的类可以不需要配置bean了 -->
+	<context:component-scan base-package="com.rensu.education.hctms.*" />
+	
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" 
+		p:ignoreDefaultModelOnRedirect="true" >
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+			</list>
+		</property>
+	</bean> 
+
+	<!-- Forwards requests to the "/" resource to the "welcome" view -->
+	<mvc:view-controller path="/" view-name="hello" />
+
+	<!-- Configures Handler Interceptors -->
+	<mvc:interceptors>
+		<!-- Changes the locale when a 'locale' request parameter is sent; e.g. 
+			/?locale=de -->
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+	</mvc:interceptors>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources/ directory -->
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+
+	<!-- Saves a locale change using a cookie -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+
+	<!-- Application Message Bundle <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+		<property name="basename" value="/WEB-INF/messages/messages" /> <property 
+		name="cacheSeconds" value="0" /> </bean> -->
+
+	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views 
+		directory -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 上传文件拦截，设置最大上传文件大小   10M=10*1024*1024(B)=10485760 bytes -->  
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">        
+      <property name="defaultEncoding" value="utf-8"></property> 
+      <property name="maxUploadSize" value="104857600"/>
+    </bean> --> 
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+    <bean id="exceptionResolver"
+         class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+         <property name="exceptionMappings">
+             <props>
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到XXX页面 -->
+                 <prop
+                     key="org.springframework.web.multipart.MaxUploadSizeExceededException">exception/fileuploadexception</prop>
+             </props>
+         </property>
+     </bean>
+
+	<!-- <bean id="simpleUrlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> 
+		<property name="mappings"> <props> <prop key="/hello.do">helloController</prop> 
+		<prop key="/show.do">showController</prop> </props> </property> </bean> -->
+		
+</beans>

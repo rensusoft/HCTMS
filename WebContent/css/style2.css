@@ -1,0 +1,10 @@
+.hasDatepicker { margin: 0;}
+.select2-container .select2-choice > .select2-chosen { float: left; }
+.list-box .form-group, .btnSearch.btn-info { margin: 0; }
+.openWd { width:100%; }
+.openWd .leftArea { width: 20%; }
+.openWd .rightArea { width: 79%; }
+.list-box table { width:100%; }
+.nav > li > a { text-decoration: none; background-color: #eee;}
+.nav-tabs > li > a { border-color: #eee #eee #ddd;}
+.countBtn { width: 160px; margin-bottom: 15px; margin-left: 15px; }

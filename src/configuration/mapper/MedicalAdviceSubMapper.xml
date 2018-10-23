@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MedicalAdviceSubMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.MedicalAdviceSub" >
+	<result column="id" property="id"/>
+	<result column="mam_id" property="mam_id"/>
+	<result column="advice_name" property="advice_name"/>
+	<result column="advice_spec" property="advice_spec"/>
+	<result column="advice_dose" property="advice_dose"/>
+	<result column="dose_unit_code" property="dose_unit_code"/>
+	<result column="path_code" property="path_code"/>
+	<result column="frequency_code" property="frequency_code"/>
+	<result column="total_dose" property="total_dose"/>
+	<result column="total_dose_unit_code" property="total_dose_unit_code"/>
+	<result column="doctor_memo" property="doctor_memo"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MEDICAL_ADVICE_SUB table all fields -->
+<sql id="Base_Column_List" >
+	 id,mam_id,advice_name,advice_spec,advice_dose,dose_unit_code,path_code,frequency_code,total_dose,total_dose_unit_code,doctor_memo,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="mam_id != null" >
+	    and mam_id =  #{mam_id}
+	</if>
+	 	<if test="advice_name != null and advice_name != ''" >
+	    and advice_name =  #{advice_name}
+	</if>
+	 	<if test="advice_spec != null and advice_spec != ''" >
+	    and advice_spec =  #{advice_spec}
+	</if>
+	<if test="advice_dose != null" >
+	    and advice_dose =  #{advice_dose}
+	</if>
+	 	<if test="dose_unit_code != null and dose_unit_code != ''" >
+	    and dose_unit_code =  #{dose_unit_code}
+	</if>
+	 	<if test="path_code != null and path_code != ''" >
+	    and path_code =  #{path_code}
+	</if>
+	 	<if test="frequency_code != null and frequency_code != ''" >
+	    and frequency_code =  #{frequency_code}
+	</if>
+	<if test="total_dose != null" >
+	    and total_dose =  #{total_dose}
+	</if>
+	 	<if test="total_dose_unit_code != null and total_dose_unit_code != ''" >
+	    and total_dose_unit_code =  #{total_dose_unit_code}
+	</if>
+	 	<if test="doctor_memo != null and doctor_memo != ''" >
+	    and doctor_memo =  #{doctor_memo}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub" >
+  insert into MEDICAL_ADVICE_SUB(id,mam_id,advice_name,advice_spec,advice_dose,dose_unit_code,path_code,frequency_code,total_dose,total_dose_unit_code,doctor_memo,state)
+ values(#{id,jdbcType=INTEGER},#{mam_id,jdbcType=INTEGER},#{advice_name,jdbcType=VARCHAR},#{advice_spec,jdbcType=VARCHAR},#{advice_dose,jdbcType=REAL},#{dose_unit_code,jdbcType=VARCHAR},#{path_code,jdbcType=VARCHAR},#{frequency_code,jdbcType=VARCHAR},#{total_dose,jdbcType=REAL},#{total_dose_unit_code,jdbcType=VARCHAR},#{doctor_memo,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub" >
+	update MEDICAL_ADVICE_SUB set 
+	<trim  suffixOverrides="," >
+	<if test="mam_id != null  ">
+		mam_id=#{mam_id,jdbcType=INTEGER},
+	</if>
+	<if test="advice_name != null  and advice_name != '' ">
+		advice_name=#{advice_name,jdbcType=VARCHAR},
+	</if>
+	<if test="advice_spec != null  and advice_spec != '' ">
+		advice_spec=#{advice_spec,jdbcType=VARCHAR},
+	</if>
+	<if test="advice_dose != null  ">
+		advice_dose=#{advice_dose,jdbcType=REAL},
+	</if>
+	<if test="dose_unit_code != null  and dose_unit_code != '' ">
+		dose_unit_code=#{dose_unit_code,jdbcType=VARCHAR},
+	</if>
+	<if test="path_code != null  and path_code != '' ">
+		path_code=#{path_code,jdbcType=VARCHAR},
+	</if>
+	<if test="frequency_code != null  and frequency_code != '' ">
+		frequency_code=#{frequency_code,jdbcType=VARCHAR},
+	</if>
+	<if test="total_dose != null  ">
+		total_dose=#{total_dose,jdbcType=REAL},
+	</if>
+	<if test="total_dose_unit_code != null  and total_dose_unit_code != '' ">
+		total_dose_unit_code=#{total_dose_unit_code,jdbcType=VARCHAR},
+	</if>
+	<if test="doctor_memo != null  and doctor_memo != '' ">
+		doctor_memo=#{doctor_memo,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<update id="updateByMamId" parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub" >
+	update MEDICAL_ADVICE_SUB set 
+	<trim  suffixOverrides="," >
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where mam_id=#{mam_id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub">
+	delete 	 from MEDICAL_ADVICE_SUB where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 医疗文书-医嘱子表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MEDICAL_ADVICE_SUB where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 医疗文书-医嘱子表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_medical_advice_sub_id.nextval from dual
+</select>
+
+<!-- 医疗文书-医嘱子表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub">
+	select count(1) from MEDICAL_ADVICE_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询医疗文书-医嘱子表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_ADVICE_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询医疗文书-医嘱子表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_ADVICE_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectMedicalAdviceSubList" resultType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub"  parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceSub">
+	select 
+	distinct mas.id,
+	mas.advice_name,mas.advice_spec,mas.advice_dose,
+	sds1.item_type_name as dose_unit_code_str,sds2.item_type_name as path_code_str,
+	sds3.item_type_name as frequency_code_str,sds4.item_type_name as total_dose_unit_code_str,
+	mas.total_dose
+	from MEDICAL_ADVICE_SUB mas
+	left join SYS_DICT_SUB sds1
+	on mas.dose_unit_code=sds1.item_type_code
+	left join SYS_DICT_SUB sds2
+	on mas.path_code=sds2.item_type_code
+	left join SYS_DICT_SUB sds3
+	on mas.frequency_code=sds3.item_type_code
+	left join SYS_DICT_SUB sds4
+	on mas.total_dose_unit_code=sds4.item_type_code
+	where 1=1
+	<if test="state != null and state != ''" >
+      and mas.state = #{state}
+    </if>
+	<if test="mam_id != null and mam_id != ''" >
+      and mas.mam_id = #{mam_id}
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

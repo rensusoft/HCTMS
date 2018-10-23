@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+html{
+    height: 100%;
+    width: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+}
+.table_body,.table_body2{
+    border: 1px solid #505F91;
+    border-top: none;
+    border-radius: 3px;
+    padding: 20px;
+    z-index: 999;
+    background: #F5F5F5;
+    border-top-right-radius:0 ;
+    border-top-left-radius: 0;
+    display: none;
+}
+.table_body,.table_body2{
+    overflow: auto;
+}
+.table_body table,.table_body2 table{
+    width: 100%;
+    text-align: right;
+    font-size: 14px;
+}
+.table_body table tr,.table_body2 table tr{
+    padding: 3px 10px;
+    text-align:center;
+}
+.table_body table tr td:first-child,.table_body2 table tr td:first-child{
+    width: 100px;
+    margin-bottom: 5px;
+    display: inline-block;
+    text-align:right;
+}
+.table_body table tr td:first-child i,.table_body2 table tr td:first-child i{
+    color: red;
+    font-style: normal;
+}
+.table_body table tr td input,.table_body2 table tr td input{
+    width:300px;
+    border: 1px solid #505F91;
+    border-radius: 3px;
+    padding-left: 10px;
+    line-height: 30px;
+    margin-bottom: 5px;
+    float: left;
+    margin-left: 15px;
+}
+.table_body div,.table_body2 div{
+    text-align: center;
+}
+.table_head,.table_head2{
+    border: 1px solid #505f91;
+    text-align: center;
+    line-height: 35px;
+    background: #505f91;
+    border-radius: 3px;
+    height: 35px;
+    width: 100%;
+}
+.table_form,.table_form2{
+    width: 100%;
+}
+.table_head>a,.table_head2>a{
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    text-decoration: none !important;
+}
+.table_head>a:hover,.table_head2>a:hover{
+	color:#fff !important;
+}
+.table_head>a span,.table_head2>a span{
+    margin-left: 30px;
+}
+.btn_position{
+    width: 90%;
+    position: absolute;
+    bottom: 15px;
+}
+.table_body form,.table_body2 form{
+    width: auto;
+    margin: 0 auto;
+}
+.table_body2 form div{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.table_body2 form div b{
+    color: #505F91;
+}
+.table_body table tr td:nth-child(2),.table_body2 table tr td:nth-child(2){
+    display: inline-block;
+    min-width: 300px;
+    margin-bottom: 5px;
+}
+.table_body table tr td:last-child,.table_body2 table tr td:last-child{
+	display: inline-block;
+    margin-bottom: 5px;
+    min-width:150px;
+}
+.table_body table tr td span,.table_body2 table tr td span{
+    color:red;
+}

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.QeQuestionMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.QeQuestion" >
+	<result column="id" property="id"/>
+	<result column="type_id" property="type_id"/>
+	<result column="qkb_id" property="qkb_id"/>
+	<result column="teaching_require" property="teaching_require"/>
+	<result column="group_num" property="group_num"/>
+	<result column="group_order" property="group_order"/>
+	<result column="sco_num" property="sco_num"/>
+	<result column="ques_content" property="ques_content"/>
+	<result column="ques_analysis" property="ques_analysis"/>
+	<result column="difficulty_num" property="difficulty_num"/>
+	<result column="different_num" property="different_num"/>
+	<result column="use_num" property="use_num"/>
+	<result column="lately_usetime" property="lately_usetime"/>
+	<result column="create_time" property="create_time"/>
+	<result column="create_auth_id" property="create_auth_id"/>
+	<result column="state" property="state"/>
+	<result column="type_name" property="type_name"/>
+	<result column="update_time" property="update_time"/>
+	<!-- <result column="ssco_num" property="ssco_num"/>
+	<result column="esco_num" property="esco_num"/> -->
+</resultMap>
+       
+<!-- QE_QUESTION table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_id,qkb_id,teaching_require,group_num,group_order,sco_num,ques_content,ques_analysis,difficulty_num,different_num,use_num,lately_usetime,create_time,create_auth_id,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="type_id != null" >
+	    and type_id =  #{type_id}
+	</if>
+	<if test="qkb_id != null" >
+	    and qkb_id =  #{qkb_id}
+	</if>
+	<if test="teaching_require != null" >
+	    and teaching_require =  #{teaching_require}
+	</if>
+	 	<if test="group_num != null and group_num != ''" >
+	    and group_num =  #{group_num}
+	</if>
+	<if test="group_order != null" >
+	    and group_order =  #{group_order}
+	</if>
+	<if test="sco_num != null" >
+	    and sco_num =  #{sco_num}
+	</if>
+	<if test="ques_content != null" >
+	    and ques_content =  #{ques_content}
+	</if>
+	<if test="ques_analysis != null" >
+	    and ques_analysis =  #{ques_analysis}
+	</if>
+	<if test="difficulty_num != null" >
+	    and difficulty_num =  #{difficulty_num}
+	</if>
+	<if test="different_num != null" >
+	    and different_num =  #{different_num}
+	</if>
+	<if test="use_num != null" >
+	    and use_num =  #{use_num}
+	</if>
+	<if test="lately_usetime != null" >
+	    and lately_usetime =  #{lately_usetime}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="create_auth_id != null" >
+	    and create_auth_id =  #{create_auth_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuestion" >
+  insert into QE_QUESTION(id,type_id,qkb_id,teaching_require,group_num,group_order,sco_num,ques_content,ques_analysis,difficulty_num,different_num,use_num,lately_usetime,create_time,create_auth_id,state)
+ values(#{id,jdbcType=INTEGER},#{type_id,jdbcType=INTEGER},#{qkb_id,jdbcType=INTEGER},#{teaching_require,jdbcType=INTEGER},#{group_num,jdbcType=VARCHAR},#{group_order,jdbcType=INTEGER},#{sco_num,jdbcType=INTEGER},#{ques_content,jdbcType=VARCHAR},#{ques_analysis,jdbcType=VARCHAR},#{difficulty_num,jdbcType=INTEGER},#{different_num,jdbcType=INTEGER},#{use_num,jdbcType=INTEGER},#{lately_usetime,jdbcType=TIMESTAMP},sysdate,#{create_auth_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuestion" >
+	update QE_QUESTION set 
+	<trim  suffixOverrides="," >
+	<if test="type_id != null  ">
+		type_id=#{type_id,jdbcType=INTEGER},
+	</if>
+	<if test="qkb_id != null  ">
+		qkb_id=#{qkb_id,jdbcType=INTEGER},
+	</if>
+	<if test="teaching_require != null  ">
+		teaching_require=#{teaching_require,jdbcType=INTEGER},
+	</if>
+	<if test="group_num != null  and group_num != '' ">
+		group_num=#{group_num,jdbcType=VARCHAR},
+	</if>
+	<if test="group_order != null  ">
+		group_order=#{group_order,jdbcType=INTEGER},
+	</if>
+	<if test="sco_num != null  ">
+		sco_num=#{sco_num,jdbcType=INTEGER},
+	</if>
+	<if test="ques_content != null  ">
+		ques_content=#{ques_content,jdbcType=VARCHAR},
+	</if>
+	<if test="ques_analysis != null  ">
+		ques_analysis=#{ques_analysis,jdbcType=VARCHAR},
+	</if>
+	<if test="difficulty_num != null  ">
+		difficulty_num=#{difficulty_num,jdbcType=INTEGER},
+	</if>
+	<if test="different_num != null  ">
+		different_num=#{different_num,jdbcType=INTEGER},
+	</if>
+	<if test="use_num != null  ">
+		use_num=#{use_num,jdbcType=INTEGER},
+	</if>
+	<if test="lately_usetime != null  ">
+		lately_usetime=#{lately_usetime,jdbcType=TIMESTAMP},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="create_auth_id != null  ">
+		create_auth_id=#{create_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuestion">
+	delete 	 from QE_QUESTION where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 试题库列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from QE_QUESTION where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 试题库序列号 -->
+<select id="getSequence"  resultType="int" flushCache="true" useCache="false">
+	select seq_qe_question_id.nextval from dual
+</select>
+
+<!-- 试题库 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuestion">
+	select count(1) from QE_QUESTION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询试题库 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuestion">
+	select 
+	<include refid="Base_Column_List"/>
+	from QE_QUESTION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询试题库 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuestion">
+	select 
+	<include refid="Base_Column_List"/>,type_name,update_time
+	from (select q.*,t.type_name,to_char(q.lately_usetime, 'yyyy-mm-dd hh24:mi') update_time from QE_QUESTION q left join QE_QUES_TYPE t on q.type_id = t.id) 
+	<include refid="Example_Where_Clause"/>
+	<if test="ssco_num != null and ssco_num != ''" >
+	    and sco_num >=  #{ssco_num}
+	</if>
+	<if test="esco_num != null and esco_num != ''" >
+	    and sco_num &lt;=  #{esco_num}
+	</if>
+	<if test="sdifficulty_num != null and sdifficulty_num != ''" >
+	    and difficulty_num >=  #{sdifficulty_num}
+	</if>
+	<if test="edifficulty_num != null and edifficulty_num != ''" >
+	    and difficulty_num &lt;=  #{edifficulty_num}
+	</if>
+	<if test="sdifferent_num != null and sdifferent_num != ''" >
+	    and different_num >=  #{sdifferent_num}
+	</if>
+	<if test="edifferent_num != null and edifferent_num != ''" >
+	    and different_num &lt;=  #{edifferent_num}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<insert id="insertWithList" parameterType="java.util.List">
+ 	insert into QE_QUESTION(id,type_id,qkb_id,teaching_require,group_num,group_order,
+ 		sco_num,ques_content,ques_analysis,difficulty_num,different_num,use_num,
+ 		lately_usetime,create_time,create_auth_id,state)
+ 	select A.* FROM (
+ 	<foreach collection="list" item="item" index="index" separator="union all">
+	 	select #{item.id,jdbcType=INTEGER} id,
+	 		   #{item.type_id,jdbcType=INTEGER} type_id,
+	 		   #{item.qkb_id,jdbcType=INTEGER} qkb_id,
+	 		   #{item.teaching_require,jdbcType=INTEGER} teaching_require,
+	 		   #{item.group_num,jdbcType=VARCHAR} group_num,
+	 		   #{item.group_order,jdbcType=INTEGER} group_order,
+	 		   #{item.sco_num,jdbcType=INTEGER} sco_num,
+	 		   #{item.ques_content,jdbcType=VARCHAR} ques_content,
+	 		   #{item.ques_analysis,jdbcType=VARCHAR} ques_analysis,
+	 		   #{item.difficulty_num,jdbcType=INTEGER} difficulty_num,
+	 		   #{item.different_num,jdbcType=INTEGER} different_num,
+	 		   #{item.use_num,jdbcType=INTEGER} use_num,
+	 		   #{item.lately_usetime,jdbcType=TIMESTAMP} lately_usetime,
+	 		   sysdate,
+	 		   #{item.create_auth_id,jdbcType=INTEGER} create_auth_id,
+	 		   #{item.state,jdbcType=VARCHAR} state
+	 	from dual 
+ 	</foreach>) A
+</insert>  	
+</mapper>   

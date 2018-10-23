@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.QeQuesOptionMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.QeQuesOption" >
+	<result column="id" property="id"/>
+	<result column="qq_id" property="qq_id"/>
+	<result column="option_flag" property="option_flag"/>
+	<result column="option_content" property="option_content"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- QE_QUES_OPTION table all fields -->
+<sql id="Base_Column_List" >
+	 id,qq_id,option_flag,option_content,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="qq_id != null" >
+	    and qq_id =  #{qq_id}
+	</if>
+	 	<if test="option_flag != null and option_flag != ''" >
+	    and option_flag =  #{option_flag}
+	</if>
+	 	<if test="option_content != null and option_content != ''" >
+	    and option_content =  #{option_content}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesOption" >
+  insert into QE_QUES_OPTION(id,qq_id,option_flag,option_content,state)
+ values(#{id,jdbcType=INTEGER},#{qq_id,jdbcType=INTEGER},#{option_flag,jdbcType=VARCHAR},#{option_content,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesOption" >
+	update QE_QUES_OPTION set 
+	<trim  suffixOverrides="," >
+	<if test="qq_id != null  ">
+		qq_id=#{qq_id,jdbcType=INTEGER},
+	</if>
+	<if test="option_flag != null  and option_flag != '' ">
+		option_flag=#{option_flag,jdbcType=VARCHAR},
+	</if>
+	<if test="option_content != null  and option_content != '' ">
+		option_content=#{option_content,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesOption">
+	delete 	 from QE_QUES_OPTION where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 选择题的选项表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from QE_QUES_OPTION where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 选择题的选项表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_qe_ques_option_id.nextval from dual
+</select>
+
+<!-- 选择题的选项表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesOption">
+	select count(1) from QE_QUES_OPTION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询选择题的选项表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesOption">
+	select 
+	<include refid="Base_Column_List"/>
+	from QE_QUES_OPTION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询选择题的选项表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesOption">
+	select 
+	<include refid="Base_Column_List"/>
+	from QE_QUES_OPTION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+<insert id="insertWithList" parameterType="java.util.List">
+	<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select seq_qe_ques_option_id.nextval as id from dual
+	</selectKey>
+	insert into QE_QUES_OPTION(id,qq_id,option_flag,option_content,state)
+ 	select seq_qe_ques_option_id.nextval, A.* FROM (
+ 	<foreach collection="list" item="item" index="index" separator="union all">
+	 	select #{item.qq_id,jdbcType=INTEGER} qq_id,
+	 		   #{item.option_flag,jdbcType=VARCHAR} option_flag,
+	 		   #{item.option_content,jdbcType=VARCHAR} option_content,
+	 		   #{item.state,jdbcType=VARCHAR} state
+	 	from dual 
+ 	</foreach>) A
+</insert>  	
+</mapper>   

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StuAttendanceInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.StuAttendanceInfo" >
+	<result column="id" property="id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="attend_date" property="attend_date"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="attend_state" property="attend_state"/>
+	<result column="attend_auth_id" property="attend_auth_id"/>
+	<result column="attend_time" property="attend_time"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- STU_ATTENDANCE_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,stu_auth_id,attend_date,orga_id,attend_state,attend_auth_id,attend_time,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="attend_date != null" >
+	    and attend_date =  #{attend_date}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	<if test="attend_state != null" >
+	    and attend_state =  #{attend_state}
+	</if>
+	<if test="attend_auth_id != null" >
+	    and attend_auth_id =  #{attend_auth_id}
+	</if>
+	<if test="attend_time != null" >
+	    and attend_time =  #{attend_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo" >
+  insert into STU_ATTENDANCE_INFO(id,stu_auth_id,attend_date,orga_id,attend_state,attend_auth_id,attend_time,state)
+ values(#{id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{attend_date,jdbcType=INTEGER},#{orga_id,jdbcType=INTEGER},#{attend_state,jdbcType=INTEGER},#{attend_auth_id,jdbcType=INTEGER},#{attend_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo" >
+	update STU_ATTENDANCE_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="attend_date != null  ">
+		attend_date=#{attend_date,jdbcType=INTEGER},
+	</if>
+	<if test="orga_id != null  ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="attend_state != null  ">
+		attend_state=#{attend_state,jdbcType=INTEGER},
+	</if>
+	<if test="attend_auth_id != null  ">
+		attend_auth_id=#{attend_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="attend_time != null  ">
+		attend_time=#{attend_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+	delete 	 from STU_ATTENDANCE_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学生考勤表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STU_ATTENDANCE_INFO where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学生考勤表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_stu_attendance_info_id.nextval from dual
+</select>
+
+<!-- 学生考勤表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+	select count(1) from STU_ATTENDANCE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学生考勤表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_ATTENDANCE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询学生考勤表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_ATTENDANCE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  
+ <!--得到考勤信息-->
+ <select id="selectListBiao" resultType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo"  parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+     select id,stu_auth_id,attend_date,orga_id,
+    decode(attend_state,'1','已考勤','2','请假','0','未考勤','-10','请假（上午）','-20','请假（下午）') as attend_name,
+    attend_auth_id,
+    to_char(attend_time, 'yyyy-mm-dd') as attendeDate_Str,
+    attend_time,state from stu_attendance_info
+    <include refid="Example_Where_Clause"/>
+    and attend_time  &gt;  =#{start_time}  and attend_time  &lt;=#{end_time}
+</select>
+  
+  <!--得到考勤信息-->
+ <select id="getStuAttendanceInfoByAttendDate" resultType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo"  parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+	select 
+	t.id,t.attend_state,
+	decode(t.attend_state,'1','已考勤','2','请假','0','未考勤','-10','请假（上午）','-20','请假（下午）') as attend_state_str
+	from STU_ATTENDANCE_INFO t 
+	where t.state = 'Y' 
+	<if test="stu_auth_id != null and stu_auth_id != ''">
+		and t.stu_auth_id=#{stu_auth_id}
+	</if>
+	<if test="orga_id != null and orga_id != ''">
+		and t.orga_id=#{orga_id}
+	</if>
+	<if test="attend_date != null and attend_date != ''">
+		and t.attend_date=#{attend_date}
+	</if>
+</select>
+
+
+<update id="alreadyComplateAttendance" parameterType="java.util.Map" >
+	update STU_ATTENDANCE_INFO set 
+		attend_state = 1,
+		attend_time = sysdate
+	where 
+	    stu_auth_id = ${authId}
+	    and attend_date = ${nowDate}
+	    and orga_id = ${orgaId}
+</update>
+  	
+</mapper>   

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.TrainSchemeConfigMapper">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap"
+		type="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="stu_type_code" property="stu_type_code" />
+		<result column="major" property="major" />
+		<result column="major_code" property="major_code" />
+		<result column="time_long" property="time_long" />
+		<result column="availability" property="availability" />
+		<result column="state" property="state" />
+	</resultMap>
+
+	<!-- TRAIN_SCHEME_CONFIG table all fields -->
+	<sql id="Base_Column_List">
+		id,name,stu_type_code,major,major_code,time_long,availability,state
+	</sql>
+
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="stu_type_code != null and stu_type_code != ''">
+				and stu_type_code = #{stu_type_code}
+			</if>
+			<if test="major != null and major != ''">
+				and major = #{major}
+			</if>
+			<if test="major_code != null and major_code != ''">
+				and major_code = #{major_code}
+			</if>
+			<if test="time_long != null">
+				and time_long = #{time_long}
+			</if>
+			<if test="availability != null and availability != ''">
+				and availability = #{availability}
+			</if>
+			<if test="state != null and state != ''">
+				and state = #{state}
+			</if>
+		</trim>
+	</sql>
+
+
+	<!-- 插入记录 -->
+	<insert id="add"
+		parameterType="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		insert into
+		TRAIN_SCHEME_CONFIG(id,name,stu_type_code,major,major_code,time_long,availability,state)
+		values(#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{stu_type_code,jdbcType=VARCHAR},#{major,jdbcType=VARCHAR},#{major_code,jdbcType=VARCHAR},#{time_long,jdbcType=INTEGER},#{availability,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- -->
+	<update id="update"
+		parameterType="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		update TRAIN_SCHEME_CONFIG set
+		<trim suffixOverrides=",">
+			<if test="name != null  and name != '' ">
+				name=#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="stu_type_code != null  and stu_type_code != '' ">
+				stu_type_code=#{stu_type_code,jdbcType=VARCHAR},
+			</if>
+			<if test="major != null  and major != '' ">
+				major=#{major,jdbcType=VARCHAR},
+			</if>
+			<if test="major_code != null  and major_code != '' ">
+				major_code=#{major_code,jdbcType=VARCHAR},
+			</if>
+			<if test="time_long != null  ">
+				time_long=#{time_long,jdbcType=INTEGER},
+			</if>
+			<if test="availability != null  and availability != '' ">
+				availability=#{availability,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null  and state != '' ">
+				state=#{state,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		where id=#{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 逻辑删除，将deleted 改成 1 -->
+	<update id="delete"
+		parameterType="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		 update  train_scheme_config set state='X'  where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 轮转方案配置表列表 -->
+	<select id="selectOne" resultMap="BaseResultMap" parameterType="int">
+		select
+		<include refid="Base_Column_List" />
+		from TRAIN_SCHEME_CONFIG where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<!-- 轮转方案配置表序列号 -->
+	<select id="getSequence" resultType="int">
+		select seq_train_scheme_config_id.nextval from dual
+	</select>
+
+	<!-- 轮转方案配置表 列表总数-根据类型bean查询 -->
+	<select id="selectCount" resultType="java.lang.Integer"
+		parameterType="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		select count(1) from TRAIN_SCHEME_CONFIG 
+		<include refid="Example_Where_Clause" />
+		<if test="queryCondition != null and queryCondition != ''">
+			${queryCondition}
+		</if>
+		<if test="orderCondition != null and orderCondition != ''">
+			order by ${orderCondition}
+		</if>
+	</select>
+
+	<!-- 根据类型bean查询轮转方案配置表 -->
+	<select id="selectList" resultMap="BaseResultMap"
+		parameterType="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		select
+		<include refid="Base_Column_List" />
+		from TRAIN_SCHEME_CONFIG
+		<include refid="Example_Where_Clause" />
+		<if test="queryCondition != null and queryCondition != ''">
+			${queryCondition}
+		</if>
+		<if test="orderCondition != null and orderCondition != ''">
+			order by ${orderCondition}
+		</if>
+	</select>
+
+	<!-- 根据类型bean进行分页查询轮转方案配置表 -->
+	<select id="selectPage" resultMap="BaseResultMap"
+		parameterType="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		select
+		<include refid="Base_Column_List" />
+		from TRAIN_SCHEME_CONFIG
+		<include refid="Example_Where_Clause" />
+		<if test="queryCondition != null and queryCondition != ''">
+			${queryCondition}
+		</if>
+		<if test="orderCondition != null and orderCondition != ''">
+			order by ${orderCondition}
+		</if>
+	</select>
+
+	<select id="selectStuPage"
+		resultType="com.rensu.education.hctms.config.bean.TrainSchemeConfig"
+		parameterType="com.rensu.education.hctms.config.bean.TrainSchemeConfig">
+		select distinct t.id as id,s.type_name as stu_type_name,t.name as name,t.major as major,t.availability as availability,
+		t.time_long as time_long ,c.state as state from TRAIN_SCHEME_CONFIG t
+		left join stu_type s on s.type_code=t.stu_type_code
+        left join SYS_DICT_MAIN o on o.ITEM_CODE=t.major
+        left join train_plan_config c on c.tsc_id=t.id
+		where 1=1 and t.state='Y'
+		<trim suffixOverrides=",">
+			<if test="stu_type_name != null and queryCondition != ''">
+				and s.type_name= #{stu_type_name}
+			</if>
+			<if test="major != null and major != ''">
+				and t.major= #{major}
+			</if>
+		</trim>
+
+		<if test="queryCondition != null and queryCondition != ''">
+			${queryCondition}
+		</if>
+		<if test="orderCondition != null and orderCondition != ''">
+			order by ${orderCondition}
+		</if>
+	</select>
+
+</mapper>   

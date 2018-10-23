@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.TrainPlanBeforeMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.config.bean.TrainPlanBefore" >
+	<result column="id" property="id"/>
+	<result column="config_id" property="config_id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="train_dept_id" property="train_dept_id"/>
+	<result column="train_start_date" property="train_start_date"/>
+	<result column="train_end_date" property="train_end_date"/>
+	<result column="train_start_time" property="train_start_time"/>
+	<result column="train_end_time" property="train_end_time"/>
+	<result column="state" property="state"/>
+	<result column="orga_name" property="orga_name"/>
+	<result column="tsc_id" property="tsc_id"/>
+	<result column="days" property="days"/>
+</resultMap>
+       
+<!-- TRAIN_PLAN_BEFORE table all fields -->
+<sql id="Base_Column_List" >
+	 id,config_id,stu_auth_id,train_dept_id,train_start_date,train_end_date,train_start_time,train_end_time,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="config_id != null" >
+	    and config_id =  #{config_id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="train_dept_id != null" >
+	    and train_dept_id =  #{train_dept_id}
+	</if>
+	<if test="train_start_date != null" >
+	    and train_start_date =  #{train_start_date}
+	</if>
+	<if test="train_end_date != null" >
+	    and train_end_date =  #{train_end_date}
+	</if>
+	<if test="train_start_time != null" >
+	    and train_start_time =  #{train_start_time}
+	</if>
+	<if test="train_end_time != null" >
+	    and train_end_time =  #{train_end_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore" >
+  insert into TRAIN_PLAN_BEFORE(id,config_id,stu_auth_id,train_dept_id,train_start_date,train_end_date,train_start_time,train_end_time,state)
+ values(seq_train_plan_before_id.nextval,#{config_id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{train_dept_id,jdbcType=INTEGER},#{train_start_date,jdbcType=INTEGER},#{train_end_date,jdbcType=INTEGER},#{train_start_time,jdbcType=TIMESTAMP},#{train_end_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore" >
+	update TRAIN_PLAN_BEFORE set 
+	<trim  suffixOverrides="," >
+	<if test="config_id != null  ">
+		config_id=#{config_id,jdbcType=INTEGER},
+	</if>
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="train_dept_id != null  ">
+		train_dept_id=#{train_dept_id,jdbcType=INTEGER},
+	</if>
+	<if test="train_start_date != null  ">
+		train_start_date=#{train_start_date,jdbcType=INTEGER},
+	</if>
+	<if test="train_end_date != null  ">
+		train_end_date=#{train_end_date,jdbcType=INTEGER},
+	</if>
+	<if test="train_start_time != null  ">
+		train_start_time=#{train_start_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="train_end_time != null  ">
+		train_end_time=#{train_end_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	delete 	 from TRAIN_PLAN_BEFORE where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 轮转计划预排班表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from TRAIN_PLAN_BEFORE where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 轮转计划预排班表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_train_plan_before_id.nextval from dual
+</select>
+
+<!-- 轮转计划预排班表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	select count(1) from TRAIN_PLAN_BEFORE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询轮转计划预排班表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	select 
+	<include refid="Base_Column_List"/>,orga_name,tsc_id
+	from (select t.*,o.orga_name,c.tsc_id
+		from TRAIN_PLAN_BEFORE t left join ORGA_INFO o on t.train_dept_id = o.orga_id 
+		left join train_plan_config c on t.config_id = c.id
+		where o.state=#{state} and t.state=#{state} and c.state=#{state}) 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectTPBList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	select 
+	<include refid="Base_Column_List"/>,orga_name,tsc_id,days
+	from (select t.*,o.orga_name,c.tsc_id,c.duration as days  
+		from TRAIN_PLAN_BEFORE t left join ORGA_INFO o on t.train_dept_id = o.orga_id 
+		left join train_plan_config c on t.config_id = c.id
+		where o.state=#{state} and t.state=#{state} and c.state=#{state} and t.stu_auth_id in
+		  (select ua.auth_id from USER_INFO ui left join USER_AUTHORITY ua on ui.user_id=ua.user_id 
+		  left join STUDENT_INFO si on ui.user_code=si.user_code where ui.state='M' 
+          and ua.state='M' and si.state='M' and si.stu_class=#{stu_class})) 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询轮转计划预排班表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	select 
+	<include refid="Base_Column_List"/>
+	from TRAIN_PLAN_BEFORE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectTrainCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	select sum(trainCount) from (select -count(1) as trainCount from TRAIN_PLAN t where t.train_start_date&lt;=#{train_start_date} and t.train_end_date>=#{train_start_date} and t.state='Y' and t.train_dept_id=#{train_dept_id}
+	UNION ALL select -count(1) as trainCount from TRAIN_PLAN_BEFORE b where b.train_start_date&lt;=#{train_start_date} and b.train_end_date>=#{train_start_date} and b.state='Y' and b.train_dept_id=#{train_dept_id}
+	UNION ALL select o.limit_num as trainCount from ORGA_INFO o where o.orga_id=#{train_dept_id})
+</select>
+
+<select id="getTscIdFromTPBefore" resultType="com.rensu.education.hctms.config.bean.TrainPlanBefore"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select tsc_id,tsc_name from 
+		(select c.tsc_id,s.name as tsc_name
+	    from TRAIN_PLAN_BEFORE t
+	    left join train_plan_config c on t.config_id = c.id
+	    left join TRAIN_SCHEME_CONFIG s on c.tsc_id=s.id
+	    where t.state='Y' and c.state='Y' and s.state='Y' and t.stu_auth_id in
+	      (select ua.auth_id from USER_INFO ui left join USER_AUTHORITY ua on ui.user_id=ua.user_id 
+	      left join STUDENT_INFO si on ui.user_code=si.user_code 
+	      where ui.state=#{state} and ua.state=#{state} and si.state=#{state}
+	      and si.stu_class=#{stu_class})) where rownum=1
+</select>
+
+<update id="deleteList" parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	delete from TRAIN_PLAN_BEFORE where 1=1
+	<trim  suffixOverrides="," >
+		<if test="stu_auth_id != null  ">
+			and stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+		</if>
+	</trim>
+</update>
+
+<update id="deleteTPBList" parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	delete from TRAIN_PLAN_BEFORE where stu_auth_id in 
+	   (select ua.auth_id from USER_INFO ui left join USER_AUTHORITY ua on ui.user_id=ua.user_id 
+			left join STUDENT_INFO si on ui.user_code=si.user_code where ui.state='M' 
+		    and ua.state='M' and si.state='M' 
+		    <if test="stu_class != null and stu_class != ''">
+		        and si.stu_class = #{stu_class}
+		    </if>) and state='Y'
+</update>
+
+<select id="selectBeforeList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanBefore">
+	select 
+	<include refid="Base_Column_List"/>,orga_name,tsc_id,days
+	from TRAIN_PLAN_BEFORE
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<insert id="insertWithList" parameterType="java.util.List">
+     <selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select Seq_Train_Plan_Before_Id.nextval as id from dual
+     </selectKey>
+     insert into TRAIN_PLAN_BEFORE(id,config_id,stu_auth_id,train_dept_id,train_start_date,train_end_date,train_start_time,train_end_time,state) 
+     select Seq_Train_Plan_Before_Id.nextval,A.*FROM(
+     <foreach collection="list" item="item" index="index" separator="union all">
+     select #{item.config_id,jdbcType=INTEGER} as config_id,
+            #{item.stu_auth_id,jdbcType=INTEGER} as stu_auth_id,
+            #{item.train_dept_id,jdbcType=INTEGER} as train_dept_id,
+            #{item.train_start_date,jdbcType=INTEGER} as train_start_date,
+            #{item.train_end_date,jdbcType=INTEGER} as train_end_date,
+            #{item.train_start_time,jdbcType=TIMESTAMP} as train_start_time,
+            #{item.train_end_time,jdbcType=TIMESTAMP} as train_end_time,
+            #{item.state,jdbcType=VARCHAR} as state
+            from dual 
+     </foreach>)A
+</insert> 
+  	
+</mapper>   

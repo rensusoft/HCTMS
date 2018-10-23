@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.TfcStutypeformRelaMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela" >
+	<result column="id" property="id"/>
+	<result column="tfc_id" property="tfc_id"/>
+	<result column="stu_type_id" property="stu_type_id"/>
+	<result column="role_id" property="role_id"/>
+	<result column="form_id" property="form_id"/>
+	<result column="state" property="state"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="visual_flag" property="visual_flag"/>
+</resultMap>
+       
+<!-- TFC_STUTYPEFORM_RELA table all fields -->
+<sql id="Base_Column_List" >
+	 id,tfc_id,stu_type_id,role_id,form_id,state,orga_id,visual_flag
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="tfc_id != null" >
+	    and tfc_id =  #{tfc_id}
+	</if>
+	<if test="stu_type_id != null" >
+	    and stu_type_id =  #{stu_type_id}
+	</if>
+	 	<if test="role_id != null and role_id != ''" >
+	    and role_id =  #{role_id}
+	</if>
+	 	<if test="form_id != null and form_id != ''" >
+	    and form_id =  #{form_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	<if test="visual_flag != null" >
+	    and visual_flag =  #{visual_flag}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela" >
+  insert into TFC_STUTYPEFORM_RELA(id,tfc_id,stu_type_id,role_id,form_id,state,orga_id,visual_flag)
+ values(#{id,jdbcType=INTEGER},#{tfc_id,jdbcType=INTEGER},#{stu_type_id,jdbcType=INTEGER},#{role_id,jdbcType=VARCHAR},#{form_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{orga_id,jdbcType=INTEGER},#{visual_flag,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela" >
+	update TFC_STUTYPEFORM_RELA set 
+	<trim  suffixOverrides="," >
+	<if test="tfc_id != null  ">
+		tfc_id=#{tfc_id,jdbcType=INTEGER},
+	</if>
+	<if test="stu_type_id != null  ">
+		stu_type_id=#{stu_type_id,jdbcType=INTEGER},
+	</if>
+	<if test="role_id != null  and role_id != '' ">
+		role_id=#{role_id,jdbcType=VARCHAR},
+	</if>
+	<if test="form_id != null  and form_id != '' ">
+		form_id=#{form_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="orga_id != null ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="visual_flag != null ">
+		visual_flag=#{visual_flag,jdbcType=INTEGER},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela">
+	delete 	 from TFC_STUTYPEFORM_RELA where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 教学模板与学生类型、角色、表单关联表（出科审核）列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from TFC_STUTYPEFORM_RELA where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 教学模板与学生类型、角色、表单关联表（出科审核）序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_tfc_stutypeform_rela_id.nextval from dual
+</select>
+
+<!-- 教学模板与学生类型、角色、表单关联表（出科审核） 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela">
+	select count(1) from TFC_STUTYPEFORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询教学模板与学生类型、角色、表单关联表（出科审核） -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from TFC_STUTYPEFORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询教学模板与学生类型、角色、表单关联表（出科审核） -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from TFC_STUTYPEFORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="getTfcList"  resultType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela" >
+	
+select r.form_id     as form_id,
+       r.id          as id,
+       r.tfc_id      as tfc_id,
+       r.orga_id     as orga_id,
+       r.role_id     as role_id,
+       r.stu_type_id as stu_type_id,
+       a.name        as name,
+       a.type_id as type_id
+  from TFC_STUTYPEFORM_RELA r
+  left join (select *
+               from (select f.id as fid, m.mm_name as name,f.type_id
+                       from FORM_INFO f
+                       left join MARKSHEET_MAIN m
+                         on m.id = f.related_id
+                      where f.type_id = 1
+                        and m.validity = 'Y'
+                        and f.availability = 'Y'
+                     union all
+                     select f.id as fid, t.t_name as name,f.type_id
+                       from FORM_INFO f
+                       left join HTML_TEMPLATE t
+                         on t.id = f.related_id
+                      where f.type_id = 2
+                        and t.validity = 'Y'
+                        and f.availability = 'Y')) a
+    on a.fid = r.form_id
+ where 1 = 1
+ 	<if test="state != null and state != ''" >
+	    and r.state =  #{state}
+	</if>
+	<if test="tfc_id != null" >
+	    and r.tfc_id =  #{tfc_id}
+	</if>
+	<if test="stu_type_id != null" >
+	    and r.stu_type_id =  #{stu_type_id}
+	</if>
+	 	<if test="role_id != null and role_id != ''" >
+	    and r.role_id =  #{role_id}
+	</if>
+	 	<if test="form_id != null and form_id != ''" >
+	    and r.form_id =  #{form_id}
+	</if>
+	<if test="orga_id != null" >
+	    and r.orga_id =  #{orga_id}
+	</if>
+  order by stu_type_id ,orga_id	,role_id
+</select>
+
+<!-- 根据教学模板配置，学生类型，科室，角色 修改状态 -->
+<update id="deleteAllByCon" parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela" >
+	update TFC_STUTYPEFORM_RELA set 
+		state='X'
+	where 1=1 
+	<trim  suffixOverrides="," >
+		<if test="orga_id != null ">
+		  and orga_id=#{orga_id,jdbcType=INTEGER}
+		</if>		
+		<if test="tfc_id != null  ">
+		  and 	tfc_id=#{tfc_id,jdbcType=INTEGER}
+		</if>
+		<if test="stu_type_id != null  ">
+		   and	stu_type_id=#{stu_type_id,jdbcType=INTEGER}
+		</if>
+		<if test="role_id != null  and role_id != '' ">
+		  and 	role_id=#{role_id,jdbcType=VARCHAR}
+		</if>
+	</trim> 
+</update> 
+  	
+  	
+  	
+ <!-- 得到出科审核页面的表单配置列表 -->
+<select id="getFormList"  resultType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela" parameterType="com.rensu.education.hctms.basicdata.bean.TfcStutypeformRela">
+	select t.name,t.type_id,tsr.form_id from TFC_STUTYPEFORM_RELA tsr 
+	left join
+	(select f.id as fid,f.type_id as type_id,m.mm_name as name from FORM_INFO f
+	left join MARKSHEET_MAIN m on m.id=f.related_id
+	where f.type_id=1 and m.validity='Y' and f.availability='Y'  
+	union all
+	select f.id as fid,f.type_id as type_id,t.t_name as name from FORM_INFO f
+	left join HTML_TEMPLATE t on t.id=f.related_id
+	where f.type_id=2 and t.validity='Y' and f.availability='Y')t
+	on tsr.form_id=t.fid  
+	where tsr.state='Y' 
+	<if test="role_id != null and role_id != ''">
+	    and tsr.role_id like '%'||#{role_id}||'%'
+	</if>
+	<if test="orga_id != null and orga_id != ''" >
+	    and tsr.orga_id =  #{orga_id}
+	</if>
+	<if test="stu_type_id != null and stu_type_id != ''" >
+	    and tsr.stu_type_id =  #{stu_type_id}
+	</if>
+	 <if test="state != null and state != ''" >
+	    and tsr.state =  #{state}
+	</if>
+</select>
+  	
+</mapper>   

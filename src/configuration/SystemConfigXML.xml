@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SystemConfig>
+	<timetable>
+		<schooldistrict value="xl" name="仙林校区">
+			<class value="1" name="第一小节" supclass="1" starttime="08:20" endtime="09:00" timescope="上午">第一小节</class>
+			<class value="2" name="第二小节" supclass="1" starttime="09:10" endtime="09:50" timescope="上午">第二小节</class>
+			<class value="3" name="第三小节" supclass="2" starttime="10:00" endtime="10:40" timescope="上午">第三小节</class>
+			<class value="4" name="第四小节" supclass="3" starttime="10:50" endtime="11:30" timescope="上午">第四小节</class>
+			<class value="5" name="第五小节" supclass="3" starttime="11:40" endtime="12:20" timescope="上午">第五小节</class>
+			<class value="6" name="第六小节" supclass="4" starttime="14:00" endtime="14:40" timescope="下午">第六小节</class>
+			<class value="7" name="第七小节" supclass="4" starttime="14:50" endtime="15:30" timescope="下午">第七小节</class>
+			<class value="8" name="第八小节" supclass="5" starttime="15:40" endtime="16:20" timescope="下午">第八小节</class>
+			<class value="9" name="第九小节" supclass="5" starttime="16:30" endtime="17:10" timescope="下午">第九小节</class>
+			<class value="10" name="第十小节" supclass="6" starttime="18:30" endtime="19:10" timescope="晚上">第十小节</class>
+			<class value="11" name="第十一小节" supclass="6" starttime="19:20" endtime="20:00" timescope="晚上">第十一小节</class>
+			<class value="12" name="第十二小节" supclass="6" starttime="20:10" endtime="20:50" timescope="晚上">第十二小节</class> 
+		</schooldistrict>
+		<schooldistrict value="hzm" name="汉中门校区">
+			<class value="1" name="第一小节" supclass="1" starttime="08:00" endtime="08:40" timescope="上午">第一小节</class>
+			<class value="2" name="第二小节" supclass="1" starttime="08:50" endtime="09:30" timescope="上午">第二小节</class>
+			<class value="3" name="第三小节" supclass="2" starttime="09:40" endtime="10:20" timescope="上午">第三小节</class>
+			<class value="4" name="第四小节" supclass="3" starttime="10:30" endtime="11:10" timescope="上午">第四小节</class>
+			<class value="5" name="第五小节" supclass="3" starttime="11:20" endtime="12:00" timescope="上午">第五小节</class>
+			<class value="6" name="第六小节" supclass="4" starttime="14:00" endtime="14:40" timescope="下午">第六小节</class>
+			<class value="7" name="第七小节" supclass="4" starttime="14:50" endtime="15:30" timescope="下午">第七小节</class>
+			<class value="8" name="第八小节" supclass="5" starttime="15:40" endtime="16:20" timescope="下午">第八小节</class>
+			<class value="9" name="第九小节" supclass="5" starttime="16:30" endtime="17:10" timescope="下午">第九小节</class>
+			<class value="10" name="第十小节" supclass="6" starttime="18:30" endtime="19:10" timescope="晚上">第十小节</class>
+			<class value="11" name="第十一小节" supclass="6" starttime="19:20" endtime="20:00" timescope="晚上">第十一小节</class>
+			<class value="12" name="第十二小节" supclass="6" starttime="20:10" endtime="20:50" timescope="晚上">第十二小节</class>  
+		</schooldistrict>
+	</timetable>
+	<district>
+		<option value="xl" desc="校区">仙林校区</option>
+		<option value="hzm" desc="校区">汉中门校区</option>
+	</district>
+	
+</SystemConfig>

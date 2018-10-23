@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.QeQuesAnswerMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.QeQuesAnswer" >
+	<result column="id" property="id"/>
+	<result column="qq_id" property="qq_id"/>
+	<result column="answer" property="answer"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- QE_QUES_ANSWER table all fields -->
+<sql id="Base_Column_List" >
+	 id,qq_id,answer,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="qq_id != null" >
+	    and qq_id =  #{qq_id}
+	</if>
+	<if test="answer != null" >
+	    and answer =  #{answer}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesAnswer" >
+  insert into QE_QUES_ANSWER(id,qq_id,answer,state)
+ values(#{id,jdbcType=INTEGER},#{qq_id,jdbcType=INTEGER},#{answer,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesAnswer" >
+	update QE_QUES_ANSWER set 
+	<trim  suffixOverrides="," >
+	<if test="qq_id != null  ">
+		qq_id=#{qq_id,jdbcType=INTEGER},
+	</if>
+	<if test="answer != null  ">
+		answer=#{answer,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesAnswer">
+	delete 	 from QE_QUES_ANSWER where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 试题答案表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from QE_QUES_ANSWER where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 试题答案表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_qe_ques_answer_id.nextval from dual
+</select>
+
+<!-- 试题答案表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesAnswer">
+	select count(1) from QE_QUES_ANSWER 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询试题答案表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesAnswer">
+	select 
+	<include refid="Base_Column_List"/>
+	from QE_QUES_ANSWER 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询试题答案表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesAnswer">
+	select 
+	<include refid="Base_Column_List"/>
+	from QE_QUES_ANSWER 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<insert id="insertWithList" parameterType="java.util.List">
+	<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select seq_qe_ques_answer_id.nextval as id from dual
+	</selectKey>
+	insert into QE_QUES_ANSWER(id,qq_id,answer,state)
+ 	select seq_qe_ques_answer_id.nextval, A.* FROM (
+ 	<foreach collection="list" item="item" index="index" separator="union all">
+	 	select #{item.qq_id,jdbcType=INTEGER} qq_id,
+	 		   #{item.answer,jdbcType=VARCHAR} answer,
+	 		   #{item.state,jdbcType=VARCHAR} state
+	 	from dual 
+ 	</foreach>) A
+</insert>
+</mapper>   

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.RprFormRelaMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.RprFormRela" >
+	<result column="id" property="id"/>
+	<result column="rpr_id" property="rpr_id"/>
+	<result column="form_type" property="form_type"/>
+	<result column="type_id" property="type_id"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- RPR_FORM_RELA table all fields -->
+<sql id="Base_Column_List" >
+	 id,rpr_id,form_type,type_id,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="rpr_id != null" >
+	    and rpr_id =  #{rpr_id}
+	</if>
+	<if test="form_type != null" >
+	    and form_type =  #{form_type}
+	</if>
+	<if test="type_id != null" >
+	    and type_id =  #{type_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.RprFormRela" >
+  insert into RPR_FORM_RELA(id,rpr_id,form_type,type_id,state)
+ values(#{id,jdbcType=INTEGER},#{rpr_id,jdbcType=INTEGER},#{form_type,jdbcType=INTEGER},#{type_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.RprFormRela" >
+	update RPR_FORM_RELA set 
+	<trim  suffixOverrides="," >
+	<if test="rpr_id != null  ">
+		rpr_id=#{rpr_id,jdbcType=INTEGER},
+	</if>
+	<if test="form_type != null  ">
+		form_type=#{form_type,jdbcType=INTEGER},
+	</if>
+	<if test="type_id != null  ">
+		type_id=#{type_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.RprFormRela">
+	delete 	 from RPR_FORM_RELA where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 角色流程-表单关联表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from RPR_FORM_RELA where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 角色流程-表单关联表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_rpr_form_rela_id.nextval from dual
+</select>
+
+<!-- 角色流程-表单关联表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.RprFormRela">
+	select count(1) from RPR_FORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询角色流程-表单关联表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.RprFormRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from RPR_FORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询角色流程-表单关联表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.RprFormRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from RPR_FORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+<update id="deleteByRpr_id" parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	delete 	 from RPR_FORM_RELA where rpr_id in (${rpr_ids})
+</update>
+</mapper>   

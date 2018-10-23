@@ -1,0 +1,117 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.btns{
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 15px 0;
+    bottom: 0;
+}
+section:before{
+    display:block;
+    content:"";
+}
+section:after{
+    display:block;
+    content:"";
+    clear:both;
+}
+section{
+    height:100%;
+    width: 100%;
+    padding: 10px;
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+.searchDiv:before{
+    display:block;
+    content:"";
+}
+.searchDiv:after{
+    display:block;
+    content:"";
+    clear: both;
+}
+.searchDiv{
+    padding: 10px;
+    margin-bottom: 0;
+}
+.numInput{
+    width: 150px;
+    margin-right: 30px;
+}
+.dtlBox{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+.addBtn{
+    display: inline-block;
+    font-size: 25px;
+    font-weight: bold;
+    color: #505F91;
+    padding: 0 10px;
+    text-align: center;
+}
+.delTitle a.addBtn{
+    top: 5px;
+    padding: 0 10px;
+}
+.removeBtn{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    border: 1px solid #505F91;
+    border-radius: 50%;
+    background: #505F91;
+    overflow: hidden;
+    width: 26px;
+    height: 24px;
+}
+.removeBtn:hover{
+    color: #fff;
+}
+.answerInput{
+    width: 650px;
+    margin: 0 10px;
+}
+.arrupw{
+    background: url("../img/arrupw.png");
+}
+.arrdownw{
+    background: url("../img/arrdownw.png");
+}
+.removeSpan{
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    top: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

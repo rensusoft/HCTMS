@@ -1,0 +1,126 @@
+body{
+    width: 100%;
+   
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.content{
+    margin: 10px 0px 0px 20px;
+}
+.stuName{
+    font-size: 18px;
+    border-bottom: 1px solid #DDDDDD;
+    padding:10px 0 10px 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #505f91;
+    color:#fff;
+}
+.status{
+    float: left;
+    width: 32%;
+    overflow:auto;
+    height:100%;
+    padding-right: 12px;
+    border-right: 1px solid #ddd;
+    
+}
+.inforJudge{
+    float: right;
+    width: 66%;
+}
+.status table,.information table,.judge table{
+    width: 100%;
+    border: 1px solid #F6F6F6;
+}
+.status table th,.information table th,.judge table th{
+    height: 40px;
+    text-align: left;
+    background: #F3F3F3;
+    padding-left: 10px;
+}
+.status table th{
+    text-align: center;
+}
+.status table{
+    text-align: center;
+}
+.status table a{
+    display: block;
+}
+.information table,.judge table{
+    margin-bottom: 15px;
+}
+.status table td,.information table td,.judge table td{
+    border:1px solid #f3f3f3;
+    height:35px ;
+    padding-left: 10px;
+}
+.status table td i,.information table td i,.judge table td i{
+    color: red;
+    font-style: normal;
+    padding-right: 5px;
+}
+.judge table textarea{
+    width: 100%;
+    height: 130px;
+}
+.judge table td{
+    padding: 0;
+}
+.btns{
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    bottom: 0;
+    height: 30px;
+    padding: 10px 0 35px 0;
+    width:645px;
+}
+.unaudited{
+    background: #FFC0CB;
+}
+.checkCont{
+    margin:50px 0 40px 0;
+    overflow: auto;
+    height: 420px;
+    padding:0 10px;
+}
+.number{
+    font-weight: bold;
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    background: #EB6100;
+    color: #fff;
+    text-align: center;
+}
+#contenTable{
+	table-layout: fixed;
+}
+#contenTable tr:nth-child(odd){
+	background:#f3f3f3;
+}
+#contenTable tr td:nth-child(2){
+overflow:hidden; 
+white-space:nowrap;
+text-overflow:ellipsis;
+}
+#contenTable tr td:nth-child(1){
+	overflow:hidden; 
+white-space:nowrap;
+text-overflow:ellipsis;
+	
+}
+#addInfor tr td:nth-child(odd){
+	width:150px;
+}

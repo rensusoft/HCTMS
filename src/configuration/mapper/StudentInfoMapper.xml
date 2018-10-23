@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StudentInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+	<result column="id" property="id"/>
+	<result column="user_code" property="user_code"/>
+	<result column="stu_name" property="stu_name"/>
+	<result column="stu_sex" property="stu_sex"/>
+	<result column="stu_age" property="stu_age"/>
+	<result column="stu_school_code" property="stu_school_code"/>
+	<result column="stu_school_name" property="stu_school_name"/>
+	<result column="stu_num" property="stu_num"/>
+	<result column="stu_edu_level" property="stu_edu_level"/>
+	<result column="stu_major_code" property="stu_major_code"/>
+	<result column="stu_major_name" property="stu_major_name"/>
+	<result column="stu_type" property="stu_type"/>
+	<result column="sup_doc_code" property="sup_doc_code"/>
+	<result column="sup_doc_name" property="sup_doc_name"/>
+	<result column="state" property="state"/>
+	<result column="create_time" property="create_time"/>
+	<result column="creator" property="creator"/>
+	<result column="remark" property="remark"/>
+	<result column="stu_birthday" property="stu_birthday"/>
+	<result column="stu_country" property="stu_country"/>
+	<result column="stu_nationality" property="stu_nationality"/>
+	<result column="stu_native" property="stu_native"/>
+	<result column="stu_phone" property="stu_phone"/>
+	<result column="stu_hk_address" property="stu_hk_address"/>
+	<result column="stu_home_address" property="stu_home_address"/>
+	<result column="stu_class" property="stu_class"/>
+	<result column="political_status" property="political_status"/>
+	<result column="interesting_speciality" property="interesting_speciality"/>
+	<result column="stu_position" property="stu_position"/>
+	<result column="stu_major_direction" property="stu_major_direction"/>
+	<result column="tutor_workplace" property="tutor_workplace"/>
+	<result column="tutor_name" property="tutor_name"/>
+	<result column="stu_edu_level_code" property="stu_edu_level_code"/>
+	<result column="stu_status" property="stu_status"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="tsc_id" property="tsc_id"/>
+</resultMap>
+       
+<!-- STUDENT_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,user_code,stu_name,stu_sex,stu_age,stu_school_code,stu_school_name,stu_num,stu_edu_level,stu_major_code,stu_major_name,stu_type,sup_doc_code,sup_doc_name,state,create_time,creator,remark,stu_birthday,stu_country,stu_nationality,stu_native,stu_phone,stu_hk_address,stu_home_address,stu_class,political_status,interesting_speciality,stu_position,stu_major_direction,tutor_workplace,tutor_name,stu_status,stu_edu_level_code,tsc_id
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="user_code != null and user_code != ''" >
+	    and user_code =  #{user_code}
+	</if>
+	 	<if test="stu_name != null and stu_name != ''" >
+	    and stu_name =  #{stu_name}
+	</if>
+	 	<if test="stu_sex != null and stu_sex != ''" >
+	    and stu_sex =  #{stu_sex}
+	</if>
+	<if test="stu_age != null" >
+	    and stu_age =  #{stu_age}
+	</if>
+	 	<if test="stu_school_code != null and stu_school_code != ''" >
+	    and stu_school_code =  #{stu_school_code}
+	</if>
+	 	<if test="stu_school_name != null and stu_school_name != ''" >
+	    and stu_school_name =  #{stu_school_name}
+	</if>
+	 	<if test="stu_num != null and stu_num != ''" >
+	    and stu_num =  #{stu_num}
+	</if>
+	 	<if test="stu_edu_level != null and stu_edu_level != ''" >
+	    and stu_edu_level =  #{stu_edu_level}
+	</if>
+	 	<if test="stu_major_code != null and stu_major_code != ''" >
+	    and stu_major_code =  #{stu_major_code}
+	</if>
+	 	<if test="stu_major_name != null and stu_major_name != ''" >
+	    and stu_major_name =  #{stu_major_name}
+	</if>
+	 	<if test="stu_type != null and stu_type != ''" >
+	    and stu_type =  #{stu_type}
+	</if>
+	 	<if test="sup_doc_code != null and sup_doc_code != ''" >
+	    and sup_doc_code =  #{sup_doc_code}
+	</if>
+	 	<if test="sup_doc_name != null and sup_doc_name != ''" >
+	    and sup_doc_name =  #{sup_doc_name}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="creator != null and creator != ''" >
+	    and creator =  #{creator}
+	</if>
+	 	<if test="remark != null and remark != ''" >
+	    and remark =  #{remark}
+	</if>
+	 	<if test="stu_birthday != null and stu_birthday != ''" >
+	    and stu_birthday =  #{stu_birthday}
+	</if>
+	 	<if test="stu_country != null and stu_country != ''" >
+	    and stu_country =  #{stu_country}
+	</if>
+	 	<if test="stu_nationality != null and stu_nationality != ''" >
+	    and stu_nationality =  #{stu_nationality}
+	</if>
+	 	<if test="stu_native != null and stu_native != ''" >
+	    and stu_native =  #{stu_native}
+	</if>
+	 	<if test="stu_phone != null and stu_phone != ''" >
+	    and stu_phone =  #{stu_phone}
+	</if>
+	 	<if test="stu_hk_address != null and stu_hk_address != ''" >
+	    and stu_hk_address =  #{stu_hk_address}
+	</if>
+	 	<if test="stu_home_address != null and stu_home_address != ''" >
+	    and stu_home_address =  #{stu_home_address}
+	</if>
+	<if test="stu_class != null" >
+	    and stu_class =  #{stu_class}
+	</if>
+	 	<if test="political_status != null and political_status != ''" >
+	    and political_status =  #{political_status}
+	</if>
+	 	<if test="interesting_speciality != null and interesting_speciality != ''" >
+	    and interesting_speciality =  #{interesting_speciality}
+	</if>
+	 	<if test="stu_position != null and stu_position != ''" >
+	    and stu_position =  #{stu_position}
+	</if>
+	 	<if test="stu_major_direction != null and stu_major_direction != ''" >
+	    and stu_major_direction =  #{stu_major_direction}
+	</if>
+	 	<if test="tutor_workplace != null and tutor_workplace != ''" >
+	    and tutor_workplace =  #{tutor_workplace}
+	</if>
+	 	<if test="tutor_name != null and tutor_name != ''" >
+	    and tutor_name =  #{tutor_name}
+	</if>
+	 	<if test="stu_edu_level_code != null and stu_edu_level_code != ''" >
+	    and stu_edu_level_code =  #{stu_edu_level_code}
+	</if>
+	<if test="tsc_id != null and tsc_id != ''" >
+	    and tsc_id =  #{tsc_id}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+  insert into STUDENT_INFO(id,user_code,stu_name,stu_sex,stu_age,stu_school_code,stu_school_name,stu_num,stu_edu_level,stu_major_code,stu_major_name,stu_type,sup_doc_code,sup_doc_name,state,create_time,creator,remark,stu_birthday,stu_country,stu_nationality,stu_native,stu_phone,stu_hk_address,stu_home_address,stu_class,political_status,interesting_speciality,stu_position,stu_major_direction,tutor_workplace,tutor_name,stu_edu_level_code,stu_status,tsc_id)
+ values(#{id,jdbcType=INTEGER},#{user_code,jdbcType=VARCHAR},#{stu_name,jdbcType=VARCHAR},#{stu_sex,jdbcType=VARCHAR},#{stu_age,jdbcType=INTEGER},#{stu_school_code,jdbcType=VARCHAR},#{stu_school_name,jdbcType=VARCHAR},#{stu_num,jdbcType=VARCHAR},#{stu_edu_level,jdbcType=VARCHAR},#{stu_major_code,jdbcType=VARCHAR},#{stu_major_name,jdbcType=VARCHAR},#{stu_type,jdbcType=VARCHAR},#{sup_doc_code,jdbcType=VARCHAR},#{sup_doc_name,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{creator,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{stu_birthday,jdbcType=VARCHAR},#{stu_country,jdbcType=VARCHAR},#{stu_nationality,jdbcType=VARCHAR},#{stu_native,jdbcType=VARCHAR},#{stu_phone,jdbcType=VARCHAR},#{stu_hk_address,jdbcType=VARCHAR},#{stu_home_address,jdbcType=VARCHAR},#{stu_class,jdbcType=INTEGER},#{political_status,jdbcType=VARCHAR},#{interesting_speciality,jdbcType=VARCHAR},#{stu_position,jdbcType=VARCHAR},#{stu_major_direction,jdbcType=VARCHAR},#{tutor_workplace,jdbcType=VARCHAR},#{tutor_name,jdbcType=VARCHAR},#{stu_edu_level_code,jdbcType=VARCHAR},#{stu_status,jdbcType=VARCHAR},#{tsc_id,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+	update STUDENT_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="user_code != null  and user_code != '' ">
+		user_code=#{user_code,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_name != null  and stu_name != '' ">
+		stu_name=#{stu_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_sex != null  and stu_sex != '' ">
+		stu_sex=#{stu_sex,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_age != null  ">
+		stu_age=#{stu_age,jdbcType=INTEGER},
+	</if>
+	<if test="stu_school_code != null  and stu_school_code != '' ">
+		stu_school_code=#{stu_school_code,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_school_name != null  and stu_school_name != '' ">
+		stu_school_name=#{stu_school_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_num != null  and stu_num != '' ">
+		stu_num=#{stu_num,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_edu_level != null  and stu_edu_level != '' ">
+		stu_edu_level=#{stu_edu_level,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_major_code != null  and stu_major_code != '' ">
+		stu_major_code=#{stu_major_code,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_major_name != null  and stu_major_name != '' ">
+		stu_major_name=#{stu_major_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_type != null  and stu_type != '' ">
+		stu_type=#{stu_type,jdbcType=VARCHAR},
+	</if>
+	<if test="sup_doc_code != null  and sup_doc_code != '' ">
+		sup_doc_code=#{sup_doc_code,jdbcType=VARCHAR},
+	</if>
+	<if test="sup_doc_name != null  and sup_doc_name != '' ">
+		sup_doc_name=#{sup_doc_name,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="creator != null  and creator != '' ">
+		creator=#{creator,jdbcType=VARCHAR},
+	</if>
+	<if test="remark != null  and remark != '' ">
+		remark=#{remark,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_birthday != null  and stu_birthday != '' ">
+		stu_birthday=#{stu_birthday,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_country != null  and stu_country != '' ">
+		stu_country=#{stu_country,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_nationality != null  and stu_nationality != '' ">
+		stu_nationality=#{stu_nationality,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_native != null  and stu_native != '' ">
+		stu_native=#{stu_native,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_phone != null  and stu_phone != '' ">
+		stu_phone=#{stu_phone,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_hk_address != null  and stu_hk_address != '' ">
+		stu_hk_address=#{stu_hk_address,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_home_address != null  and stu_home_address != '' ">
+		stu_home_address=#{stu_home_address,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_class != null  ">
+		stu_class=#{stu_class,jdbcType=INTEGER},
+	</if>
+	<if test="political_status != null  and political_status != '' ">
+		political_status=#{political_status,jdbcType=VARCHAR},
+	</if>
+	<if test="interesting_speciality != null  and interesting_speciality != '' ">
+		interesting_speciality=#{interesting_speciality,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_position != null  and stu_position != '' ">
+		stu_position=#{stu_position,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_major_direction != null  and stu_major_direction != '' ">
+		stu_major_direction=#{stu_major_direction,jdbcType=VARCHAR},
+	</if>
+	<if test="tutor_workplace != null  and tutor_workplace != '' ">
+		tutor_workplace=#{tutor_workplace,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_status != null  and stu_status != '' ">
+		stu_status=#{stu_status,jdbcType=VARCHAR},
+	</if>
+	<if test="tutor_name != null  and tutor_name != '' ">
+		tutor_name=#{tutor_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_edu_level_code != null  and stu_edu_level_code != '' ">
+		stu_edu_level_code=#{stu_edu_level_code,jdbcType=VARCHAR},
+	</if>
+	<if test="tsc_id != null and tsc_id != ''" >
+	    and tsc_id =  #{tsc_id}
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	delete 	 from STUDENT_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学生信息表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STUDENT_INFO where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学生信息表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_student_info_id.nextval from dual
+</select>
+
+<!-- 学生信息表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select count(1) from STUDENT_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学生信息表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STUDENT_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询学生信息表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STUDENT_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectPageWithStuType" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select t.*,tsc.name as tsc_name from STUDENT_INFO t left join train_scheme_config tsc on t.tsc_id=tsc.id
+	where 1=1
+	<if test="state != null and state != ''" >
+        and t.state = #{state}
+    </if>
+	<if test="stu_class != null and stu_class != ''" >
+        and t.stu_class = #{stu_class}
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+
+<!-- 学生信息表列表 -->
+<select id="selectOneByUserCode"  resultMap="BaseResultMap" parameterType="String">
+	select a.id,a.user_code,a.stu_name,a.stu_sex,a.stu_age,a.stu_school_code,a.stu_school_name,a.stu_num,a.stu_edu_level,a.stu_major_code,a.stu_major_name,a.stu_type,a.sup_doc_code,a.sup_doc_name,a.state,a.create_time,a.creator,a.remark,a.stu_birthday,a.stu_country,a.stu_nationality,a.stu_native,a.stu_phone,a.stu_hk_address,a.stu_home_address,s.stu_class,a.political_status,a.interesting_speciality,a.stu_position,a.stu_major_direction,a.tutor_workplace,a.tutor_name,a.stu_status,a.stu_edu_level_code,
+	 (select b.type_name from stu_type b where b.id=(select t.stu_type_id from user_authority t where t.user_id=(select u.user_id from user_info u where u.user_code = a.user_code and u.state='Y') )) as stu_type_name
+	 from STUDENT_INFO a 
+	  left join stu_class s on s.id=a.stu_class
+	 where a.user_code = #{value}  and a.state='Y'   
+</select>
+<!-- 批量插入 学生表 -->
+  <insert id="insertWithList" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select SEQ_STUDENT_INFO_ID.nextval as id from dual
+		</selectKey>
+	insert into STUDENT_INFO(id,user_code,stu_name,stu_sex,stu_age,stu_school_code,stu_school_name,stu_num,stu_edu_level,stu_major_code,stu_major_name,stu_type,sup_doc_code,sup_doc_name,state,create_time,creator,
+	remark,stu_birthday,stu_country,stu_nationality,stu_native,stu_phone,stu_hk_address,stu_home_address,stu_class,political_status,interesting_speciality,
+	stu_position,stu_major_direction,tutor_workplace,tutor_name,stu_edu_level_code,stu_status,tsc_id)
+	select SEQ_STUDENT_INFO_ID.nextval, A.* FROM (
+		<foreach collection="list" item="item" index="index" separator="union all">
+ 	select #{item.user_code,jdbcType=VARCHAR} as user_code,
+ 			#{item.stu_name,jdbcType=VARCHAR} as stu_name,
+ 			#{item.stu_sex,jdbcType=VARCHAR} as stu_sex,
+ 			#{item.stu_age,jdbcType=INTEGER} as stu_age,
+ 			#{item.stu_school_code,jdbcType=VARCHAR} as stu_school_code,
+ 			#{item.stu_school_name,jdbcType=VARCHAR} as stu_school_name,
+ 			#{item.stu_num,jdbcType=VARCHAR} as stu_num,
+ 			#{item.stu_edu_level,jdbcType=VARCHAR} as stu_edu_level,
+ 			#{item.stu_major_code,jdbcType=VARCHAR} as stu_major_code,
+	 		#{item.stu_major_name,jdbcType=VARCHAR} as stu_major_name,
+	 		#{item.stu_type,jdbcType=VARCHAR} as stu_type,
+	 		#{item.sup_doc_code,jdbcType=VARCHAR} as sup_doc_code,
+	 		#{item.sup_doc_name,jdbcType=VARCHAR} as sup_doc_name,
+	 		#{item.state,jdbcType=VARCHAR} as state,
+	 		#{item.create_time,jdbcType=TIMESTAMP} as create_time,
+	 		#{item.creator,jdbcType=VARCHAR} as creator,
+	 		#{item.remark,jdbcType=VARCHAR} as remark,
+	 		#{item.stu_birthday,jdbcType=VARCHAR} as stu_birthday,
+	 		#{item.stu_country,jdbcType=VARCHAR} as stu_country,
+	 		#{item.stu_nationality,jdbcType=VARCHAR} as stu_nationality,
+	 		#{item.stu_native,jdbcType=VARCHAR} as stu_native,
+	 		#{item.stu_phone,jdbcType=VARCHAR} as stu_phone,
+	 		#{item.stu_hk_address,jdbcType=VARCHAR} as stu_hk_address,
+	 		#{item.stu_home_address,jdbcType=VARCHAR} as stu_home_address,
+	 		#{item.stu_class,jdbcType=INTEGER} as stu_class,
+	 		#{item.political_status,jdbcType=VARCHAR} as political_status,
+	 		#{item.interesting_speciality,jdbcType=VARCHAR} as interesting_speciality,
+	 		#{item.stu_position,jdbcType=VARCHAR} as stu_position,
+	 		#{item.stu_major_direction,jdbcType=VARCHAR} as stu_major_direction,
+	 		#{item.tutor_workplace,jdbcType=VARCHAR} as tutor_workplace,
+	 		#{item.tutor_name,jdbcType=VARCHAR} as tutor_name,
+	 		#{item.stu_edu_level_code,jdbcType=VARCHAR} as stu_edu_level_code,
+	 		#{item.stu_status,jdbcType=VARCHAR} as stu_status,
+	 		#{item.tsc_id,jdbcType=INTEGER} as tsc_id
+ 	from dual 
+		</foreach>) A
+	</insert>
+
+<!-- 根据类型bean查询学生信息表 -->
+<select id="selectStuList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select 
+	<include refid="Base_Column_List"/>,stu_auth_id,si_state,ui_state,ua_state
+	from (select t.*,a.auth_id stu_auth_id,t.state as si_state,u.state as ui_state,a.state as ua_state
+		from STUDENT_INFO t left join USER_INFO u on u.user_code = t.user_code left join USER_AUTHORITY a on u.user_id = a.user_id
+		where 1=1 
+		<if test="state != null" >
+            and t.state = #{state} and u.state = #{state} and a.state = #{state}
+        </if>)
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectStudentList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select 
+	<include refid="Base_Column_List"/>,stu_auth_id
+	from (select t.*,a.auth_id stu_auth_id
+		from STUDENT_INFO t left join USER_INFO u on u.user_code = t.user_code left join USER_AUTHORITY a on u.user_id = a.user_id
+		where 1=1 
+		<if test="stu_class != null" >
+            and t.stu_class = #{stu_class}
+        </if>
+        <if test="queryCondition != null and queryCondition != ''" >
+            ${queryCondition}
+        </if>)
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<update id="updateStateList" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+begin
+	update USER_AUTHORITY set state=#{state} where user_id in 
+		(select t.user_id from USER_INFO t left join student_info s on t.user_code=s.user_code 
+			where s.state='N' 
+			<if test="stu_class != null" >
+			    and stu_class =  #{stu_class}
+			</if>) and state='N';
+	update USER_INFO set state=#{state} where user_code in 
+		(select user_code from STUDENT_INFO where state='N'
+			<if test="stu_class != null" >
+			    and stu_class =  #{stu_class}
+			</if>) and state='N';
+	update STUDENT_INFO set state=#{state} where state='N'
+			<if test="stu_class != null" >
+			    and stu_class =  #{stu_class}
+			</if>;
+end;
+</update>
+
+<update id="updateStuStateList" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+begin
+	update USER_AUTHORITY set state=#{state} where user_id in 
+		(select t.user_id from USER_INFO t left join student_info s on t.user_code=s.user_code 
+			where s.state='M' 
+			<if test="stu_class != null" >
+			    and stu_class =  #{stu_class}
+			</if>) and state='M';
+	update USER_INFO set state=#{state} where user_code in 
+		(select user_code from STUDENT_INFO where state='M'
+			<if test="stu_class != null" >
+			    and stu_class =  #{stu_class}
+			</if>) and state='M';
+	update STUDENT_INFO set state=#{state} where state='M'
+			<if test="stu_class != null" >
+			    and stu_class =  #{stu_class}
+			</if>;
+end;
+</update>
+<!--  -->
+<select id="countStatusList" resultMap="BaseResultMap" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select count(1) as stu_num,stu_status,hos_name from 
+	(select s.*,a.hos_id,h.hos_name from student_info s 
+	left join user_info u on s.user_code = u.user_code 
+	left join user_authority a on a.user_id = u.user_id 
+	left join hospital_info h on h.id=a.hos_id where s.state!='X' and s.stu_status = '2') 
+	group by stu_status,hos_id,hos_name
+</select>
+
+<!--  -->
+<update id="updateStuInfomation" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+	update STUDENT_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="stu_name != null  and stu_name != '' ">
+		stu_name=#{stu_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_sex != null  and stu_sex != '' ">
+		stu_sex=#{stu_sex,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_age != null  ">
+		stu_age=#{stu_age,jdbcType=INTEGER},
+	</if>
+	<if test="stu_school_code != null  and stu_school_code != '' ">
+		stu_school_code=#{stu_school_code,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_school_name != null  and stu_school_name != '' ">
+		stu_school_name=#{stu_school_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_num != null  and stu_num != '' ">
+		stu_num=#{stu_num,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_edu_level != null  and stu_edu_level != '' ">
+		stu_edu_level=#{stu_edu_level,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_major_code != null  and stu_major_code != '' ">
+		stu_major_code=#{stu_major_code,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_major_name != null  and stu_major_name != '' ">
+		stu_major_name=#{stu_major_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_type != null  and stu_type != '' ">
+		stu_type=#{stu_type,jdbcType=VARCHAR},
+	</if>
+	<if test="sup_doc_code != null  and sup_doc_code != '' ">
+		sup_doc_code=#{sup_doc_code,jdbcType=VARCHAR},
+	</if>
+	<if test="sup_doc_name != null  and sup_doc_name != '' ">
+		sup_doc_name=#{sup_doc_name,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="creator != null  and creator != '' ">
+		creator=#{creator,jdbcType=VARCHAR},
+	</if>
+	<if test="remark != null  and remark != '' ">
+		remark=#{remark,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_birthday != null  and stu_birthday != '' ">
+		stu_birthday=#{stu_birthday,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_country != null  and stu_country != '' ">
+		stu_country=#{stu_country,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_nationality != null  and stu_nationality != '' ">
+		stu_nationality=#{stu_nationality,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_native != null  and stu_native != '' ">
+		stu_native=#{stu_native,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_phone != null  and stu_phone != '' ">
+		stu_phone=#{stu_phone,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_hk_address != null  and stu_hk_address != '' ">
+		stu_hk_address=#{stu_hk_address,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_home_address != null  and stu_home_address != '' ">
+		stu_home_address=#{stu_home_address,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_class != null  ">
+		stu_class=#{stu_class,jdbcType=INTEGER},
+	</if>
+	<if test="political_status != null  and political_status != '' ">
+		political_status=#{political_status,jdbcType=VARCHAR},
+	</if>
+	<if test="interesting_speciality != null  and interesting_speciality != '' ">
+		interesting_speciality=#{interesting_speciality,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_position != null  and stu_position != '' ">
+		stu_position=#{stu_position,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_major_direction != null  and stu_major_direction != '' ">
+		stu_major_direction=#{stu_major_direction,jdbcType=VARCHAR},
+	</if>
+	<if test="tutor_workplace != null  and tutor_workplace != '' ">
+		tutor_workplace=#{tutor_workplace,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_status != null  and stu_status != '' ">
+		stu_status=#{stu_status,jdbcType=VARCHAR},
+	</if>
+	<if test="tutor_name != null  and tutor_name != '' ">
+		tutor_name=#{tutor_name,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_edu_level_code != null  and stu_edu_level_code != '' ">
+		stu_edu_level_code=#{stu_edu_level_code,jdbcType=VARCHAR},
+	</if>
+	<if test="tsc_id != null and tsc_id != ''" >
+	    and tsc_id =  #{tsc_id}
+	</if>
+	</trim> where 	user_code=#{user_code,jdbcType=VARCHAR}
+</update>
+
+<select id="selectPageInfo" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select distinct t.stu_auth_id, t.id as train_plan_id, s.stu_name, NVL(st.type_name,'暂无') as stu_type,NVL(s.stu_school_name,'暂无') as stu_school_name ,s.stu_num as stuNum,
+(NVL(a.q_num,'0')+NVL(b.q_b_num*0.5,'0')) as que_count,t.teacher_auth_id, NVL(ti.user_name,'暂无') as tea_name,t.train_end_time,t.train_status, NVL(t.train_dept_id,'0') as train_dept_id,oi.orga_name
+from TRAIN_PLAN t 
+ left join user_authority u on t.stu_auth_id=u.auth_id
+ left join user_info i on u.user_id=i.user_id
+ left join student_info s on i.user_code=s.user_code
+ left join user_authority tu on tu.auth_id=t.teacher_auth_id
+    left join user_info ti on tu.user_id=ti.user_id
+    left join orga_info oi on t.train_dept_id=oi.orga_id
+    left join stu_type st on st.id = u.stu_type_id
+    left join (select  count(sa.stu_auth_id) as q_num ,sa.stu_auth_id,sa.orga_id  from STU_ATTENDANCE_INFO sa  left join TRAIN_PLAN tp
+               on sa.stu_auth_id=tp.stu_auth_id and sa.orga_id=tp.train_dept_id where  1=1
+    and sa.attend_date between tp.train_start_date and to_char(sysdate, 'YYYYMMDD')
+     <if test="attend_state != null  and attend_state != '' ">
+     and sa.attend_state in (${attend_state}) 
+      </if>
+      group by sa.orga_id,sa.stu_auth_id) a on a.stu_auth_id=u.auth_id and a.orga_id=t.train_dept_id
+    left join (select  count(sa.stu_auth_id) as q_b_num ,sa.stu_auth_id,sa.orga_id  from STU_ATTENDANCE_INFO sa  left join TRAIN_PLAN tp
+               on sa.stu_auth_id=tp.stu_auth_id and sa.orga_id=tp.train_dept_id where  1=1
+    and sa.attend_date between tp.train_start_date and to_char(sysdate, 'YYYYMMDD')
+     <if test="attend_state_b != null  and attend_state_b != '' ">
+     and sa.attend_state in (${attend_state_b})
+      </if>
+      group by sa.orga_id,sa.stu_auth_id) b on b.stu_auth_id=u.auth_id and b.orga_id=t.train_dept_id
+   where t.state=#{state,jdbcType=VARCHAR} and i.state=#{state,jdbcType=VARCHAR} and u.state=#{state,jdbcType=VARCHAR} and s.state=#{state,jdbcType=VARCHAR}
+      <if test="ztrainStatusStr != null  and ztrainStatusStr != '' ">
+		and t.train_status in (${ztrainStatusStr})
+	</if>
+    <if test="train_dept_id != null  and train_dept_id != '' ">
+		and t.train_dept_id=#{train_dept_id,jdbcType=INTEGER}
+	</if>
+    <if test="teacher_auth_id != null  and teacher_auth_id != '' ">
+		and t.teacher_auth_id=#{teacher_auth_id,jdbcType=INTEGER}
+	</if>
+	<!--  <if test="secretary_auth_id != null  and secretary_auth_id != '' ">
+		and t.secretary_auth_id=#{secretary_auth_id,jdbcType=INTEGER}
+	</if>
+	<if test="director_auth_id != null  and director_auth_id != '' ">
+		and t.director_auth_id=#{director_auth_id,jdbcType=INTEGER}
+	</if>-->
+	<if test="stu_name != null  and stu_name != '' ">
+		and s.stu_name=#{stu_name,jdbcType=VARCHAR}
+	</if>
+	<if test="stu_type != null  and stu_type != '' ">
+		and st.type_code=#{stu_type,jdbcType=VARCHAR}
+	</if>
+    order by tea_name
+</select>
+
+<select id="absenceStuInfo" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+select distinct  u.auth_id , s.stu_name ,NVL(st.type_name,'暂无') as stu_type,o.orga_name,to_char(sysdate, 'yyyy-mm-dd')as date_str from STU_ATTENDANCE_INFO t 
+  left join USER_AUTHORITY u on   u.auth_id=t.stu_auth_id
+  left join user_info ui on u.user_id=ui.user_id
+  left join student_info s on ui.user_code=s.user_code 
+  left join orga_info o on t.orga_id=o.orga_id 
+  left join stu_type st on st.id=s.stu_type
+  where  u.state=#{state,jdbcType=VARCHAR}
+  <if test="attend_state != null  and attend_state != '' ">
+  and t.attend_state in (${attend_state}) 
+  </if>
+  <if test="train_dept_id != null  and train_dept_id != '' ">
+   and t.orga_id=#{train_dept_id}
+   </if>
+  and s.state=#{state,jdbcType=VARCHAR} and t.state=#{state,jdbcType=VARCHAR}  and t.attend_date=to_char(sysdate,'YYYYMMDD')
+  and t.stu_auth_id in ( select tp.stu_auth_id from TRAIN_PLAN tp  where  tp.state = #{state,jdbcType=VARCHAR}
+<if test="ztrainStatusStr != null  and ztrainStatusStr != '' ">
+   and tp.train_status in (${ztrainStatusStr})  
+ </if>
+  <if test="train_dept_id != null  and train_dept_id != '' ">
+   and tp.train_dept_id=#{train_dept_id}
+ </if>
+)
+</select>
+<select id="selectStuNumByAuthId" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+select  distinct us.auth_id, us.user_id, ui.user_code, si.stu_num as stuNum,us.role_id
+  from user_authority us
+ inner join user_info ui
+    on ui.user_id = us.user_id
+ inner join student_info si
+    on si.user_code = ui.user_code
+    where us.state='Y' and ui.state='Y' and si.state='Y'
+   and us.auth_id =#{stu_auth_id}
+</select>
+<!-- 根据类型bean查询学生信息表 -->
+<select id="selectListStu" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+	select 
+	<include refid="Base_Column_List"/>,stu_auth_id 
+	from (select distinct t.*,a.auth_id stu_auth_id 
+		from STUDENT_INFO t left join USER_INFO u on u.user_code = t.user_code left join USER_AUTHORITY a on u.user_id = a.user_id
+		left join train_plan tp on tp.stu_auth_id=a.auth_id 
+		<!-- where t.state = #{state} and u.state = #{state} and a.state = #{state}) -->
+		where u.state = #{state} and a.state = #{state} and tp.tpc_id is not null) 
+	<include refid="Example_Where_Clause"/>
+	
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectStudent" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+select t.stu_name,u.user_code
+  from student_info t
+ inner join user_info u
+    on u.user_code=t.user_code
+   and t.state = 'Y'
+   and u.state = 'Y'
+ inner  join user_authority ua on ua.user_id=u.user_id and ua.state='Y'  order by t.stu_name asc
+
+</select>
+<select id="selectStuAuthId" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+select t.user_code, i.user_id, a.auth_id, t.stu_name
+          from STUDENT_INFO t
+         inner join user_info i
+            on i.user_code = t.user_code
+           and i.state = 'Y'
+           and t.state = 'Y'
+         inner join user_authority a
+            on a.user_id = i.user_id
+ where t.stu_name =#{stuName,jdbcType=VARCHAR}
+   and t.user_code =#{user_code,jdbcType=VARCHAR} and a.state = 'Y'
+</select>
+
+<select id="selectStuAuthIdByStuName" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+select ua.auth_id,si.stu_name
+  from student_info si
+ inner join user_info ui
+    on ui.user_code = si.user_code
+ inner join user_authority ua
+    on ua.user_id = ui.user_id
+    where ui.state='Y' and ua.state='Y' and si.state='Y'
+     and si.stu_name=#{stu_name,jdbcType=VARCHAR}
+
+</select>
+<select id="selectStuNameByAuthId" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+   select ui.user_name as stu_name from user_info ui inner join user_authority ua on ua.user_id=ui.user_id
+ where ua.auth_id=#{auth_id}
+</select>
+
+<select id="selectUserAndAuth" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+select si.id, ua.auth_id as stu_auth_id, ui.user_id as userId from student_info si left join user_info ui  on ui.user_code = si.user_code
+left join user_authority ua  on ua.user_id = ui.user_id where si.id = #{id}
+</select>
+
+<select id="selectStuTscId" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+select si.tsc_id from student_info si left join user_info ui on ui.user_code=si.user_code left join user_authority ua on ua.user_id=ui.user_id where si.state='M' and ua.auth_id=#{stu_auth_id}
+</select>
+
+<select id="selectStuStateYTscId" resultType="com.rensu.education.hctms.userauth.bean.StudentInfo">
+select si.tsc_id from student_info si left join user_info ui on ui.user_code=si.user_code left join user_authority ua on ua.user_id=ui.user_id where si.state='Y' and ua.auth_id=#{stu_auth_id}
+</select>
+
+<update id="updateStuentState" parameterType="com.rensu.education.hctms.userauth.bean.StudentInfo" >
+begin
+	update USER_AUTHORITY set state=#{state} where user_id in 
+		(select t.user_id from USER_INFO t left join student_info s on t.user_code=s.user_code 
+			where s.state='M' 
+			<if test="user_code != null" >
+			    and s.user_code =  #{user_code}
+			</if>) and state='M';
+	update USER_INFO set state=#{state} where user_code in 
+		(select user_code from STUDENT_INFO where state='M'
+			<if test="user_code != null" >
+			    and user_code =  #{user_code}
+			</if>) and state='M';
+	update STUDENT_INFO set state=#{state} where state='M'
+			<if test="user_code != null" >
+			    and user_code =  #{user_code}
+			</if>;
+end;
+</update>
+
+<update id="updateStuInfo">
+update STUDENT_INFO set state=#{state} where state='N'
+			<if test="user_code != null" >
+			    and user_code =  #{user_code}
+			</if>
+</update>
+
+<update id="updateUserInfo">
+ update USER_INFO set state=#{state} where user_code in 
+		(select user_code from STUDENT_INFO where state='M'
+			<if test="user_code != null" >
+			    and user_code =  #{user_code}
+			</if>)
+</update>
+
+<update id="updateUserAuth">
+update USER_AUTHORITY set state=#{state} where user_id in 
+		(select t.user_id from USER_INFO t left join student_info s on t.user_code=s.user_code 
+			where s.state='M' 
+			<if test="user_code != null" >
+			    and s.user_code =  #{user_code}
+			</if>) 
+
+</update>
+</mapper>   

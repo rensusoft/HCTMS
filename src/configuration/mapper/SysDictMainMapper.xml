@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.SysDictMainMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.config.bean.SysDictMain" >
+	<result column="item_code" property="item_code"/>
+	<result column="item_name" property="item_name"/>
+	<result column="py_code" property="py_code"/>
+	<result column="ordinal" property="ordinal"/>
+	<result column="item_describe" property="item_describe"/>
+	<result column="other_code" property="other_code"/>
+	<result column="state" property="state"/>
+	<result column="availability" property="availability"/>
+</resultMap>
+       
+<!-- SYS_DICT_MAIN table all fields -->
+<sql id="Base_Column_List" >
+	 item_code,item_name,py_code,ordinal,item_describe,other_code,state,availability
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	 	<if test="item_code != null and item_code != ''" >
+	    and item_code =  #{item_code}
+	</if>
+	 	<if test="item_name != null and item_name != ''" >
+	    and item_name =  #{item_name}
+	</if>
+	 	<if test="py_code != null and py_code != ''" >
+	    and py_code =  #{py_code}
+	</if>
+	<if test="ordinal != null" >
+	    and ordinal =  #{ordinal}
+	</if>
+	 	<if test="item_describe != null and item_describe != ''" >
+	    and item_describe =  #{item_describe}
+	</if>
+	 	<if test="other_code != null and other_code != ''" >
+	    and other_code =  #{other_code}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="availability != null and availability != ''" >
+	    and availability =  #{availability}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.config.bean.SysDictMain" >
+  insert into SYS_DICT_MAIN(item_code,item_name,py_code,ordinal,item_describe,other_code,state,availability)
+ values(#{item_code,jdbcType=VARCHAR},#{item_name,jdbcType=VARCHAR},#{py_code,jdbcType=VARCHAR},#{ordinal,jdbcType=INTEGER},#{item_describe,jdbcType=VARCHAR},#{other_code,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{availability,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.config.bean.SysDictMain" >
+	update SYS_DICT_MAIN set 
+	<trim  suffixOverrides="," >
+	<if test="item_code != null  and item_code != '' ">
+		item_code=#{item_code,jdbcType=VARCHAR},
+	</if>
+	<if test="item_name != null  and item_name != '' ">
+		item_name=#{item_name,jdbcType=VARCHAR},
+	</if>
+	<if test="py_code != null  and py_code != '' ">
+		py_code=#{py_code,jdbcType=VARCHAR},
+	</if>
+	<if test="ordinal != null  ">
+		ordinal=#{ordinal,jdbcType=INTEGER},
+	</if>
+	<if test="item_describe != null  and item_describe != '' ">
+		item_describe=#{item_describe,jdbcType=VARCHAR},
+	</if>
+	<if test="other_code != null  and other_code != '' ">
+		other_code=#{other_code,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="availability != null  and availability != '' ">
+		state=#{availability,jdbcType=INTEGER},
+	</if>
+	</trim> where 1=1 
+	<if test="item_code_old != null  and item_code_old != '' ">
+	 and item_code=#{item_code_old}
+	</if>
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.config.bean.SysDictMain">
+	delete 	 from SYS_DICT_MAIN where id = #{1}
+</update>
+ 
+<!-- 系统字典主表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from SYS_DICT_MAIN where id = #{1}
+</select>
+
+<!-- 系统字典主表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_sys_dict_main_id.nextval from dual
+</select>
+
+<!-- 系统字典主表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.config.bean.SysDictMain">
+	select count(1) from SYS_DICT_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询系统字典主表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.SysDictMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from SYS_DICT_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询系统字典主表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.SysDictMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from SYS_DICT_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	<!-- 根据item_code -->
+<select id="selectByitem_code"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from SYS_DICT_MAIN where ITEM_CODE = #{item_code}
+</select>
+</mapper>   

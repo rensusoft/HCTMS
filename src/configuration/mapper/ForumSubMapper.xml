@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.ForumSubMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.publicdata.bean.ForumSub" >
+	<result column="id" property="id"/>
+	<result column="fi_id" property="fi_id"/>
+	<result column="cite_state" property="cite_state"/>
+	<result column="cite_id" property="cite_id"/>
+	<result column="content" property="content"/>
+	<result column="support_num" property="support_num"/>
+	<result column="against_num" property="against_num"/>
+	<result column="publisher_auth_id" property="publisher_auth_id"/>
+	<result column="publish_time" property="publish_time"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- FORUM_SUB table all fields -->
+<sql id="Base_Column_List" >
+	 id,fi_id,cite_state,cite_id,content,support_num,against_num,publisher_auth_id,publish_time,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="fi_id != null" >
+	    and fi_id =  #{fi_id}
+	</if>
+	<if test="cite_state != null" >
+	    and cite_state =  #{cite_state}
+	</if>
+	<if test="cite_id != null" >
+	    and cite_id =  #{cite_id}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="support_num != null" >
+	    and support_num =  #{support_num}
+	</if>
+	<if test="against_num != null" >
+	    and against_num =  #{against_num}
+	</if>
+	<if test="publisher_auth_id != null" >
+	    and publisher_auth_id =  #{publisher_auth_id}
+	</if>
+	<if test="publish_time != null" >
+	    and publish_time =  #{publish_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub" >
+  insert into FORUM_SUB(id,fi_id,cite_state,cite_id,content,support_num,against_num,publisher_auth_id,publish_time,state)
+ values(#{id,jdbcType=INTEGER},#{fi_id,jdbcType=INTEGER},#{cite_state,jdbcType=INTEGER},#{cite_id,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{support_num,jdbcType=INTEGER},#{against_num,jdbcType=INTEGER},#{publisher_auth_id,jdbcType=INTEGER},#{publish_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub" >
+	update FORUM_SUB set 
+	<trim  suffixOverrides="," >
+	<if test="fi_id != null  ">
+		fi_id=#{fi_id,jdbcType=INTEGER},
+	</if>
+	<if test="cite_state != null  ">
+		cite_state=#{cite_state,jdbcType=INTEGER},
+	</if>
+	<if test="cite_id != null  ">
+		cite_id=#{cite_id,jdbcType=INTEGER},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="support_num != null  ">
+		support_num=#{support_num,jdbcType=INTEGER},
+	</if>
+	<if test="against_num != null  ">
+		against_num=#{against_num,jdbcType=INTEGER},
+	</if>
+	<if test="publisher_auth_id != null  ">
+		publisher_auth_id=#{publisher_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="publish_time != null  ">
+		publish_time=#{publish_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub">
+	delete 	 from FORUM_SUB where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学习交流区子表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from FORUM_SUB where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学习交流区子表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_forum_sub_id.nextval from dual
+</select>
+
+<!-- 学习交流区子表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub">
+	select count(1) from FORUM_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学习交流区子表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub">
+	select 
+	<include refid="Base_Column_List"/>
+	from FORUM_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询学习交流区子表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub">
+	select 
+	<include refid="Base_Column_List"/>
+	from FORUM_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>   
+
+<!-- 根据类型bean进行查询学引用信息 -->
+<select id="selectForumSubById" resultType="com.rensu.education.hctms.publicdata.bean.ForumSub"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub">
+	select t.user_name as cite_user_name,fs.content as cite_content,
+         to_char(fs.publish_time, 'yyyy-mm-dd hh24:mi:ss') as cite_publish_time_str
+          from FORUM_SUB fs
+          left join (select uu.auth_id, ui.user_name
+                 from USER_AUTHORITY uu
+                 left join USER_INFO ui
+                   on uu.user_id = ui.user_id) t
+          on fs.publisher_auth_id = t.auth_id 
+          where 1=1    
+	<if test="id != null and id != ''" >
+     and fs.id=#{id}
+    </if>
+</select>
+  	
+</mapper>   

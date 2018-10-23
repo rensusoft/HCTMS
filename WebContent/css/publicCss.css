@@ -1,0 +1,278 @@
+/* 
+ ----↓自定义下拉框样式------
+*/
+
+.nice-select {
+	width: 200px;
+	padding: 0 0px;
+	height: 25px;
+	position: relative;
+	color:white;
+	background:#505F91 url(../images/downArrow.jpg) no-repeat right center;
+	cursor:pointer;
+}
+.nice-select input {
+	padding-right:0px;
+	display: block;
+	width: 100%;
+	height: 25px;
+	text-align:center;
+	border: 0;
+	outline: 0;
+	background: none;
+	cursor:pointer;
+}
+.nice-select ul {
+	width: 200px;
+	color:black;
+	display: none;
+	position:relative;
+	background-color: #fff;
+	max-height: 350px;
+	overflow-y: auto;
+	border: 1px solid #999;
+	border-top: 0;
+	z-index:9999;
+}
+.nice-select ul li {
+	height: 30px;
+	text-align:center;
+	line-height: 30px;
+	overflow: hidden;
+	padding: 0px;
+	margin:0px;
+	cursor: pointer;
+}
+.nice-select ul li:HOVER{
+	background-color: #FFE1B2;
+}
+/*动态添加的li */
+/* 
+ ----↑自定义下拉框样式------
+*/
+
+/* 普通展现形表单标题css */
+.l_title{
+	float: left;
+	width: 150px;
+	height:30px;
+	text-align: right;
+	background-color: #EEEEEE;
+	border:1px solid #C0C0C0;
+	margin: 0px -1px -1px 0px;
+	padding: 5px;
+}
+/* 普通展现形表单标题对应的被容（短）css */
+.l_value{
+	float: left;
+	width: 300px;
+	height:30px;
+	text-align: left;
+	border:1px solid #C0C0C0;
+	margin: 0px -1px -1px 0px;
+	padding: 5px;
+}
+/* 普通展现形表单标题对应的被容（长）css */
+.l_value_long{
+	float: left;
+	width: 748px;
+	height:30px;
+	text-align: left;
+	border:1px solid #C0C0C0;
+	margin: 0px -1px -1px 0px;
+	padding: 5px;
+}
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+/* 复选div（选中）css */
+.combox_select{
+	float: left;width: 100px;background-color:#4EB595;
+	height: 25px;
+	text-align:center;color: white;
+	padding: 2px;
+	margin-left: 6px;
+}
+.combox_select:HOVER{
+	cursor:pointer;
+}
+/* 复选div（未选中）css */
+.combox_nonselect{
+	float: left;width: 100px;background-color:#CCCCCC;
+	height: 25px;
+	text-align:center;color: white;
+	padding: 2px;
+	margin-left: 6px;
+}
+.combox_nonselect:HOVER{
+	cursor:pointer;
+}
+
+/* 单选div（选中）css */
+.radio_select{
+	float: left;width: 100px;background-color:#4EB595;
+	height: 25px;
+	text-align:center;color: white;
+	padding: 2px;
+	margin-left: 6px;
+	border-radius:8px;
+}
+.radio_select:HOVER{
+	cursor:pointer;
+}
+
+/* 单选div（未选中）css */
+.radio_nonselect{
+	float: left;width: 100px;background-color:#CCCCCC;
+	height: 25px;
+	text-align:center;color: white;
+	padding: 2px;
+	margin-left: 6px;
+	border-radius:8px;
+}
+.radio_nonselect:HOVER{
+	cursor:pointer;
+}
+
+
+/*每个页面最上面显示的导航*/
+.right11 {
+	width: 100%;
+	height: 48px;
+}
+.right2 {
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px #CCCCCC solid
+}
+.biaoti {
+	float: left;
+	margin-left: 10px;
+	font-size: 16px;
+	font-weight:bold;
+	margin-top: 12px;
+	color: #505F91;
+}
+.backDiv {
+	float: right;
+	margin-right: 10px;
+	font-size: 16px;
+	margin-top: 12px;
+}
+
+
+/**----↓------以下：form表单样式--------------  **/
+select textarea{
+	margin: 0;
+	padding: 0;
+	resize: none;
+	border: none;
+	outline: none;
+}
+
+/*<select>下拉框样式*/
+.mySelect{
+	width:150px;
+	height:25px;
+	font-size:14px; 
+	border: 1px solid #D5D5D5;
+	padding:0;
+	color: #696969;
+	background-color:#FFFFF0;
+}
+.mySelect:HOVER {
+	border: 1px solid #F59942;
+	cursor: pointer;
+}
+
+/*<input>输入框样式*/
+.myInput{
+	height:25px;
+	width: 180px;
+	padding:0;
+	color: #696969;
+	border: 1px solid #D5D5D5;
+	background-color:#FFFFF0;
+}
+.myInput:HOVER {
+	border: 1px solid #F59942;
+}
+.myInput:FOCUS {
+	border: 1px solid #F59942;
+}
+/*时间输入框样式*/
+.myDateInput{
+	height:25px;
+	width: 180px;
+	padding:0;
+	color: #696969;
+	border: 1px solid #D5D5D5;
+	background-color:#FFFFF0;
+}
+.myDateInput:HOVER {
+	border: 1px solid #F59942;
+	cursor: pointer;
+}
+.myInput:FOCUS {
+	border: 1px solid #F59942;
+}
+
+/*<area>多行文本样式*/
+.myArea{
+	width:590px;
+	height:120px;
+	margin-top:5px;
+	border: 1px solid #D5D5D5;
+	padding:0;
+	color: #696969;
+	resize:none;
+	background-color:#FFFFF0;
+}
+.myArea:HOVER {
+	border: 1px solid #F59942;
+}
+.myArea:FOCUS {
+	border: 1px solid #F59942;
+}
+
+/*两种按钮样式，只是颜色不同*/
+.myBtn1 {
+	margin-left: 10px;
+	border-radius: none;
+	border: none;
+	font-size: 14px;
+	padding: 3px 15px;
+	background: #4EB695;
+	color: white;
+}
+.myBtn1:HOVER {
+	background: #FCC450;
+}
+.myBtn2 {
+	margin-left: 10px;
+	border-radius: none;
+	border: none;
+	font-size: 14px;
+	padding: 3px 15px;
+	background: #5b99ff;
+	color: white;
+}
+.myBtn2:HOVER {
+	background: #FCC450;
+}
+
+/**  ----↑------form表单样式--------------  **/
+
+/**背景透明度 **/
+.modbr {
+	opacity:0.8;
+	filter:"alpha(opacity=80)";
+	-ms-filter:"alpha(opacity=80)"; /* 旧版IE */
+}

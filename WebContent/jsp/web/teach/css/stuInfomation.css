@@ -1,0 +1,172 @@
+*{
+    margin: 0 !important;
+    padding: 0;
+    list-style: none;
+}
+a{
+    text-decoration: none !important;
+}
+a:hover{
+    text-decoration: none !important;
+    cursor: pointer;
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+.stuList{
+    float:left;
+    width: 160px;
+    height: 100%;
+    background: #D9DEE4;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    overflow: auto;
+}
+.stuList p{
+    font-size: 25px;
+    padding: 15px 0;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(80, 95, 145);
+}
+#stuListUL li{
+    line-height: 40px;
+    border-bottom: 1px solid rgb(80, 95, 145);
+}
+#stuListUL li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #505f91;
+    font-weight: bold;
+    font-size: 16px;
+    background: #D9DEE4;
+}
+#stuListUL li.badgec a{
+    color: #fff;
+    background:#505f91;
+}
+.stuInfor{
+    float: right;
+    width:100%;
+    padding: 15px;
+    padding-left: 180px;
+}
+.stuInfor .dtlBox{
+    width: 100%;
+}
+.stuInfor .dtlBox .hr{
+    width: 98%;
+}
+.basicInfor{
+    padding: 15px;
+}
+.basicInfor table{
+    width: 92%;
+    margin:15px 0 !important;
+}
+.rollInfor table{
+    width: 89.2%;
+    margin: 15px 0 !important;
+}
+.trainInfor table{
+    width:92%;
+    margin:15px 0 !important;
+}
+.basicInfor table tr:first-child{
+    min-width: 150px;
+}
+.basicInfor table tr:first-child img{
+    display: block;
+    margin: 0 auto !important;
+}
+.rollInfor table tr td,.trainInfor table tr td{
+    padding: 10px 0;
+}
+.basicInfor table tr input[type=text],.rollInfor table tr input[type=text],.trainInfor table tr input[type=text],.trainInfor table tr select{
+    display: block;
+    height: 30px;
+    width: 80%;
+    border: 1px solid #505F91;
+    border-radius: 3px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    background: #EEEEEE;
+    color: #3d4444;
+}
+.trainInfor table tr select{
+    background: #fff;
+}
+.basicInfor table tr td:nth-child(odd),.rollInfor table tr td:nth-child(odd),.trainInfor table tr td:nth-child(odd){
+    text-align: right;
+    font-size: 18px;
+    color: #505F91;
+    width: 150px;
+}
+.btns{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /*height: 50px;*/
+    background: #fff;
+    padding:25px;
+}
+.dtlBox{
+    overflow: auto;
+    height: 100%;
+    margin-bottom: 80px !important;
+}
+.basicInfor table tr:first-child td{
+    width: 145px;
+}
+.select{
+    background:#fff !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

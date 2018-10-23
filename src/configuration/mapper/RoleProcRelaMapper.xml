@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.RoleProcRelaMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.RoleProcRela" >
+	<result column="id" property="id"/>
+	<result column="role_id" property="role_id"/>
+	<result column="start_proc_id" property="start_proc_id"/>
+	<result column="end_proc_id" property="end_proc_id"/>
+	<result column="state" property="state"/>
+	<result column="require_datenum" property="require_datenum"/>
+	
+</resultMap>
+       
+<!-- ROLE_PROC_RELA table all fields -->
+<sql id="Base_Column_List" >
+	 id,role_id,start_proc_id,end_proc_id,state,require_datenum
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="role_id != null" >
+	    and role_id =  #{role_id}
+	</if>
+	<if test="start_proc_id != null" >
+	    and start_proc_id =  #{start_proc_id}
+	</if>
+	<if test="end_proc_id != null" >
+	    and end_proc_id =  #{end_proc_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="require_datenum != null " >
+	    and require_datenum =  #{require_datenum}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela" >
+  insert into ROLE_PROC_RELA(id,role_id,start_proc_id,end_proc_id,state,require_datenum)
+ values(#{id,jdbcType=INTEGER},#{role_id,jdbcType=INTEGER},#{start_proc_id,jdbcType=INTEGER},#{end_proc_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{require_datenum,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela" >
+	update ROLE_PROC_RELA set 
+	<trim  suffixOverrides="," >
+	<if test="role_id != null  ">
+		role_id=#{role_id,jdbcType=INTEGER},
+	</if>
+	<if test="start_proc_id != null  ">
+		start_proc_id=#{start_proc_id,jdbcType=INTEGER},
+	</if>
+	<if test="end_proc_id != null  ">
+		end_proc_id=#{end_proc_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="require_datenum != null">
+		require_datenum=#{require_datenum,jdbcType=INTEGER},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	delete 	 from ROLE_PROC_RELA where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 角色-流程关联表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from ROLE_PROC_RELA where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 角色-流程关联表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_role_proc_rela_id.nextval from dual
+</select>
+
+<!-- 角色-流程关联表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	select count(1) from ROLE_PROC_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询角色-流程关联表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from ROLE_PROC_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询角色-流程关联表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from ROLE_PROC_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+  	<!-- 根据类型bean查询角色-流程关联表 -->
+<select id="selectAuthIdList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	select 
+	t.id,t.role_id,t.start_proc_id,t.end_proc_id,t.state,r.auth_id
+	from ROLE_PROC_RELA  t left join  USER_AUTHORITY r on t.role_id=r.role_id where 1=1
+	<if test="start_proc_id != null" >
+	    and t.start_proc_id =  #{start_proc_id}
+	</if>
+	<if test="end_proc_id != null" >
+	    and t.end_proc_id =  #{end_proc_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and t.state =  #{state}
+	</if>
+	<if test="orga_id != null and orga_id != ''"  >
+	    and r.orga_id =  #{orga_id}
+	</if>
+</select>
+  	<!-- 根据type_code查询流程关联角色 -->
+<select id="selectProcessRole" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	select  t.id,NVL(r.role_id,0) as role_id,t.start_proc_id,p.id as end_proc_id,p.state,NVL(r.role_name,'暂无') as role_name,p.proc_name,p.proc_num,p.type_code,t.require_datenum
+  from  ROLE_PROC_RELA  t left join  ROLE_INFO r on t.role_id=r.role_id 
+  right join  process_info p on t.end_proc_id=p.id where 1=1 and p.proc_num!=-1
+   <if test="type_code != null and type_code != ''" >
+	    and  p.type_code=#{type_code} 
+	</if>
+	<if test="end_proc_id != null and end_proc_id != ''" >
+	    and p.id =  #{end_proc_id}
+	</if>
+   order by p.proc_num
+</select>
+
+<update id="deleteByEnd" parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	delete 	 from ROLE_PROC_RELA where end_proc_id = #{end_proc_id,jdbcType=INTEGER}
+</update>
+<update id="deleteByIds" parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	delete 	 from ROLE_PROC_RELA where end_proc_id in (${delId}) or start_proc_id in (${delId})
+</update>
+
+<update id="updateByEnd" parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela" >
+	update ROLE_PROC_RELA set 
+	<trim  suffixOverrides="," >
+	<if test="role_id != null  ">
+		role_id=#{role_id,jdbcType=INTEGER},
+	</if>
+	<if test="start_proc_id != null  ">
+		start_proc_id=#{start_proc_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where end_proc_id=#{end_proc_id,jdbcType=INTEGER}
+</update>
+
+<select id="selectListByprocId" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from ROLE_PROC_RELA  where end_proc_id=#{end_proc_id,jdbcType=INTEGER}  
+	<if test="start_proc_id != null  and start_proc_id != '' ">
+	or start_proc_id=#{start_proc_id,jdbcType=INTEGER}
+	</if>
+	<if test="o_end_proc_id != null  and o_end_proc_id != '' ">
+	or end_proc_id=#{o_end_proc_id,jdbcType=VARCHAR}
+	</if>
+</select>
+
+<select id="selectRoleId"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from ROLE_PROC_RELA where end_proc_id = #{end_id,jdbcType=INTEGER}
+</select>
+<select id="selectRoleProc" resultType="com.rensu.education.hctms.basicdata.bean.RoleProcRela"  parameterType="com.rensu.education.hctms.basicdata.bean.RoleProcRela">
+	select t.role_id,t.start_proc_id,a.proc_name as start_name,t.end_proc_id,b.proc_name as end_name,t.require_datenum,a.proc_num as start_num,b.proc_num as end_num from ROLE_PROC_RELA t 
+    left join process_info a on t.start_proc_id=a.id
+    left join process_info b on t.end_proc_id=b.id 
+    where t.require_datenum is not null and t.state='Y'  order by t.require_datenum 
+</select>
+</mapper>   

@@ -1,0 +1,74 @@
+ul{
+    list-style: none;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    width: 1000px;
+}
+.info_table{
+    width: 950px;
+    margin: 0 auto;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+.info_table ul{
+    border-bottom: 1px solid #eee;
+    display:inline-block;
+    float:left;
+    width:690px;
+    height:150px;
+    padding-left:55px;
+    padding-top:25px;
+}
+.button_position{
+    height:70px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 900px;
+    background: #fff;
+    padding-top: 20px;
+}
+.info_table ul li input,.info_table table tr td input,.info_table ul li select,.info_table table tr td select{
+    border: 1px solid #505F91;
+    display: block;
+    width: 190px;
+    height:30px;
+    border-radius: 3px;
+    color: #333;
+    padding-left: 10px;
+    margin-right:10px;
+    outline: none;
+    margin-bottom:15px;
+}
+.info_table ul li:nth-child(odd),.info_table table tr td:first-child{
+    width: 105px;
+    line-height:30px;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    word-break:normal;
+    text-align:right;
+}
+.info_table ul li,.info_table table tr td,.info_table table tr{
+    display: inline-block;
+}
+.info_table ul li:nth-child(even),.info_table table tr td:first-child{
+	text-align：right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    word-break：normal;
+}
+.userPhoto{
+	display:inline-block;
+	float:left;
+	margin-left:110px;
+}

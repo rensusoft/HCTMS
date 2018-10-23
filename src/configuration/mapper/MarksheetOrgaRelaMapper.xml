@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MarksheetOrgaRelaMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.MarksheetOrgaRela" >
+	<result column="mm_id" property="mm_id"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MARKSHEET_ORGA_RELA table all fields -->
+<sql id="Base_Column_List" >
+	 mm_id,orga_id,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="mm_id != null" >
+	    and mm_id =  #{mm_id}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetOrgaRela" >
+  insert into MARKSHEET_ORGA_RELA(mm_id,orga_id,state)
+ values(#{mm_id,jdbcType=INTEGER},#{orga_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetOrgaRela" >
+	update MARKSHEET_ORGA_RELA set 
+	<trim  suffixOverrides="," >
+	<if test="mm_id != null  ">
+		mm_id=#{mm_id,jdbcType=INTEGER},
+	</if>
+	<if test="orga_id != null  ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where 1=#{11}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetOrgaRela">
+	delete 	 from MARKSHEET_ORGA_RELA where id = #{1}
+</update>
+ 
+<!-- 评分表主表与科室关联表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MARKSHEET_ORGA_RELA where id = #{1}
+</select>
+
+<!-- 评分表主表与科室关联表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_marksheet_orga_rela_id.nextval from dual
+</select>
+
+<!-- 评分表主表与科室关联表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetOrgaRela">
+	select count(1) from MARKSHEET_ORGA_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询评分表主表与科室关联表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetOrgaRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from MARKSHEET_ORGA_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询评分表主表与科室关联表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetOrgaRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from MARKSHEET_ORGA_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

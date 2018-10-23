@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.ProcessInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.ProcessInfo" >
+	<result column="id" property="id"/>
+	<result column="type_code" property="type_code"/>
+	<result column="proc_num" property="proc_num"/>
+	<result column="proc_name" property="proc_name"/>
+	<result column="state" property="state"/>
+</resultMap>
+<resultMap id="BaseResultMap1" type="com.rensu.education.hctms.basicdata.bean.ProcessInfo" >
+	<result column="id" property="id"/>
+	<result column="type_code" property="type_code"/>
+	<result column="proc_num" property="proc_num"/>
+	<result column="proc_name" property="proc_name"/>
+	<result column="state" property="state"/>
+	<result column="require_datenum" property="require_datenum"/>
+	<result column="proc_name" property="proc_name"/>
+	<result column="role_id" property="role_id"/>
+	<result column="start_proc_id" property="start_proc_id"/>
+	<result column="end_proc_id" property="end_proc_id"/>
+</resultMap>
+       
+<!-- PROCESS_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_code,proc_num,proc_name,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="type_code != null and type_code != ''" >
+	    and type_code =  #{type_code}
+	</if>
+	<if test="proc_num != null" >
+	    and proc_num =  #{proc_num}
+	</if>
+	 	<if test="proc_name != null and proc_name != ''" >
+	    and proc_name =  #{proc_name}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.ProcessInfo" >
+  insert into PROCESS_INFO(id,type_code,proc_num,proc_name,state)
+ values(#{id,jdbcType=INTEGER},#{type_code,jdbcType=VARCHAR},#{proc_num,jdbcType=INTEGER},#{proc_name,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.ProcessInfo" >
+	update PROCESS_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="type_code != null  and type_code != '' ">
+		type_code=#{type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="proc_num != null  ">
+		proc_num=#{proc_num,jdbcType=INTEGER},
+	</if>
+	<if test="proc_name != null  and proc_name != '' ">
+		proc_name=#{proc_name,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.ProcessInfo">
+	delete 	 from PROCESS_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 流程配置表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from PROCESS_INFO where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 流程配置表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_process_info_id.nextval from dual
+</select>
+
+<!-- 流程配置表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.ProcessInfo">
+	select count(1) from PROCESS_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询流程配置表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.ProcessInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from PROCESS_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询流程配置表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.ProcessInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from PROCESS_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+  	<select id="selectByNum" resultMap="BaseResultMap1"  parameterType="java.lang.Integer">
+  	select t.id,t.type_code,t.proc_num,t.proc_name,r.require_datenum,r.role_id,r.start_proc_id,r.end_proc_id, c.proc_name as start_name,c.proc_num as start_num  from process_info t left join ROLE_PROC_RELA r on t.id=r.end_proc_id 
+  	 left join (select o.id, o.proc_name,o.proc_num from process_info o right join ROLE_PROC_RELA r on o.id=r.start_proc_id) c on c.id=r.start_proc_id
+  	where t.type_code='VACATE' 
+  	and r.role_id is not null 
+  	and (r.require_datenum &lt;= #{vacate_date_num} or r.require_datenum-#{vacate_date_num}&lt;2 or r.require_datenum is null) 
+  	order by t.proc_num
+  	</select>
+</mapper>   

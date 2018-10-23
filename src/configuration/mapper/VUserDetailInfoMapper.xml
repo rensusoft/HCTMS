@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.VUserDetailInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.userauth.bean.VUserDetailInfo" >
+	<result column="auth_id" property="auth_id"/>
+	<result column="user_id" property="user_id"/>
+	<result column="role_code" property="role_code"/>
+	<result column="role_id" property="role_id"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="state" property="state"/>
+	<result column="create_time" property="create_time"/>
+	<result column="user_code" property="user_code"/>
+	<result column="user_password" property="user_password"/>
+	<result column="user_name" property="user_name"/>
+	<result column="mobile" property="mobile"/>
+	<result column="user_state" property="user_state"/>
+	<result column="role_name" property="role_name"/>
+	<result column="role_state" property="role_state"/>
+	<result column="orga_name" property="orga_name"/>
+	<result column="orga_level" property="orga_level"/>
+	<result column="orga_state" property="orga_state"/>
+	<result column="img_path" property="img_path"/>
+	<result column="stu_type_id" property="stu_type_id"/>
+</resultMap>
+       
+<!-- v_user_detail_info table all fields -->
+<sql id="Base_Column_List" >
+	 auth_id,user_id,role_id,role_code,orga_id,state,stu_type_id,create_time,user_code,user_password,user_name,mobile,user_state,role_name,role_state,orga_name,orga_level,orga_state,img_path
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="auth_id != null" >
+	    and auth_id =  #{auth_id}
+	</if>
+	<if test="user_id != null" >
+	    and user_id =  #{user_id}
+	</if>
+	<if test="role_id != null" >
+	    and role_id =  #{role_id}
+	</if>
+	<if test="role_code != null" >
+	    and role_code =  #{role_code}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="user_code != null and user_code != ''" >
+	    and user_code =  #{user_code}
+	</if>
+	 	<if test="user_password != null and user_password != ''" >
+	    and user_password =  #{user_password}
+	</if>
+	 	<if test="user_name != null and user_name != ''" >
+	    and user_name =  #{user_name}
+	</if>
+	 	<if test="mobile != null and mobile != ''" >
+	    and mobile =  #{mobile}
+	</if>
+	 	<if test="user_state != null and user_state != ''" >
+	    and user_state =  #{user_state}
+	</if>
+	 	<if test="role_name != null and role_name != ''" >
+	    and role_name =  #{role_name}
+	</if>
+	 	<if test="role_state != null and role_state != ''" >
+	    and role_state =  #{role_state}
+	</if>
+	 	<if test="orga_name != null and orga_name != ''" >
+	    and orga_name =  #{orga_name}
+	</if>
+	<if test="orga_level != null" >
+	    and orga_level =  #{orga_level}
+	</if>
+	 	<if test="orga_state != null and orga_state != ''" >
+	    and orga_state =  #{orga_state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.userauth.bean.VUserDetailInfo" >
+  insert into v_user_detail_info(auth_id,user_id,role_id,role_code,orga_id,state,create_time,user_code,user_password,user_name,mobile,user_state,role_name,role_state,orga_name,orga_level,orga_state)
+ values(#{auth_id,jdbcType=INTEGER},#{user_id,jdbcType=INTEGER},#{role_id,jdbcType=INTEGER},#{role_code,jdbcType=INTEGER},#{orga_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{user_code,jdbcType=VARCHAR},#{user_password,jdbcType=VARCHAR},#{user_name,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{user_state,jdbcType=VARCHAR},#{role_name,jdbcType=VARCHAR},#{role_state,jdbcType=VARCHAR},#{orga_name,jdbcType=VARCHAR},#{orga_level,jdbcType=INTEGER},#{orga_state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.userauth.bean.VUserDetailInfo" >
+	update v_user_detail_info set 
+	<trim  suffixOverrides="," >
+	<if test="user_id != null  ">
+		user_id=#{user_id,jdbcType=INTEGER},
+	</if>
+	<if test="role_code != null  ">
+		role_code=#{role_code,jdbcType=INTEGER},
+	</if>
+	<if test="role_id != null  ">
+		role_id=#{role_id,jdbcType=INTEGER},
+	</if>
+	<if test="orga_id != null  ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="user_code != null  and user_code != '' ">
+		user_code=#{user_code,jdbcType=VARCHAR},
+	</if>
+	<if test="user_password != null  and user_password != '' ">
+		user_password=#{user_password,jdbcType=VARCHAR},
+	</if>
+	<if test="user_name != null  and user_name != '' ">
+		user_name=#{user_name,jdbcType=VARCHAR},
+	</if>
+	<if test="mobile != null  and mobile != '' ">
+		mobile=#{mobile,jdbcType=VARCHAR},
+	</if>
+	<if test="user_state != null  and user_state != '' ">
+		user_state=#{user_state,jdbcType=VARCHAR},
+	</if>
+	<if test="role_name != null  and role_name != '' ">
+		role_name=#{role_name,jdbcType=VARCHAR},
+	</if>
+	<if test="role_state != null  and role_state != '' ">
+		role_state=#{role_state,jdbcType=VARCHAR},
+	</if>
+	<if test="orga_name != null  and orga_name != '' ">
+		orga_name=#{orga_name,jdbcType=VARCHAR},
+	</if>
+	<if test="orga_level != null  ">
+		orga_level=#{orga_level,jdbcType=INTEGER},
+	</if>
+	<if test="orga_state != null  and orga_state != '' ">
+		orga_state=#{orga_state,jdbcType=VARCHAR},
+	</if>
+	</trim> where auth_id=#{auth_id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.userauth.bean.VUserDetailInfo">
+	delete 	 from v_user_detail_info where auth_id = #{auth_id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 用户权限关联表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" />,
+	to_char(create_time, 'yyyy-mm-dd hh24:mi') create_time_desc,
+	(select b.item_type_name from sys_dict_main a, sys_dict_sub b where a.item_code=b.sup_code and a.item_code='TABLE_STATE' and a.state='Y' and b.state='Y' and b.item_type_code=c.state and rownum=1) state_desc
+	
+	from v_user_detail_info c where auth_id = #{auth_id,jdbcType=INTEGER}
+</select>
+
+<!-- 用户权限关联表序列号 -->
+<select id="getSequence"  resultType="int">
+	
+</select>
+
+<!-- 用户权限关联表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.userauth.bean.VUserDetailInfo">
+	select count(1) from v_user_detail_info 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询用户权限关联表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.VUserDetailInfo">
+	select 
+	<include refid="Base_Column_List"/>,
+	to_char(create_time, 'yyyy-mm-dd hh24:mi') create_time_desc,
+	(select m.type_name from STU_TYPE m where m.id = c.stu_type_id) stu_type_name
+	from v_user_detail_info c 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询用户权限关联表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.VUserDetailInfo">
+	select 
+	<include refid="Base_Column_List"/>,
+	to_char(create_time, 'yyyy-mm-dd hh24:mi') create_time_desc, 
+	(select b.item_type_name from sys_dict_main a, sys_dict_sub b where a.item_code=b.sup_code and a.item_code='TABLE_STATE' and a.state='Y' and b.state='Y' and b.item_type_code=c.state and rownum=1) state_desc 
+	
+	from v_user_detail_info c 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>  	
+</mapper>   

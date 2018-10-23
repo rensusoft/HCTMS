@@ -1,0 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.state{
+    width: 100%;
+    border: 1px solid #ddd;
+    list-style: none;
+    margin: 0;
+}
+.state li{
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    height: 41px;
+    line-height: 41px;
+}
+.state li:hover{
+    background: #505F91;
+    color: #fff;
+}
+.state li:hover a{
+    color: #fff;
+}

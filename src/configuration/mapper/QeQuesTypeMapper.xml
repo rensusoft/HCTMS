@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.QeQuesTypeMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.QeQuesType" >
+	<result column="id" property="id"/>
+	<result column="type_code" property="type_code"/>
+	<result column="type_name" property="type_name"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- QE_QUES_TYPE table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_code,type_name,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="type_code != null and type_code != ''" >
+	    and type_code =  #{type_code}
+	</if>
+	 	<if test="type_name != null and type_name != ''" >
+	    and type_name =  #{type_name}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesType" >
+  insert into QE_QUES_TYPE(id,type_code,type_name,state)
+ values(#{id,jdbcType=INTEGER},#{type_code,jdbcType=VARCHAR},#{type_name,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesType" >
+	update QE_QUES_TYPE set 
+	<trim  suffixOverrides="," >
+	<if test="type_code != null  and type_code != '' ">
+		type_code=#{type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="type_name != null  and type_name != '' ">
+		type_name=#{type_name,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesType">
+	delete 	 from QE_QUES_TYPE where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 题库类型表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from QE_QUES_TYPE where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 题库类型表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_qe_ques_type_id.nextval from dual
+</select>
+
+<!-- 题库类型表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesType">
+	select count(1) from QE_QUES_TYPE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询题库类型表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesType">
+	select 
+	<include refid="Base_Column_List"/>
+	from QE_QUES_TYPE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询题库类型表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.QeQuesType">
+	select 
+	<include refid="Base_Column_List"/>
+	from QE_QUES_TYPE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

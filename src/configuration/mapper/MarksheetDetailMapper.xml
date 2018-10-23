@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MarksheetDetailMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.MarksheetDetail" >
+	<result column="id" property="id"/>
+	<result column="ms_id" property="ms_id"/>
+	<result column="text" property="text"/>
+	<result column="sco_num" property="sco_num"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MARKSHEET_DETAIL table all fields -->
+<sql id="Base_Column_List" >
+	 id,ms_id,text,sco_num,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="ms_id != null" >
+	    and ms_id =  #{ms_id}
+	</if>
+	 	<if test="text != null and text != ''" >
+	    and text =  #{text}
+	</if>
+	<if test="sco_num != null" >
+	    and sco_num =  #{sco_num}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetDetail" >
+  insert into MARKSHEET_DETAIL(id,ms_id,text,sco_num,state)
+ values(#{id,jdbcType=INTEGER},#{ms_id,jdbcType=INTEGER},#{text,jdbcType=VARCHAR},#{sco_num,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetDetail" >
+	update MARKSHEET_DETAIL set 
+	<trim  suffixOverrides="," >
+	<if test="ms_id != null  ">
+		ms_id=#{ms_id,jdbcType=INTEGER},
+	</if>
+	<if test="text != null  and text != '' ">
+		text=#{text,jdbcType=VARCHAR},
+	</if>
+	<if test="sco_num != null  ">
+		sco_num=#{sco_num,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetDetail">
+	delete 	 from MARKSHEET_DETAIL where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 评分表单评分项目明细表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MARKSHEET_DETAIL where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 评分表单评分项目明细表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_marksheet_detail_id.nextval from dual
+</select>
+
+<!-- 评分表单评分项目明细表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetDetail">
+	select count(1) from MARKSHEET_DETAIL 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询评分表单评分项目明细表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetDetail">
+	select 
+	<include refid="Base_Column_List"/>
+	from MARKSHEET_DETAIL 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询评分表单评分项目明细表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetDetail">
+	select 
+	<include refid="Base_Column_List"/>
+	from MARKSHEET_DETAIL 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<insert id="insertWithList" parameterType="java.util.List">
+	<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select seq_marksheet_detail_id.nextval from dual
+	</selectKey>
+	insert into MARKSHEET_DETAIL(id,ms_id,text,sco_num,state)
+	select seq_marksheet_detail_id.nextval, A.* FROM (
+ 	<foreach collection="list" item="item" index="index" separator="union all">
+ 	select #{item.ms_id,jdbcType=INTEGER} as ms_id,
+ 			#{item.text,jdbcType=VARCHAR} as text,
+ 			#{item.sco_num,jdbcType=INTEGER} as sco_num,
+ 			#{item.state,jdbcType=VARCHAR} as state
+ 	from dual 
+ 	</foreach>) A
+</insert>
+</mapper>   

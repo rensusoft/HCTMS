@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.process {
+    width: 89%;
+    float:left;
+    height: 100%;
+}
+
+.process ul {
+    width: 100%;
+    height: 100px;
+    margin-top: 10%;
+}
+
+.process ul li, .process ul li div {
+    float: left;
+}
+
+.process ul li div a {
+    color: #fff;
+    vertical-align: middle;
+    display: block;
+    margin-top: 35px;
+}
+
+.process ul li div a:hover {
+    color: #fff;
+}
+
+.process ul li:last-child div a {
+    margin-top: 21px;
+}
+
+.process ul li:nth-child(2) div a, .process ul li:nth-child(3) div a {
+    margin-top: 25px;
+}
+
+.processStep {
+    background: #505f91;
+    color: #fff;
+    font-weight: bold;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 10px;
+    padding: 5px;
+    padding-top: 50px !important;
+}
+
+.processStep1 {
+    background: #A9A9A9;
+    color: #fff;
+    font-weight: bold;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 10px;
+    padding: 5px;
+    padding-top: 50px !important;
+}
+.processStep2 {
+    background: #A9A9A9;
+    color: #fff;
+    font-weight: bold;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 10px;
+    padding: 5px;
+    padding-top: 50px !important;
+}
+.arrow {
+    height: 100px;
+    line-height: 100px;
+}
+
+.arrow i {
+    display: inline-block;
+    width: 30px;
+    height: 12px;
+    background: #505f91;
+    margin: 45px 0;
+}
+
+.arrow img {
+    display: inline-block;
+    margin: 39.5px 0;
+    vertical-align: inherit;
+}
+
+.arrow1 i{
+	display: inline-block;
+    width: 30px;
+    height: 12px;
+    background: #A9A9A9;
+    margin: 45px 0;
+}
+
+.arrow1 img {
+    display: inline-block;
+    margin: 39.5px 0;
+    vertical-align: inherit;
+}
+
+.radioGroup p {
+    margin-bottom: 20px;
+}

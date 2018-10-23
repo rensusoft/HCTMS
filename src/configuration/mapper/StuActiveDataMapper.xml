@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StuActiveDataMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.StuActiveData" >
+	<result column="id" property="id"/>
+	<result column="sto_id" property="sto_id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="dept_id" property="dept_id"/>
+	<result column="content" property="content"/>
+	<result column="examine_state" property="examine_state"/>
+	<result column="examine_text" property="examine_text"/>
+	<result column="create_time" property="create_time"/>
+	<result column="state" property="state"/>
+	<result column="examine_time" property="examine_time"/>
+	<result column="examine_authid" property="examine_authid"/>
+	
+</resultMap>
+       
+<!-- STU_ACTIVE_DATA table all fields -->
+<sql id="Base_Column_List" >
+	 id,sto_id,stu_auth_id,dept_id,content,examine_state,examine_text,create_time,state,examine_time,examine_authid
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="sto_id != null" >
+	    and sto_id =  #{sto_id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="dept_id != null" >
+	    and dept_id =  #{dept_id}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="examine_state != null" >
+	    and examine_state =  #{examine_state}
+	</if>
+	 	<if test="examine_text != null and examine_text != ''" >
+	    and examine_text =  #{examine_text}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="examine_time != null" >
+	    and examine_time =  #{examine_time}
+	</if>
+	<if test="examine_authid != null" >
+	    and examine_authid =  #{examine_authid}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.StuActiveData" >
+  insert into STU_ACTIVE_DATA(id,sto_id,stu_auth_id,dept_id,content,examine_state,examine_text,create_time,state,examine_time,examine_authid)
+ values(#{id,jdbcType=INTEGER},#{sto_id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{dept_id,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{examine_state,jdbcType=INTEGER},#{examine_text,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR},#{examine_time,jdbcType=TIMESTAMP},#{examine_authid,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.StuActiveData" >
+	update STU_ACTIVE_DATA set 
+	<trim  suffixOverrides="," >
+	<if test="sto_id != null  ">
+		sto_id=#{sto_id,jdbcType=INTEGER},
+	</if>
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="dept_id != null  ">
+		dept_id=#{dept_id,jdbcType=INTEGER},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="examine_state != null  ">
+		examine_state=#{examine_state,jdbcType=INTEGER},
+	</if>
+	<if test="examine_text != null  and examine_text != '' ">
+		examine_text=#{examine_text,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="examine_time != null">
+		examine_time=#{examine_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="examine_authid != null">
+		examine_authid=#{examine_authid,jdbcType=INTEGER},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	delete 	 from STU_ACTIVE_DATA where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学生录入培训数据记录表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STU_ACTIVE_DATA where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学生录入培训数据记录表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_stu_active_data_id.nextval from dual
+</select>
+
+<!-- 学生录入培训数据记录表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	select count(1) from STU_ACTIVE_DATA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 学生录入培训数据记录表 列表总数-根据类型bean查询 -->
+<select id="selectStuActiveDataCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	select count(1) 
+	from STU_ACTIVE_DATA sad 
+	left join TRAIN_TEACH_ORDER tto 
+	on sad.sto_id=tto.id 
+	where sad.state='Y' and sad.examine_state=1
+	<if test="stu_auth_id != null and stu_auth_id != ''" >
+      and sad.stu_auth_id = #{stu_auth_id}
+    </if>
+	<if test="dept_id != null and dept_id != ''" >
+      and sad.dept_id = #{dept_id}
+    </if>
+	<if test="data_type_id != null and data_type_id != ''" >
+      and tto.data_type_id = #{data_type_id}
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学生录入培训数据记录表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_ACTIVE_DATA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询学生录入培训数据记录表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_ACTIVE_DATA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectPageEntering" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	select  t.create_time,t.create_time_str,t.order_name,t.id,t.examineState,m.order_name as mOrder_name,t.user_name,t.data_type_id,t.sto_id,t.examine_state 
+	from 
+	(select s.create_time as create_time,s.id as id, s.examine_state as examine_state,s.sto_id as sto_id,
+	 o.order_name as order_name,o.sup_id as sup_id,o.data_type_id as data_type_id,
+	 ui.user_name as user_name,
+	 decode(s.examine_state,-1,'审核未通过',0,'待审核',1,'审核通过') as examineState,
+	 to_char(s.create_time,'yyyy-mm-dd hh24:mi') as create_time_str 
+	 from stu_active_data s	
+     left join train_teach_order o on s.sto_id=o.id
+     left join user_authority ua 
+     on ua.auth_id=s.examine_authid
+     left join user_info ui
+     on ui.user_id=ua.user_id
+	 where s.state='Y' 
+	 <if test="stu_auth_id != null" >
+	    and s.stu_auth_id =  #{stu_auth_id}
+	 </if>
+	 <if test="dept_id != null" >
+	    and s.dept_id =  #{dept_id}
+	 </if>
+	)t 	
+ 	left join train_teach_order m on t.sup_id=m.id
+	where 1=1    
+	<if test="examine_state != null" >
+	    and t.examine_state =  #{examine_state}
+	</if>
+	<if test="startTime !=null and endTime == null">
+		and	 t.create_time &gt;= TO_DATE('${startTime}','yyyy-mm-dd hh24:mi:ss') 
+	</if>
+	<if test="startTime ==null and endTime != null">
+		and	 t.create_time &lt;= TO_DATE('${endTime}','yyyy-mm-dd hh24:mi:ss') 
+	</if>
+	<if test="startTime !=null and endTime != null">
+		and	 t.create_time between TO_DATE('${startTime}','yyyy-mm-dd hh24:mi:ss') and TO_DATE('${endTime}','yyyy-mm-dd hh24:mi:ss') 
+	</if>		
+	<if test="indistinct !=null and indistinct !=''">
+		and	t.order_name like  '%${indistinct}%' 
+	</if>				
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectStuActiveData" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	select  t.create_time,t.create_time_str,t.order_name,t.id,t.examineState,m.order_name as mOrder_name,t.user_name,t.data_type_id,t.sto_id,t.examine_state 
+	from 
+	(select s.create_time as create_time,s.id as id, s.examine_state as examine_state,s.sto_id as sto_id,
+	 o.order_name as order_name,o.sup_id as sup_id,o.data_type_id as data_type_id,
+	 ui.user_name as user_name,
+	 decode(s.examine_state,-1,'审核未通过',0,'待审核',1,'审核通过') as examineState,
+	 to_char(s.create_time,'yyyy-mm-dd hh24:mi') as create_time_str 
+	 from stu_active_data s	
+     left join train_teach_order o on s.sto_id=o.id
+     left join user_authority ua 
+     on ua.auth_id=s.examine_authid
+     left join user_info ui
+     on ui.user_id=ua.user_id
+	 where s.state='Y' and s.examine_state=1
+	 <if test="stu_auth_id != null" >
+	    and s.stu_auth_id =  #{stu_auth_id}
+	 </if>
+	 <if test="dept_id != null" >
+	    and s.dept_id =  #{dept_id}
+	 </if>
+	 <if test="data_type_id != null" >
+	    and o.data_type_id =  #{data_type_id}
+	 </if>
+	)t 	
+ 	left join train_teach_order m on t.sup_id=m.id
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectShenHeCountByOA" resultType="com.rensu.education.hctms.teach.bean.StuActiveData" parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">
+	select sto_id, count(examine_state)  as count from  STU_ACTIVE_DATA where stu_auth_id= #{stu_auth_id} and dept_id = #{dept_id} and examine_state=1 group by sto_id
+</select>
+  	
+  	
+ <select id="getStuInput" resultType="com.rensu.education.hctms.teach.bean.StuActiveData"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">	
+select m.id, create_time_str,
+       m.order_name as order_name,
+       o.order_name as mOrder_name from (
+select  s.id as id,
+		s.create_time as create_time,
+       to_char(s.create_time, 'yyyy-mm-dd hh24:mi:ss') as create_time_str,
+       t.order_name as order_name,
+        t.sup_id
+        from STU_ACTIVE_DATA s 
+ left join train_teach_order t
+    on s.sto_id = t.id 
+     where s.state='Y'
+  <trim  suffixOverrides="," >
+  <if test="stu_auth_id != null" >
+	  and s.stu_auth_id =  #{stu_auth_id}
+  </if> 
+  <if test="id != null" >
+	  and s.id =  #{id}
+  </if> 
+  <if test="dept_id != null" >
+	    and s.dept_id=  #{dept_id}
+  </if>  	
+  <if test="examine_state != null" >
+	    and s.examine_state= #{examine_state}
+  </if>                    
+  </trim> 
+   ) m    
+ left join train_teach_order o   
+  on o.id= m.sup_id  
+<!-- where 1 = 1
+ <if test="stu_auth_id != null" >
+	  and o.stu_auth_id =  #{stu_auth_id}
+  </if> 
+  <if test="dept_id != null" >
+	    and o.dept_id=  #{dept_id}
+  </if> 
+   or o.stu_auth_id is null and o.dept_id is null -->
+ order by m.create_time desc
+</select> 	 	
+<select id="getExamineTextById" resultType="com.rensu.education.hctms.teach.bean.StuActiveData"  parameterType="com.rensu.education.hctms.teach.bean.StuActiveData">	 
+	select 
+	sad.examine_text,
+	to_char(sad.create_time,'yyyy-MM-dd hh24:mi:ss') as create_time_str,
+	ui.user_name as examine_creater 
+	from STU_ACTIVE_DATA sad 
+	left join USER_AUTHORITY ua 
+	on sad.examine_authid=ua.auth_id 
+	left join USER_INFO ui 
+	on ua.user_id=ui.user_id 
+	where sad.state='Y'
+	<if test="id != null and id != ''">
+	  and sad.id = #{id}
+    </if>
+</select>
+
+
+</mapper>   

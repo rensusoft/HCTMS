@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StaffInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.userauth.bean.StaffInfo" >
+	<result column="id" property="id"/>
+	<result column="user_code" property="user_code"/>
+	<result column="name" property="name"/>
+	<result column="age" property="age"/>
+	<result column="birth" property="birth"/>
+	<result column="staff_native" property="staff_native"/>
+	<result column="birth_place" property="birth_place"/>
+	<result column="professional_title" property="professional_title"/>
+	<result column="position" property="position"/>
+	<result column="political_state" property="political_state"/>
+	<result column="edu_level" property="edu_level"/>
+	<result column="state" property="state"/>
+	<result column="create_time" property="create_time"/>
+</resultMap>
+       
+<!-- STAFF_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,user_code,name,age,birth,staff_native,birth_place,professional_title,position,political_state,edu_level,state,create_time
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="user_code != null and user_code != ''" >
+	    and user_code =  #{user_code}
+	</if>
+	 	<if test="name != null and name != ''" >
+	    and name =  #{name}
+	</if>
+	 	<if test="age != null and age != ''" >
+	    and age =  #{age}
+	</if>
+	 	<if test="birth != null and birth != ''" >
+	    and birth =  #{birth}
+	</if>
+	 	<if test="staff_native != null and staff_native != ''" >
+	    and staff_native =  #{staff_native}
+	</if>
+	 	<if test="birth_place != null and birth_place != ''" >
+	    and birth_place =  #{birth_place}
+	</if>
+	 	<if test="professional_title != null and professional_title != ''" >
+	    and professional_title =  #{professional_title}
+	</if>
+	 	<if test="position != null and position != ''" >
+	    and position =  #{position}
+	</if>
+	 	<if test="political_state != null and political_state != ''" >
+	    and political_state =  #{political_state}
+	</if>
+	 	<if test="edu_level != null and edu_level != ''" >
+	    and edu_level =  #{edu_level}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.userauth.bean.StaffInfo" >
+  insert into STAFF_INFO(id,user_code,name,age,birth,staff_native,birth_place,professional_title,position,political_state,edu_level,state,create_time)
+ values(#{id,jdbcType=INTEGER},#{user_code,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{age,jdbcType=VARCHAR},#{birth,jdbcType=VARCHAR},#{staff_native,jdbcType=VARCHAR},#{birth_place,jdbcType=VARCHAR},#{professional_title,jdbcType=VARCHAR},#{position,jdbcType=VARCHAR},#{political_state,jdbcType=VARCHAR},#{edu_level,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.userauth.bean.StaffInfo" >
+	update STAFF_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="user_code != null  and user_code != '' ">
+		user_code=#{user_code,jdbcType=VARCHAR},
+	</if>
+	<if test="name != null  and name != '' ">
+		name=#{name,jdbcType=VARCHAR},
+	</if>
+	<if test="age != null  and age != '' ">
+		age=#{age,jdbcType=VARCHAR},
+	</if>
+	<if test="birth != null  and birth != '' ">
+		birth=#{birth,jdbcType=VARCHAR},
+	</if>
+	<if test="staff_native != null  and staff_native != '' ">
+		staff_native=#{staff_native,jdbcType=VARCHAR},
+	</if>
+	<if test="birth_place != null  and birth_place != '' ">
+		birth_place=#{birth_place,jdbcType=VARCHAR},
+	</if>
+	<if test="professional_title != null  and professional_title != '' ">
+		professional_title=#{professional_title,jdbcType=VARCHAR},
+	</if>
+	<if test="position != null  and position != '' ">
+		position=#{position,jdbcType=VARCHAR},
+	</if>
+	<if test="political_state != null  and political_state != '' ">
+		political_state=#{political_state,jdbcType=VARCHAR},
+	</if>
+	<if test="edu_level != null  and edu_level != '' ">
+		edu_level=#{edu_level,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.userauth.bean.StaffInfo">
+	delete 	 from STAFF_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 教职工基本信息表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STAFF_INFO where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 教职工基本信息表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_staff_info_id.nextval from dual
+</select>
+
+<!-- 教职工基本信息表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.userauth.bean.StaffInfo">
+	select count(1) from STAFF_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询教职工基本信息表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StaffInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STAFF_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询教职工基本信息表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.StaffInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STAFF_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+ <select id="selectOneByUserCode"  resultMap="BaseResultMap" parameterType="String">
+	select <include refid="Base_Column_List" /> 
+	 from STAFF_INFO where user_code = #{value} and state='Y'
+</select>
+  	
+  	
+<!-- 批量插入 教职工表 -->
+  <insert id="insertWithList" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select SEQ_STAFF_INFO_ID.nextval as id from dual
+		</selectKey>
+	insert into STAFF_INFO(id,user_code,name,age,birth,staff_native,birth_place,professional_title,position,political_state,edu_level,state,create_time)
+	select SEQ_STAFF_INFO_ID.nextval, A.* FROM (
+		<foreach collection="list" item="item" index="index" separator="union all">
+ 	select #{item.user_code,jdbcType=VARCHAR} as user_code,
+ 			#{item.name,jdbcType=VARCHAR} as name,
+ 			#{item.age,jdbcType=VARCHAR} as age,
+ 			#{item.birth,jdbcType=VARCHAR} as birth,
+ 			#{item.staff_native,jdbcType=VARCHAR} as staff_native,
+ 			#{item.birth_place,jdbcType=VARCHAR} as birth_place,
+ 			#{item.professional_title,jdbcType=VARCHAR} as professional_title,
+	 		#{item.position,jdbcType=VARCHAR} as position,
+	 		#{item.political_state,jdbcType=VARCHAR} as political_state,
+	 		#{item.edu_level,jdbcType=VARCHAR} as edu_level,
+	 		#{item.state,jdbcType=VARCHAR} as state,
+	 		#{item.create_time,jdbcType=TIMESTAMP} as create_time
+ 	from dual 
+		</foreach>) A
+	</insert>
+  	  	
+  	
+  	
+</mapper>   

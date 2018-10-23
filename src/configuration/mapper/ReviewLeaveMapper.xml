@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.ReviewLeaveMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo" >
+	<result column="id" property="id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="content" property="content"/>
+	<result column="vacate_status" property="vacate_status"/>
+	<result column="state" property="state"/>
+	<result column="start_time" property="start_time"/>
+	<result column="end_time" property="end_time"/>
+	<result column="start_date" property="start_date"/>
+	<result column="end_date" property="end_date"/>
+	<result column="vacate_type_code" property="vacate_type_code"/>
+	<result column="vacate_type_name" property="vacate_type_name"/>
+	<result column="create_time" property="create_time"/>
+	<result column="create_auth_id" property="create_auth_id"/>
+</resultMap>
+       
+<!-- STU_VACATE_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,stu_auth_id,orga_id,content,vacate_status,state,start_time,end_time,start_date,end_date,vacate_type_code,vacate_type_name,create_time,create_auth_id
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="vacate_status != null" >
+	    and vacate_status =  #{vacate_status}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="start_time != null" >
+	    and start_time =  #{start_time}
+	</if>
+	<if test="end_time != null" >
+	    and end_time =  #{end_time}
+	</if>
+	<if test="start_date != null" >
+	    and start_date =  #{start_date}
+	</if>
+	<if test="end_date != null" >
+	    and end_date =  #{end_date}
+	</if>
+	 	<if test="vacate_type_code != null and vacate_type_code != ''" >
+	    and vacate_type_code =  #{vacate_type_code}
+	</if>
+	<if test="vacate_type_name != null and vacate_type_name != ''" >
+	    and vacate_type_name =  #{vacate_type_name}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="create_auth_id != null" >
+	    and create_auth_id =  #{create_auth_id}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo" >
+  insert into STU_VACATE_INFO(id,stu_auth_id,orga_id,content,vacate_status,state,start_time,end_time,start_date,end_date,vacate_type_code,vacate_type_name,create_time,create_auth_id)
+ values(#{id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{orga_id,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{vacate_status,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{start_time,jdbcType=TIMESTAMP},#{end_time,jdbcType=TIMESTAMP},#{start_date,jdbcType=INTEGER},#{end_date,jdbcType=INTEGER},#{vacate_type_code,jdbcType=VARCHAR},#{vacate_type_name,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_auth_id,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo" >
+	update STU_VACATE_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="orga_id != null  ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="vacate_status != null  ">
+		vacate_status=#{vacate_status,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="start_time != null  ">
+		start_time=#{start_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="end_time != null  ">
+		end_time=#{end_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="start_date != null  ">
+		start_date=#{start_date,jdbcType=INTEGER},
+	</if>
+	<if test="end_date != null  ">
+		end_date=#{end_date,jdbcType=INTEGER},
+	</if>
+	<if test="vacate_type_code != null  and vacate_type_code != '' ">
+		vacate_type_code=#{vacate_type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="vacate_type_name != null  and vacate_type_name != '' ">
+		vacate_type_name=#{vacate_type_name,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="create_auth_id != null ">
+		create_auth_id=#{create_auth_id,jdbcType=INTEGER},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	delete 	 from STU_VACATE_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 待审批的请假申请表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STU_VACATE_INFO where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 待审批的请假申请表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_stu_vacate_info_id.nextval from dual
+</select>
+
+<!-- 待审批的请假申请表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select count(1) from STU_VACATE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询待审批的请假申请表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_VACATE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询待审批的请假申请表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_VACATE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 查询流程配置中带教老师是否参与请假申请的审核 -->
+<select id="selectProcessInfoState" resultType="java.lang.Integer" parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select t.id from ROLE_PROC_RELA t 
+	where t.state='Y'
+	<if test="proc_num  != null and proc_num  != ''" >
+		and t.end_proc_id=(select t2.id from PROCESS_INFO t2 where t2.type_code='VACATE' and t2.proc_num=#{proc_num})
+    </if>
+  	<if test="create_role_id  != null and create_role_id  != ''" >
+    	and t.role_id=#{create_role_id}
+    </if>
+</select> 
+
+<!-- 根据类型bean查询待审批的请假申请  -->
+ <select id="selectReviewLeave" resultType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select tt3.create_time_str,tt2.user_name as stu_name,tt1.orga_name,tt.id,tt.stu_auth_id,tt.content,tt.vacate_status,tt.state,tt.start_time,
+  	to_char( tt.start_time, 'yyyy-mm-dd hh24:mi:ss') as start_time_str,
+    to_char( tt.end_time, 'yyyy-mm-dd hh24:mi:ss') as end_time_str,
+  	tt.start_date,tt.end_date,tt.vacate_type_code,tt.vacate_type_name,tt.create_time,tt.create_auth_id
+  	from STU_VACATE_INFO tt left join 
+  	(select oi.orga_name,svi.id from ORGA_INFO oi right join (select t.id,t.orga_id from STU_VACATE_INFO t where t.id in
+      (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_auth_id} and t1.state=#{state} and t2.type_code=2 and t2.end_proc_num=#{end_proc_num})) svi on oi.orga_id=svi.orga_id) tt1 
+    on tt.id=tt1.id
+    left join 
+    (select ui.user_name,t.id from (select id,stu_auth_id from STU_VACATE_INFO where id in
+      (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_auth_id} and t1.state=#{state} and t2.type_code=2 and t2.end_proc_num=#{end_proc_num})) t left join user_authority ua on t.stu_auth_id=ua.auth_id left join user_info ui on ui.user_id=ua.user_id) tt2
+    on tt.id=tt2.id
+    left join
+    (select t2.related_id,to_char( t2.create_time, 'yyyy-mm-dd hh24:mi:ss') as create_time_str from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_auth_id} and t1.state=#{state} and t2.type_code=2 and t2.end_proc_num=#{end_proc_num}) tt3
+    on tt.id=tt3.related_id
+    where tt.id in
+    (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_auth_id} and t1.state=#{state} and t2.type_code=2 and t2.end_proc_num=#{end_proc_num})
+    <if test="proc_num != null" >
+		and tt.vacate_status=(select pi.id from PROCESS_INFO pi where pi.type_code='VACATE' and pi.proc_num=#{proc_num})
+	</if>
+	and tt.state='Y'
+	order by create_time_str desc
+</select>	
+
+<!-- 待审批的请假申请表 列表总数-根据类型bean查询 -->
+<select id="selectReviewLeaveCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select count(1) from
+	  (select * from STU_VACATE_INFO where id in
+        (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_auth_id} and t1.state=#{state} and t2.type_code=2 and t2.end_proc_num=#{end_proc_num})
+      <if test="proc_num != null" >
+		and vacate_status=(select pi.id from PROCESS_INFO pi where pi.type_code='VACATE' and pi.proc_num=#{proc_num})
+	</if>
+	  ) t
+    where t.state='Y'
+</select>
+
+<!-- 根据id查询待审批的请假申请  -->
+ <select id="selectReviewLeaveById" resultType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo"  parameterType="int">
+	select 
+ 	svi.id,
+ 	ui.user_name as stu_name,
+ 	oi.orga_name,
+ 	svi.vacate_type_name,
+ 	to_char(svi.start_time, 'yyyy-mm-dd') as start_time_str,
+    to_char(svi.end_time, 'yyyy-mm-dd') as end_time_str,
+    svi.vacate_date_num,
+    svi.content 
+    from STU_VACATE_INFO svi 
+    left join USER_AUTHORITY ua 
+    on svi.stu_auth_id=ua.auth_id and ua.state='Y' 
+    left join USER_INFO ui 
+    on ua.user_id=ui.user_id and ui.state='Y' 
+    left join ORGA_INFO oi 
+    on svi.orga_id=oi.orga_id and oi.state='Y' 
+    where svi.state='Y' 
+    <if test="id != null and id != '' ">
+		and svi.id=#{id,jdbcType=INTEGER}
+	</if>
+</select>
+
+ <!-- 提交同意的请假申请审批 -->
+<update id="submitAgree" parameterType="com.rensu.education.hctms.teach.bean.ApprovalOpinion" >
+	update PROCESS_RECORD set 
+	<trim  suffixOverrides="," >
+	<if test="create_auth_id != null  ">
+		create_auth_id=#{create_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="proc_result != null  ">
+		proc_result=#{proc_result,jdbcType=INTEGER},
+	</if>
+	<if test="proc_content != null  ">
+		proc_content=#{proc_content,jdbcType=VARCHAR},
+	</if>
+	</trim>
+	<if test="end_proc_num != null and end_proc_num!='' ">
+		where end_proc_num=#{end_proc_num,jdbcType=INTEGER} and type_code=2 and related_id=#{id,jdbcType=INTEGER}
+	</if>
+</update> 
+
+ <!-- 提交不同意的请假申请审批 -->
+<update id="submitDisagree" parameterType="com.rensu.education.hctms.teach.bean.ApprovalOpinion" >
+	update PROCESS_RECORD set 
+	<trim  suffixOverrides="," >
+	<if test="create_auth_id != null  ">
+		create_auth_id=#{create_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="proc_result != null  ">
+		proc_result=#{proc_result,jdbcType=INTEGER},
+	</if>
+	<if test="proc_content != null  ">
+		proc_content=#{proc_content,jdbcType=VARCHAR},
+	</if>
+	</trim>
+	where start_proc_num=-1 and type_code=2 and related_id=#{id,jdbcType=INTEGER}
+</update>
+
+ <!-- 审批同意时,更改请假申请表的流程状态 -->
+<update id="updateStuVacateState" parameterType="com.rensu.education.hctms.teach.bean.ApprovalOpinion" >
+	update STU_VACATE_INFO set 
+	<if test="end_proc_num != null and end_proc_num!='' ">
+		vacate_status=(select end_proc_id from PROCESS_RECORD where end_proc_num=#{end_proc_num,jdbcType=INTEGER} and type_code=2 and related_id=#{id,jdbcType=INTEGER})
+	</if>
+	where id=#{id,jdbcType=INTEGER}
+</update>  
+
+<!-- 审批不同意时,更改请假申请表的流程状态 -->
+<update id="updateStuVacateStateDis" parameterType="com.rensu.education.hctms.teach.bean.ApprovalOpinion" >
+	update STU_VACATE_INFO set 
+	vacate_status=(select start_proc_id from PROCESS_RECORD where start_proc_num=-1 and type_code=2 and related_id=#{id,jdbcType=INTEGER})
+	where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 更改请假申请流程和审批人关系表的状态 -->
+<update id="updateProcessUserRelaState" parameterType="com.rensu.education.hctms.teach.bean.ApprovalOpinion" >
+	update PROCRECORD_USER_RELA t set 
+	t.state='X' 
+	where 1=1
+	<if test="end_proc_num != null">
+		and pr_id=(select id from PROCESS_RECORD where end_proc_num=#{end_proc_num,jdbcType=INTEGER} and type_code=2 and related_id=#{id,jdbcType=INTEGER})
+	</if>
+</update> 
+
+<!-- 查询流程配置中教学秘书是否参与请假申请的审核 -->
+<select id="selectProcessInfoStateOfDirector" resultType="java.lang.String">
+	select t.state from ROLE_PROC_RELA t where t.end_proc_id=(select t1.id from PROCESS_INFO t1 where t1.type_code='VACATE' and t1.proc_num=2) and t.state='Y'
+  	<if test="_parameter  != null and _parameter  != ''" >
+    	and t.role_id=#{_parameter}
+    </if>
+</select> 
+
+<!-- 根据类型bean查询教学秘书待审批的请假申请  -->
+ <select id="selectReviewLeaveOfDirector" resultType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select tt2.user_name as stu_name,tt1.orga_name,tt.id,tt.stu_auth_id,tt.content,tt.vacate_status,tt.state,tt.start_time,
+  	to_char( tt.start_time, 'yyyy-mm-dd hh:mm:ss') as start_time_str,
+    to_char( tt.end_time, 'yyyy-mm-dd hh:mm:ss') as end_time_str,
+  	tt.start_date,tt.end_date,tt.vacate_type_code,tt.vacate_type_name,tt.create_time,tt.create_auth_id
+  	from STU_VACATE_INFO tt left join 
+  	(select oi.orga_name,svi.id from ORGA_INFO oi right join (select t.id,t.orga_id from STU_VACATE_INFO t where t.id in
+      (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_authid} and t1.state='Y' and t2.type_code=2 and t2.end_proc_num=#{end_proc_num})) svi on oi.orga_id=svi.orga_id) tt1 
+    on tt.id=tt1.id
+    left join 
+    (select ui.user_name,t.id from (select id,stu_auth_id from STU_VACATE_INFO where id in
+      (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_authid} and t1.state='Y' and t2.type_code=2 and t2.end_proc_num=#{end_proc_num})) t left join user_authority ua on t.stu_auth_id=ua.auth_id left join user_info ui on ui.user_id=ua.user_id) tt2
+    on tt.id=tt2.id
+    where tt.id in
+    (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_authid} and t1.state='Y' and t2.type_code=2 and t2.end_proc_num=#{end_proc_num})
+    and tt.vacate_status!=(select pi.id from PROCESS_INFO pi where pi.type_code='VACATE' and pi.proc_num=-1)
+    <if test="proc_num != null" >
+		and tt.vacate_status=(select pi.id from PROCESS_INFO pi where pi.type_code='VACATE' and pi.proc_num=#{proc_num})
+	</if>
+	<if test="state != null and state != ''" >
+		and tt.state=#{state}
+	</if>
+	order by tt.start_time asc
+</select>  
+
+<!-- 教学秘书待审批的请假申请表 列表总数-根据类型bean查询 -->
+<select id="selectReviewLeaveCountOfDirector" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select count(1) from
+	(select * from STU_VACATE_INFO where id in
+    	(select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_authid} and t1.state='Y' and t2.type_code=2 and t2.end_proc_num=2)) t
+    	where vacate_status!=(select pi.id from PROCESS_INFO pi where pi.type_code='VACATE' and pi.proc_num=-1)
+	<if test="state != null and state != ''" >
+		and t.state=#{state}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+      order by ${orderCondition}
+    </if>
+</select> 
+
+<!-- 根据id查询教学秘书待审批的请假申请详情  -->
+ <select id="selectReviewLeaveByIdOfDirector" resultType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo"  parameterType="int">
+	select tt2.user_name as stu_name,tt1.orga_name,tt.id,tt.stu_auth_id,tt.content,tt.vacate_status,tt.state,tt.start_time,
+  	to_char( tt.start_time, 'yyyy-mm-dd hh:mm:ss') as start_time_str,
+    to_char( tt.end_time, 'yyyy-mm-dd hh:mm:ss') as end_time_str,
+  	tt.start_date,tt.end_date,tt.vacate_type_code,tt.vacate_type_name,tt.create_time,tt.create_auth_id
+  	from STU_VACATE_INFO tt left join 
+  	(select oi.orga_name,svi.id from ORGA_INFO oi right join (select t.id,t.orga_id from STU_VACATE_INFO t where t.id in
+      (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_authid} and t1.state='Y' and t2.type_code=2 and t2.end_proc_num=2)) svi on oi.orga_id=svi.orga_id) tt1 
+      on tt.id=tt1.id
+      left join 
+      (select ui.user_name,t.id from (select id,stu_auth_id from STU_VACATE_INFO where id in
+      (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_authid} and t1.state='Y' and t2.type_code=2 and t2.end_proc_num=2)) t left join user_authority ua on t.stu_auth_id=ua.auth_id left join user_info ui on ui.user_id=ua.user_id) tt2
+      on tt.id=tt2.id
+  where tt.id in
+    (select t2.related_id from PROCRECORD_USER_RELA t1 left join PROCESS_RECORD t2 on t1.pr_id=t2.id where t1.user_auth_id=#{create_authid} and t1.state='Y' and t2.type_code=2 and t2.end_proc_num=2) 
+  and tt.id=#{id}
+</select> 
+
+<!-- 判断教学秘书审批流程前面是否配置有其他的审批流程 -->
+<select id="getFlagOfIsFrist" resultType="java.lang.Integer">
+	select t1.id from ROLE_PROC_RELA t1,ROLE_PROC_RELA t2 where t1.start_proc_id=t2.end_proc_id 
+	and t1.state='Y' and t2.state='Y' 
+	and t2.start_proc_id!=(select t.id from PROCESS_INFO t where t.type_code='VACATE' and t.proc_num=-1) 
+	and t1.start_proc_id in (select t.id from PROCESS_INFO t where t.type_code='VACATE')
+	<if test="create_role_id != null and create_role_id != ''" >
+		and t1.role_id=#{create_role_id}
+    </if>
+</select>
+
+<!-- 根据类型bean查询教学秘书待审批的请假申请  -->
+ <select id="selectLeaveProcessInfo" resultType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo"  parameterType="com.rensu.education.hctms.teach.bean.ReviewLeaveInfo">
+	select tt1.*,tt2.* from 
+	 (select t1.*,oi.orga_name from
+	   (select 
+	   svi.id,svi.stu_auth_id,svi.content,svi.vacate_status,svi.state,svi.start_time,svi.vacate_date_num,
+       to_char( svi.start_time, 'yyyy-mm-dd') as start_time_str,
+       to_char( svi.end_time, 'yyyy-mm-dd') as end_time_str,
+       to_char( svi.create_time, 'yyyy-mm-dd hh24:mi:ss') as stu_create_time_str,
+       svi.start_date,svi.end_date,svi.vacate_type_code,svi.vacate_type_name,svi.create_time,svi.create_auth_id,svi.orga_id,ui.user_name as stu_name 
+	   from STU_VACATE_INFO svi left join user_authority ua on svi.stu_auth_id=ua.auth_id left join user_info ui on ua.user_id=ui.user_id) t1 left join ORGA_INFO oi on t1.orga_id=oi.orga_id) tt1
+	 left join 
+	 (select t.related_id,t.create_time,t.start_proc_name, t.end_proc_name,
+	  to_char(t.create_time, 'yyyy-mm-dd hh24:mi:ss') as create_time_str,
+	  (case t.proc_result when 1 then '审批通过' when -1 then '审批不通过' end ) as proc_result_str,t.proc_result,
+	  t.proc_content,z.user_name,z.role_id 
+	  from PROCESS_RECORD t left join (select u.user_name as user_name,a.role_id as role_id,a.auth_id as auth_id from USER_AUTHORITY a 
+	  left join user_info u on a.user_id=u.user_id) z on t.create_auth_id=z.auth_id where t.create_time is not null
+	  and  t.related_id=#{id}) tt2
+	 on tt1.id=tt2.related_id
+   where tt1.id=#{id}
+   order by tt2.create_time
+</select>
+
+<!-- 待审批的请假申请当前状态 -->
+<select id="selectVacateStatus"  resultType="java.lang.Integer" parameterType="int">
+	select t.proc_num from PROCESS_INFO t 
+	where 1=1
+	<if test="_parameter  != null and _parameter  != ''" >
+    	and t.id=(select t1.vacate_status from STU_VACATE_INFO t1 where t1.id=#{_parameter}) 
+    </if>
+</select> 
+
+<!-- 查询带教老师请假申请审批配置信息 -->
+<select id="getVacateProcessOfTeacher"  resultType="com.rensu.education.hctms.basicdata.bean.ProcessInfo" parameterType="int">
+	select * from PROCESS_INFO t where t.type_code='VACATE' and t.state='Y'
+	<if test="_parameter  != null and _parameter  != ''" >
+	and t.proc_num=#{_parameter}
+	</if>
+</select>  
+
+<!-- 查询请假申请审批人角色ID -->
+<select id="selectRoleId"  resultType="java.lang.Integer" parameterType="int">
+	select t.role_id from ROLE_PROC_RELA t 
+	where t.state='Y'
+	<if test="_parameter  != null and _parameter  != ''" >
+		and t.end_proc_id=(select t2.id from PROCESS_INFO t2 where t2.type_code='VACATE' and t2.proc_num=#{_parameter})
+    </if>
+</select> 
+
+<!-- 根据角色ID查询请假申请审批人权限ID -->
+<select id="selectAuthId"  resultType="java.lang.Integer" parameterType="java.lang.Integer">
+	select t.auth_id from USER_AUTHORITY t
+	 where 1=1 
+	<if test="_parameter  != null and _parameter  != ''" >
+		and t.role_id=#{_parameter}
+    </if>
+</select>
+
+</mapper>   

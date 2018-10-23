@@ -1,0 +1,170 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+section{
+    width: 90%;
+    margin: 0 auto;
+    height: 100%;
+    padding: 10px 0;
+}
+section:before,.hospList:before,.hospitalImg:before,.stuNum:before,.hospIn:before{
+    content:"";
+    display:block;
+}
+section:after,.hospList:after,.hospitalImg:after,.stuNum:after,.hospIn:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+.hospList{
+    margin-bottom: 15px;
+}
+.hospitalInfor{
+    float: left;
+    width:66%;
+    overflow-y: auto;
+    height: 100%;
+}
+.proportion{
+    float: left;
+    width: 33%;
+    border: 1px solid #ddd;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.leadInBtn{
+    background: #4c6293 !important;
+    border: 1px solid #2d3d62 !important;
+    border-radius: 4px;
+    color: #fff !important;
+    font-weight: normal !important;
+    line-height: 18px !important;
+    padding: 5px 15px !important;
+    cursor: pointer;
+    font-size: 16px;
+    float: right;
+    margin-right: 15px;
+    position: relative;
+    top: -8px;
+}
+#canvas_circle{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-49%,0);
+}
+.hospIn{
+    float: left;
+    width: 49%;
+    border: 1px solid #505F91;
+    background: #EAF0F2;
+    position: relative;
+    margin-right: 1%;
+    border-radius: 5px;
+}
+.hospImg{
+    width: 35%;
+    float: left;
+    background:#505F91;
+    overflow: hidden;
+    color: #fff;
+    /*font-weight: bold;*/
+    font-size: 25px;
+    vertical-align: middle;
+    position: relative;
+}
+.hospImg p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+    margin: 0;
+}
+.hospStuNum{
+    float: left;
+    width: 64%;
+    /*padding: 10px 0;*/
+}
+.hospStuNum h3{
+    border-bottom: 1px solid #505f91;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-bottom: 0;
+}
+.hospStuNum p{
+    text-align: center;
+    font-size: 20px;
+    margin: 0;
+}
+.hospStuNum p b{
+    font-size: 30px;
+    color: #FEA356;
+    display: inline-block;
+    width: 50px;
+}
+.aBtn{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: #FEA356;
+    background: #fff;
+    text-align: center;
+    line-height: 100%;
+    opacity: 0.8;
+    cursor: pointer;
+    display: none;
+    font-size: 40px;
+    padding-top: 40px;
+    z-index: 99999;
+    top:0;
+    left:0;
+}
+.aBtn:hover{
+    color: #FEA356;
+}
+.div_import{
+	position:absolute;
+	bottom:15px;
+	width:100%;
+	text-align:center;
+}
+.hospitalInfor{
+	position:relative;
+}
+#hospitalInfo{
+	margin-bottom:50px;
+}  
+.toBeTrained:hover b{
+	cursor:pointer;
+	color:#F8811C;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

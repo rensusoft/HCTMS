@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StuTeachOrderMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.StuTeachOrder" >
+	<result column="id" property="id"/>
+	<result column="tto_id" property="tto_id"/>
+	<result column="dept_id" property="dept_id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="order_name" property="order_name"/>
+	<result column="type_id" property="type_id"/>
+	<result column="sup_id" property="sup_id"/>
+	<result column="sort_num" property="sort_num"/>
+	<result column="order_num" property="order_num"/>
+	<result column="order_num_unit" property="order_num_unit"/>
+	<result column="state" property="state"/>
+	<result column="req_content" property="req_content"/>
+	<result column="finnish_num" property="finnish_num"/>
+	<result column="data_type_id" property="data_type_id"/>
+	
+</resultMap>
+       
+<!-- STU_TEACH_ORDER table all fields -->
+<sql id="Base_Column_List" >
+	 id,tto_id,dept_id,stu_auth_id,order_name,type_id,sup_id,sort_num,order_num,order_num_unit,state, NVL( finnish_num,0)  as finnish_num,data_type_id
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="tto_id != null" >
+	    and tto_id =  #{tto_id}
+	</if>
+	<if test="dept_id != null" >
+	    and dept_id =  #{dept_id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	 	<if test="order_name != null and order_name != ''" >
+	    and order_name =  #{order_name}
+	</if>
+	<if test="type_id != null" >
+	    and type_id =  #{type_id}
+	</if>
+	<if test="sup_id != null" >
+	    and sup_id =  #{sup_id}
+	</if>
+	<if test="sort_num != null" >
+	    and sort_num =  #{sort_num}
+	</if>
+	<if test="order_num != null" >
+	    and order_num =  #{order_num}
+	</if>
+	 	<if test="order_num_unit != null and order_num_unit != ''" >
+	    and order_num_unit =  #{order_num_unit}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	 	<if test="finnish_num != null" >
+	    and finnish_num =  #{finnish_num}
+	</if>
+	<if test="data_type_id != null" >
+	    and data_type_id =  #{data_type_id}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.StuTeachOrder" >
+  insert into STU_TEACH_ORDER(id,tto_id,dept_id,stu_auth_id,order_name,type_id,sup_id,sort_num,order_num,order_num_unit,state,finnish_num,data_type_id)
+ values(#{id,jdbcType=INTEGER},#{tto_id,jdbcType=INTEGER},#{dept_id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{order_name,jdbcType=VARCHAR},#{type_id,jdbcType=INTEGER},#{sup_id,jdbcType=INTEGER},#{sort_num,jdbcType=INTEGER},#{order_num,jdbcType=INTEGER},#{order_num_unit,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{finnish_num,jdbcType=INTEGER},#{data_type_id,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.StuTeachOrder" >
+	update STU_TEACH_ORDER set 
+	<trim  suffixOverrides="," >
+	<if test="tto_id != null  ">
+		tto_id=#{tto_id,jdbcType=INTEGER},
+	</if>
+	<if test="dept_id != null  ">
+		dept_id=#{dept_id,jdbcType=INTEGER},
+	</if>
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="order_name != null  and order_name != '' ">
+		order_name=#{order_name,jdbcType=VARCHAR},
+	</if>
+	<if test="type_id != null  ">
+		type_id=#{type_id,jdbcType=INTEGER},
+	</if>
+	<if test="sup_id != null  ">
+		sup_id=#{sup_id,jdbcType=INTEGER},
+	</if>
+	<if test="sort_num != null  ">
+		sort_num=#{sort_num,jdbcType=INTEGER},
+	</if>
+	<if test="order_num != null  ">
+		order_num=#{order_num,jdbcType=INTEGER},
+	</if>
+	<if test="order_num_unit != null  and order_num_unit != '' ">
+		order_num_unit=#{order_num_unit,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="finnish_num != null">
+		finnish_num=#{finnish_num,jdbcType=INTEGER},
+	</if>
+	<if test="data_type_id != null">
+		data_type_id=#{data_type_id,jdbcType=INTEGER},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<update id="updateFinnish_num" parameterType="com.rensu.education.hctms.teach.bean.StuTeachOrder" >
+	update STU_TEACH_ORDER set 
+	<trim  suffixOverrides="," >
+	<if test="finnish_num != null">
+		finnish_num=#{finnish_num,jdbcType=INTEGER},
+	</if>
+	</trim> where 1=1
+	<if test="stu_auth_id != null and stu_auth_id != ''">
+		and stu_auth_id=#{stu_auth_id} 
+	</if>
+	<if test="dept_id != null and dept_id != ''">
+		and dept_id=#{dept_id} 
+	</if>
+	<if test="tto_id != null and tto_id != ''">
+		and tto_id=#{tto_id} 
+	</if>
+	<if test="state != null and state != ''">
+		and state=#{state} 
+	</if>
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.StuTeachOrder">
+	delete 	 from STU_TEACH_ORDER where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学生大纲/要求完成表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STU_TEACH_ORDER where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学生大纲/要求完成表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_stu_teach_order_id.nextval from dual
+</select>
+
+<!-- 学生大纲/要求完成表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.StuTeachOrder">
+	select count(1) from STU_TEACH_ORDER 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学生大纲/要求完成表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuTeachOrder">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_TEACH_ORDER 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+	<if test="orderCondition == null and orderCondition == ''" >
+     order by SORT_NUM
+    </if>
+</select>
+
+  	
+<!-- 根据类型bean进行分页查询学生大纲/要求完成表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuTeachOrder">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_TEACH_ORDER 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+<!-- 根据ID查询 急诊科轮转信息规范 -->
+<select id="selectReq_content" resultMap="BaseResultMap"  parameterType="int">
+	select req_content from TRAIN_PLAN_CONFIG  where id=#{tpc_id,jdbcType=INTEGER}
+</select>
+
+<insert id="insertList" parameterType="java.util.List">
+	<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select seq_stu_teach_order_id.nextval as id from dual
+	</selectKey>
+	insert into STU_TEACH_ORDER(id,tto_id,dept_id,stu_auth_id,order_name,type_id,sup_id,sort_num,order_num,order_num_unit,state,finnish_num,data_type_id)
+	select seq_stu_teach_order_id.nextval, A.* FROM (
+ 	<foreach collection="list" item="item" index="index" separator="union all">
+ 	select 
+		#{item.tto_id,jdbcType=INTEGER} tto_id,
+		#{item.dept_id,jdbcType=INTEGER} dept_id,
+		#{item.stu_auth_id,jdbcType=INTEGER} stu_auth_id,
+		#{item.order_name,jdbcType=VARCHAR} order_name,
+		#{item.type_id,jdbcType=INTEGER} type_id,
+		#{item.sup_id,jdbcType=INTEGER} sup_id,
+		#{item.sort_num,jdbcType=INTEGER} sort_num,
+		#{item.order_num,jdbcType=INTEGER} order_num,
+		#{item.order_num_unit,jdbcType=VARCHAR} order_num_unit,
+		#{item.state,jdbcType=VARCHAR} state,
+		#{item.finnish_num,jdbcType=INTEGER} finnish_num,
+		#{item.data_type_id,jdbcType=INTEGER} data_type_id
+ 	from dual 
+ 	</foreach>) A
+</insert>
+</mapper>   

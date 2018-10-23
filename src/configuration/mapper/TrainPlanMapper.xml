@@ -1,0 +1,1085 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.TrainPlanMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.TrainPlan" >
+	<result column="id" property="id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="train_dept_id" property="train_dept_id"/>
+	<result column="train_start_date" property="train_start_date"/>
+	<result column="train_end_date" property="train_end_date"/>
+	<result column="train_start_time" property="train_start_time"/>
+	<result column="train_end_time" property="train_end_time"/>
+	<result column="teacher_auth_id" property="teacher_auth_id"/>
+	<result column="dept_receive_date" property="dept_receive_date"/>
+	<result column="train_status" property="train_status"/>
+	<result column="state" property="state"/>
+	<result column="director_auth_id" property="director_auth_id"/>
+	<result column="secretary_auth_id" property="secretary_auth_id"/>
+	<result column="teach_name" property="teach_name"/>
+	<result column="director_name" property="director_name"/>
+	<result column="secretary_name" property="secretary_name"/>
+	<result column="orga_name" property="orga_name"/>
+	<result column="proc_name" property="proc_name"/>
+	<result column="tpc_id" property="tpc_id"/>
+</resultMap>
+       
+       <!-- 查询轮转计划表  获取学生管理模块主页面数据-->
+<select id="getStuManageInfo"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+  select
+  	tp.id,
+  	tp.stu_auth_id,
+    decode(pi.proc_num,1,'轮转中',2,'待出科',3,'待出科',4,'待出科',5,'待出科') as train_status_str,
+    ui.user_name as name,
+    st.type_name as typeName,
+    to_char(tp.train_start_time, 'yyyy.mm.dd') as train_start_str,
+    to_char(tp.train_end_time, 'yyyy.mm.dd') as train_end_str,
+    uio.user_name as teach_name,
+    uay.auth_id as teacher_auth_id,
+    tp.train_dept_id
+  from TRAIN_PLAN tp
+    left join PROCESS_INFO pi
+    on tp.train_status = pi.id
+    left join USER_AUTHORITY ua
+    on tp.stu_auth_id = ua.auth_id
+    left join USER_INFO ui
+    on ua.user_id = ui.user_id
+    left join STU_TYPE st
+    on ua.stu_type_id = st.id
+    left join USER_AUTHORITY uay
+    on tp.teacher_auth_id = uay.auth_id
+    left join USER_INFO uio
+    on uay.user_id = uio.user_id
+  where tp.state = 'Y' and pi.type_code = 'TRAINPROCESS' and pi.proc_num not in (-1, 0, 6)
+  <if test="train_dept_id != null and train_dept_id != ''" >
+	    and tp.train_dept_id = #{train_dept_id}
+  </if>
+  <if test="train_status_arry != null and train_status_arry != ''" >
+	    and tp.train_status in (${train_status_arry}) 
+  </if>
+  <if test="name != null and name != ''" >
+	    and ui.user_name = #{name}
+  </if>
+  and ui.state='Y'
+   and ua.state='Y'
+   and pi.state='Y'
+   and uio.state='Y'
+   and st.state='Y'
+  order by tp.train_start_time asc
+</select>  
+<!-- TRAIN_PLAN table all fields -->
+<sql id="Base_Column_List" >
+	 id,stu_auth_id,train_dept_id,train_start_date,train_end_date,train_start_time,train_end_time,teacher_auth_id,dept_receive_date,train_status,state,director_auth_id,secretary_auth_id,tpc_id
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	 	<if test="train_dept_id != null and train_dept_id != ''" >
+	    and train_dept_id =  #{train_dept_id}
+	</if>
+	<if test="train_start_date != null" >
+	    and train_start_date =  #{train_start_date}
+	</if>
+	<if test="train_end_date != null" >
+	    and train_end_date =  #{train_end_date}
+	</if>
+	<if test="train_start_time != null" >
+	    and train_start_time =  #{train_start_time}
+	</if>
+	<if test="train_end_time != null" >
+	    and train_end_time =  #{train_end_time}
+	</if>
+	<if test="teacher_auth_id != null" >
+	    and teacher_auth_id =  #{teacher_auth_id}
+	</if>
+	<if test="dept_receive_date != null" >
+	    and dept_receive_date =  #{dept_receive_date}
+	</if>
+	<if test="train_status != null" >
+	    and train_status =  #{train_status}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	 	<if test="director_auth_id != null and director_auth_id != ''" >
+	    and director_auth_id =  #{director_auth_id}
+	</if>
+	 	<if test="secretary_auth_id != null and secretary_auth_id != ''" >
+	    and secretary_auth_id =  #{secretary_auth_id}
+	</if>
+	
+	
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan" >
+  insert into TRAIN_PLAN(id,stu_auth_id,train_dept_id,train_start_date,train_end_date,train_start_time,train_end_time,teacher_auth_id,dept_receive_date,train_status,state,director_auth_id,secretary_auth_id,tpc_id)
+ values(#{id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{train_dept_id,jdbcType=VARCHAR},#{train_start_date,jdbcType=INTEGER},#{train_end_date,jdbcType=INTEGER},#{train_start_time,jdbcType=TIMESTAMP},#{train_end_time,jdbcType=TIMESTAMP},#{teacher_auth_id,jdbcType=INTEGER},#{dept_receive_date,jdbcType=TIMESTAMP},#{train_status,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{director_auth_id,jdbcType=INTEGER},#{secretary_auth_id,jdbcType=INTEGER},#{tpc_id,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan" >
+	update TRAIN_PLAN set 
+	<trim  suffixOverrides="," >
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="train_dept_id != null  and train_dept_id != '' ">
+		train_dept_id=#{train_dept_id,jdbcType=VARCHAR},
+	</if>
+	<if test="train_start_date != null  ">
+		train_start_date=#{train_start_date,jdbcType=INTEGER},
+	</if>
+	<if test="train_end_date != null  ">
+		train_end_date=#{train_end_date,jdbcType=INTEGER},
+	</if>
+	<if test="train_start_time != null  ">
+		train_start_time=#{train_start_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="train_end_time != null  ">
+		train_end_time=#{train_end_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="teacher_auth_id != null  ">
+		teacher_auth_id=#{teacher_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="dept_receive_date != null  ">
+		dept_receive_date=#{dept_receive_date,jdbcType=TIMESTAMP},
+	</if>
+	<if test="train_status != null  ">
+		train_status=#{train_status,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="director_auth_id != null  and director_auth_id != '' ">
+		,#{director_auth_id,jdbcType=INTEGER},
+	</if>		
+	<if test="secretary_auth_id != null  and secretary_auth_id != '' ">
+		#{secretary_auth_id,jdbcType=INTEGER}
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	delete 	 from TRAIN_PLAN where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 轮转计划表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from TRAIN_PLAN where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 轮转计划表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_train_plan_id.nextval from dual
+</select>
+
+<!-- 轮转计划表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select count(1) from TRAIN_PLAN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询轮转计划表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select 
+	<include refid="Base_Column_List"/>,
+	(select b.orga_name from orga_info b where a.train_dept_id=b.orga_id and b.state='Y' and rownum=1) as orga_name,
+	(select m.user_name from USER_INFO m,USER_AUTHORITY n where m.USER_ID=n.USER_ID and n.AUTH_ID=a.teacher_auth_id and rownum=1) as teach_name,
+	(select b.duration from TRAIN_PLAN_CONFIG b where a.tpc_id=b.id and b.state='Y' and rownum=1) as duration,
+	(select decode(b.duration_unit,'D','天','W','周','M','个月') from TRAIN_PLAN_CONFIG b where a.tpc_id=b.id and b.state='Y' and rownum=1) as duration_unit,
+	decode(a.TRAIN_STATUS,51,'未轮转',52,'入科报到',53,'轮转中',54,'待出科',55,'待出科',56,'待出科',57,'待出科',58,'已出科') as train_status_arry,
+    to_char(a.train_start_time, 'yyyy-MM-dd') as train_start_str,
+    to_char(a.train_end_time, 'yyyy-MM-dd') as train_end_str
+	from TRAIN_PLAN a
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询轮转计划表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select 
+	<include refid="Base_Column_List"/>
+	from TRAIN_PLAN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+
+
+<!-- 轮转计划表轮转的消息 -->
+<select id="selectOneLun"  resultMap="BaseResultMap" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+select 
+	<include refid="Base_Column_List"/>
+	from TRAIN_PLAN 
+	<include refid="Example_Where_Clause"/>
+	and train_status in (53,54,55,56,57)
+</select>
+
+<!-- 查找轮转计划表的id和轮转名 -->
+<select id="selectOrgaNameList" resultType="com.rensu.education.hctms.teach.bean.TrainPlan"  parameterType="int">	 
+     select t.train_dept_id,
+     decode(t.TRAIN_STATUS,51,'未轮转',52,'入科报到',53,'轮转中',54,'待出科',55,'待出科',56,'待出科',57,'待出科',58,'已出科') as train_status_arry,
+     t.train_start_date,
+     t.train_end_date,
+     to_char(t.train_start_time, 'yyyy-mm-dd') as train_start_str,
+     to_char(t.train_end_time, 'yyyy-mm-dd') as train_end_str,
+     o.orga_name as orga_name from TRAIN_PLAN t 
+     left join orga_info o on o.orga_id=t.train_dept_id 
+ 	 where  t.stu_auth_id =  #{stu_auth_id}  
+ 	 and     t.train_status in (53,54,55,56,57,58) 
+ 	 order by t.train_start_time asc
+</select>
+  	
+<select id="selectBystu_auth_id"  resultMap="BaseResultMap" parameterType="int">
+	select t.id,t.stu_auth_id,t.train_dept_id,o.orga_name,t.train_start_date,t.train_end_date,
+	to_char(t.train_start_time, 'yyyy-mm-dd') as train_start_str,
+	to_char(t.train_end_time, 'yyyy-mm-dd') as train_end_str,
+	t.train_end_time as train_end_time,
+	t.teacher_auth_id,
+	NVL(zzz.user_name3,'暂无') as teach_name,
+	to_char(t.dept_receive_date, 'yyyy-mm-dd') as dept_receive_str,
+    t.train_status,
+    NVL( p.proc_name,'暂无') as proc_name,
+    t.state,t.director_auth_id,
+    NVL(z.user_name1,'暂无')   as director_name,
+    t.secretary_auth_id ,
+    NVL( zz.user_name2 ,'暂无')  as secretary_name,
+    t.tpc_id,
+    a.finnish_num ,
+    a.order_num
+    from TRAIN_PLAN t left join ORGA_INFO o on t.train_dept_id=o.orga_id  left join (select u.user_name as user_name1,ua.auth_id as auth_id from USER_AUTHORITY ua left join user_info u on ua.user_id=u.user_id) z on t.director_auth_id=z.auth_id
+left join (select u2.user_name as user_name2,ua.auth_id as auth_id from USER_AUTHORITY ua left join user_info u2 on ua.user_id=u2.user_id) zz on t.secretary_auth_id=zz.auth_id
+left join (select u3.user_name as user_name3,uaa.auth_id as auth_id from USER_AUTHORITY uaa left join user_info u3 on uaa.user_id=u3.user_id) zzz on t.teacher_auth_id=zzz.auth_id 
+left join PROCESS_INFO p on t.train_status=p.id
+left join ( select  s.dept_id as dept_id ,sum( NVL( s.finnish_num,0) ) as finnish_num,sum( NVL(s.order_num,0)) as order_num from STU_TEACH_ORDER s group by  s.dept_id ) a on t.train_dept_id=a.dept_id
+where stu_auth_id = #{stu_auth_id,jdbcType=INTEGER} order by t.train_start_time
+</select>
+
+<select id="selectOneById"  resultMap="BaseResultMap" parameterType="int">
+	select t.id,t.stu_auth_id,t.train_dept_id,o.orga_name,t.train_start_date,t.train_end_date,uay.stu_type_id,
+	to_char(t.train_start_time, 'yyyy-mm-dd') as train_start_str,
+	to_char(t.train_end_time, 'yyyy-mm-dd') as train_end_str,
+	t.teacher_auth_id,
+	NVL(zzz.user_name3,'暂无') as teach_name,
+	to_char(t.dept_receive_date, 'yyyy-mm-dd') as dept_receive_str,
+    t.train_status,
+    t.state,t.director_auth_id,
+    NVL(z.user_name1,'暂无')   as director_name,
+    t.secretary_auth_id,
+    NVL( zz.user_name2 ,'暂无')  as secretary_name,
+    to_char(zzzz.train_end_strTime, 'yyyy-mm-dd') as train_end_strTime,
+    t.tpc_id
+    from TRAIN_PLAN t 
+	left join ORGA_INFO o on t.train_dept_id=o.orga_id  
+	left join USER_AUTHORITY uay on t.stu_auth_id=uay.auth_id
+	left join (select u.user_name as user_name1,ua.auth_id as auth_id from USER_AUTHORITY ua left join user_info u on ua.user_id=u.user_id) z on t.director_auth_id=z.auth_id
+	left join (select u2.user_name as user_name2,ua.auth_id as auth_id from USER_AUTHORITY ua left join user_info u2 on ua.user_id=u2.user_id) zz on t.secretary_auth_id=zz.auth_id
+	left join (select u3.user_name as user_name3,uaa.auth_id as auth_id from USER_AUTHORITY uaa left join user_info u3 on uaa.user_id=u3.user_id) zzz on t.teacher_auth_id=zzz.auth_id 
+	left join (select r.orga_id as orga_id, r.related_id as related_id,r.CREATE_TIME as train_end_strTime from PROCESS_RECORD r where  r.type_code=1 and r.end_proc_num=5 )zzzz on zzzz.related_id=t.stu_auth_id and  zzzz.orga_id=t.train_dept_id
+	where t.id = #{id,jdbcType=INTEGER}
+</select>
+
+
+
+<!-- 得到当前科室下待轮转的学生 -->
+<select id="selectToRotateList"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">	
+select i.user_code as userCode,a.auth_id as stu_auth_id,i.user_name  as name ,st.type_name,sc.stu_class stuClassName,a.auth_id as id from TRAIN_PLAN  t
+left join user_authority a on a.auth_id=t.stu_auth_id
+left join user_info i on i.user_id=a.user_id 
+left join stu_type st on st.id=a.stu_type_id
+left join student_info si on si.user_code=i.user_code
+left join stu_class sc on sc.id=si.stu_class
+where 1=1
+<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and t.train_dept_id =  #{train_dept_id}
+	</if>
+	<if test="train_status != null" >
+	    and t.train_status =  #{train_status}
+	</if>
+	
+	 	<if test="state != null and state != ''" >
+	    and t.state =  #{state} and i.state=#{state} and a.state=#{state}
+	</if>
+</trim>
+</select>
+
+<select id="selectOneTrain"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select id,stu_auth_id,train_dept_id,train_start_date,train_end_date,
+	to_char(train_start_time, 'yyyy-mm-dd') as train_start_str,
+	to_char(train_end_time, 'yyyy-mm-dd') as train_end_str,
+	teacher_auth_id,
+	to_char(dept_receive_date, 'yyyy-mm-dd') as dept_receive_str,
+    train_status,
+    tpc_id
+    from TRAIN_PLAN  
+    <include refid="Example_Where_Clause"/>
+</select>
+
+
+<update id="updateTrainStatus" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan" >
+	update TRAIN_PLAN set 
+	<trim  suffixOverrides="," >
+	<if test="train_status != null  ">
+		train_status=#{train_status,jdbcType=INTEGER},
+	</if>
+	<if test="dept_receive_date != null" >
+	     dept_receive_date =  #{dept_receive_date},
+	</if>
+	<if test="teacher_auth_id != null" >
+	     teacher_auth_id =  #{teacher_auth_id},
+	</if>
+	<if test="secretary_auth_id != null" >
+	     secretary_auth_id =  #{secretary_auth_id},
+	</if>
+	<if test="director_auth_id != null" >
+	     director_auth_id =  #{director_auth_id},
+	</if>
+	</trim> 
+	where state='Y' 
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<!-- 
+	<if test="hos_id != null and hos_id != ''" >
+	    and hos_id =  #{hos_id}
+	</if>
+	-->
+</update>
+
+<select id="selectAllStuByTJ"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select distinct a.auth_id as stu_auth_id,i.user_name  as name 
+	
+	from TRAIN_PLAN  t
+left join user_authority a on a.auth_id=t.stu_auth_id
+left join user_info i on i.user_id=a.user_id 
+where 1=1 
+<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and t.train_dept_id =  #{train_dept_id}
+	</if>	
+	 <if test="trainStatus != null and trainStatus != ''" >
+	   and train_status in (${trainStatus})
+	</if>	
+	<if test="teacher_auth_id != null" >
+	    and t.teacher_auth_id =  #{teacher_auth_id}
+	</if>
+	 <if test="state != null and state != ''" >
+	    and t.state =  #{state} and a.state=#{state} and i.state=#{state}
+	</if>
+</trim>
+</select>
+
+<select id="getPendingAudit"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+select 
+t.train_dept_id,
+NVL(i.user_name,'-') as name,
+NVL(s.stu_sex,'-')as sex,
+NVL(s.stu_age,'0')as stu_age_str,
+NVL(p.type_name,'-')as typeName,
+t.stu_auth_id as stu_auth_id,o.orga_name as orga_name,
+NVL(i.mobile,'-')as mobile,
+NVL(s.stu_major_name,'-')as stu_major_name,
+decode(t.TRAIN_STATUS,51,'未轮转',52,'入科报到',53,'轮转中',54,'待出科',55,'待出科',56,'待出科',57,'待出科',58,'已出科') as train_status_str,
+to_char(t.train_start_time, 'yyyy-mm-dd') as train_start_str,
+  to_char(t.train_end_time, 'yyyy-mm-dd') as train_end_str,  
+  to_char(t.dept_receive_date, 'yyyy-mm-dd') as deptReceiveStr ,
+  (select count(1) from STU_ACTIVE_DATA  where 1=1 and stu_auth_id = a.auth_id  and dept_id =  #{train_dept_id} and examine_state =  0	 and state =  'Y') as  counts
+  from train_plan t
+  left join user_authority a on a.auth_id=t.stu_auth_id
+  left join user_info i on i.user_id=a.user_id
+  left join student_info s on s.user_code =i.user_code
+  left join stu_type p on a.stu_type_id=p.id
+  left join orga_info o on o.orga_id=t.train_dept_id 
+where  t.state='Y'
+<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and  t.train_dept_id= #{train_dept_id}
+	</if>
+	<if test="trainStatus != null and trainStatus != ''" >
+	    and t.train_status in (${trainStatus}) 
+	</if>
+	<if test="teacher_auth_id != null" >
+	   and  t.teacher_auth_id = #{teacher_auth_id}
+	</if>
+	<if test="examine_state != null" >
+	  and  t.stu_auth_id in(
+ 		 select  distinct(t.stu_auth_id) from STU_ACTIVE_DATA t where t.examine_state=#{examine_state}
+         and t.dept_id=#{train_dept_id}
+			)
+	</if>
+	<if test="name != null  and name != ''" >
+	   and  i.user_name like '%${name}%'
+	</if>
+	 <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+</trim>
+</select>
+
+<select id="getPendingAuditCount"  resultType="int" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+select count(1) from (
+       select distinct(t.stu_auth_id) from STU_ACTIVE_DATA t where 
+       1=1 and  t.examine_state=0
+      <trim  suffixOverrides="," >
+	   <if test="train_dept_id != null and train_dept_id != ''" >
+       and  t.stu_auth_id in (
+       select stu_auth_id from train_plan  t where 
+ 		 t.state='Y'	
+        <if test="trainStatus != null and trainStatus != ''" >
+	    and t.train_status in (${trainStatus}) 
+		</if>
+	    and  t.train_dept_id= #{train_dept_id}
+	<if test="teacher_auth_id != null and teacher_auth_id != ''" >
+			and  t.teacher_auth_id=#{teacher_auth_id}
+	</if>
+       )  
+       </if>
+</trim>
+    )  
+
+</select>
+
+<select id="getSecreDetails"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+   select p.type_name as typeName,count(t.stu_auth_id) as counts from train_plan  t
+  left join user_authority a  on a.auth_id=t.stu_auth_id
+  left join stu_type p on p.id=a.stu_type_id
+  left join user_info b 
+  on b.user_id=a.user_id
+  where t.state='Y' 
+<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and  t.train_dept_id= #{train_dept_id}
+	</if>
+	<if test="secretary_auth_id != null" >
+	  and t.secretary_auth_id= #{secretary_auth_id}
+	</if> 
+	 <if test="trainStatus != null and trainStatus != ''" >
+	    and t.train_status in (${trainStatus}) 
+	</if>
+</trim>
+and a.state='Y'
+and p.state='Y'
+and b.state='Y'
+ group by p.type_name
+</select>
+
+<insert id="insertList" parameterType="java.util.List">
+	<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select seq_train_plan_id.nextval as id from dual
+	</selectKey>
+	insert into TRAIN_PLAN(id,stu_auth_id,train_dept_id,train_start_date,train_end_date,
+		train_start_time,train_end_time,teacher_auth_id,dept_receive_date,train_status,
+		state,director_auth_id,secretary_auth_id,tpc_id)
+	select seq_train_plan_id.nextval, A.* FROM (
+ 	<foreach collection="list" item="item" index="index" separator="union all">
+ 	select 
+ 		#{item.stu_auth_id,jdbcType=INTEGER} as stu_auth_id,
+ 		#{item.train_dept_id,jdbcType=VARCHAR} as train_dept_id,
+ 		#{item.train_start_date,jdbcType=INTEGER} as train_start_date,
+ 		#{item.train_end_date,jdbcType=INTEGER} as train_end_date,
+ 		#{item.train_start_time,jdbcType=TIMESTAMP} as train_start_time,
+ 		#{item.train_end_time,jdbcType=TIMESTAMP} as train_end_time,
+ 		#{item.teacher_auth_id,jdbcType=INTEGER} as teacher_auth_id,
+ 		#{item.dept_receive_date,jdbcType=TIMESTAMP} as dept_receive_date,
+ 		#{item.train_status,jdbcType=INTEGER} as train_status,
+ 		#{item.state,jdbcType=VARCHAR} as state,
+ 		#{item.director_auth_id,jdbcType=INTEGER} as director_auth_id,
+ 		#{item.secretary_auth_id,jdbcType=INTEGER} as secretary_auth_id,
+ 		#{item.tpc_id,jdbcType=INTEGER} as tpc_id
+ 	from dual 
+ 	</foreach>) A
+</insert>
+
+<!-- 根据名字（name）模糊查  查询不同角色下的 轮转学生状态 -->
+<select id="getGradeInit" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan" resultType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	  select i.user_name as name,p.type_name as typeName,p.id as stuTypeId, t.stu_auth_id as stu_auth_id,t.train_dept_id,p.id as stu_type_id,t.train_status as train_status,
+  		to_char(t.train_start_time, 'yyyy-mm-dd') as train_start_str,
+  		to_char(t.train_end_time, 'yyyy-mm-dd') as train_end_str from train_plan  t 
+  		left join user_authority a on a.auth_id=t.stu_auth_id
+  		left join user_info i on i.user_id=a.user_id
+  		left join student_info s on s.user_code =i.user_code
+  		left join stu_type p on a.stu_type_id=p.id 
+  		where 1=1
+		<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and  t.train_dept_id= #{train_dept_id}
+	</if>
+	 <if test="state != null and state != ''" >
+	    and  t.state= #{state}  and s.state=#{state}
+	</if>
+	<!-- 加权限id，那就是分配到具体老师，不是所有老师角色，要加吗？？？ -->
+	<!-- <if test="secretary_auth_id != null" >
+	  and t.secretary_auth_id= #{secretary_auth_id}
+	</if> --> 
+		<if test="teacher_auth_id != null" >
+	  and t.teacher_auth_id= #{teacher_auth_id}
+	</if> 
+	 <if test="trainStatus != null and trainStatus != ''" >
+	    and t.train_status in (${trainStatus}) 
+	</if>
+	 <if test="stu_auth_id != null" >
+	    and t.stu_auth_id = #{stu_auth_id}
+	</if>
+	<if test="name != null  and name != ''" >
+	   and  i.user_name like '%${name}%'
+	</if>
+</trim>
+</select>
+
+<select id="selectListByName" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan" resultType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select
+	  distinct
+	  ui.user_name as name,st.type_name as typeName,st.id as stuTypeId,tp.stu_auth_id,tp.train_dept_id,st.id as stu_type_id,tp.train_status,tp.tpc_id,tp.train_end_time,si.stu_num,
+  	  to_char(tp.train_start_time, 'yyyy-mm-dd') as train_start_str,
+  	  to_char(tp.train_end_time, 'yyyy-mm-dd') as train_end_str
+	  from train_plan tp 
+  	  left join user_authority ua on tp.stu_auth_id=ua.auth_id
+  	  left join user_info ui on ua.user_id=ui.user_id
+  	  left join student_info si on ui.user_code=si.user_code
+  	  left join stu_type st on ua.stu_type_id=st.id 
+  	  where 1=1
+	<if test="state != null and state != ''" >
+	    and  tp.state= #{state}  and si.state=#{state}
+	</if>
+	<if test="train_dept_id != null and train_dept_id != ''" >
+	    and  tp.train_dept_id= #{train_dept_id}
+	</if>
+	<if test="teacher_auth_id != null" >
+		and tp.teacher_auth_id= #{teacher_auth_id}
+	</if> 
+	<if test="name != null  and name != ''" >
+	   and  ui.user_name like '%${name}%'
+	</if>
+	<if test="queryCondition != null and queryCondition != ''" >
+    	${queryCondition}
+    </if>
+</select>
+
+<select id="selectByAuthOrga"  resultMap="BaseResultMap" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select t.id,t.stu_auth_id,t.train_dept_id,o.orga_name,t.train_start_date,t.train_end_date,
+	to_char(t.train_start_time, 'yyyy-mm-dd') as train_start_str,
+	to_char(t.train_end_time, 'yyyy-mm-dd') as train_end_str,
+	t.train_end_time as train_end_time,
+	t.teacher_auth_id,
+	NVL(zzz.user_name3,'暂无') as teach_name,
+	to_char(t.dept_receive_date, 'yyyy-mm-dd') as dept_receive_str,
+    t.train_status,
+    NVL( p.proc_name,'暂无') as proc_name,
+    t.state,t.director_auth_id,
+    NVL(z.user_name1,'暂无')   as director_name,
+    t.secretary_auth_id ,
+    NVL( zz.user_name2 ,'暂无')  as secretary_name,
+    t.tpc_id,
+    a.finnish_num ,
+    a.order_num
+    from TRAIN_PLAN t left join ORGA_INFO o on t.train_dept_id=o.orga_id  left join (select u.user_name as user_name1,ua.auth_id as auth_id from USER_AUTHORITY ua left join user_info u on ua.user_id=u.user_id) z on t.director_auth_id=z.auth_id
+left join (select u2.user_name as user_name2,ua.auth_id as auth_id from USER_AUTHORITY ua left join user_info u2 on ua.user_id=u2.user_id) zz on t.secretary_auth_id=zz.auth_id
+left join (select u3.user_name as user_name3,uaa.auth_id as auth_id from USER_AUTHORITY uaa left join user_info u3 on uaa.user_id=u3.user_id) zzz on t.teacher_auth_id=zzz.auth_id 
+left join PROCESS_INFO p on t.train_status=p.id
+left join ( select  s.dept_id as dept_id ,sum( NVL( s.finnish_num,0) ) as finnish_num,sum( NVL(s.order_num,0)) as order_num from STU_TEACH_ORDER s group by  s.dept_id ) a on t.train_dept_id=a.dept_id
+where  1=1 
+	 <if test="stu_auth_id != null and stu_auth_id != ''" >
+	    and t.stu_auth_id = #{stu_auth_id,jdbcType=INTEGER} 
+	</if>
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	   and t.train_dept_id=#{train_dept_id,jdbcType=INTEGER}
+	</if>
+	<if test="trainStatusStrZ != null and trainStatusStrZ != ''" >
+	    and t.train_status in (${trainStatusStrZ})
+	</if>
+ order by t.train_start_time
+</select>    
+
+<!-- 查询当天缺勤人数 -->
+<select id="absenceNum"  resultType="java.lang.Integer" parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+  select count(1) as absenceNum 
+  from STU_ATTENDANCE_INFO t  where 1=1
+  <if test="attend_date != null and attend_date != ''" >
+	    and t.attend_date = #{attend_date,jdbcType=INTEGER}
+  </if>
+  <if test="attend_state != null" >
+	    and t.attend_state = #{attend_state,jdbcType=INTEGER}
+  </if>
+  <if test="state != null and state != ''" >
+	    and t.state = #{state}
+  </if>
+  </select> 
+  
+  <!-- 科教科角色首页的全院轮转情况板块数据 -->
+<select id="getRoundRobin"  resultType="java.lang.Integer" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select count(tp.stu_auth_id) as counts 
+	from TRAIN_PLAN tp 
+	where tp.state='Y'
+
+	<if test="train_dept_id != null and train_dept_id != ''" >
+	    and tp.train_dept_id= #{train_dept_id}
+	</if>
+	 <if test="trainStatus != null and trainStatus != ''" >
+	    and tp.train_status in (${trainStatus}) 
+	</if>
+</select> 
+
+<!-- 查询考勤表  获取个人未考勤天数 -->
+<select id="selectNonAttendanceCount"  resultType="java.lang.Integer" parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+  select count(1) as non_attendance_count 
+  from STU_ATTENDANCE_INFO t 
+  where t.state='Y' and t.attend_state in(0,2)
+  <if test="stu_auth_id != null and stu_auth_id != ''" >
+	    and t.stu_auth_id = #{stu_auth_id}
+  </if>
+   <if test="attend_date != null and attend_date != '' and start_date != null and start_date != ''" >
+	    and t.attend_date between #{start_date} and #{attend_date}
+  </if>
+</select>  
+
+<!-- 查询考勤表  获取个人未考勤天数 -->
+<select id="selectNonAttendanceCountHalf"  resultType="java.lang.Integer" parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+  select count(1) as non_attendance_count 
+  from STU_ATTENDANCE_INFO t 
+  where t.state='Y' and t.attend_state in(-10,-20)
+  <if test="stu_auth_id != null and stu_auth_id != ''" >
+	    and t.stu_auth_id = #{stu_auth_id}
+  </if>
+   <if test="attend_date != null and attend_date != '' and start_date != null and start_date != ''" >
+	    and t.attend_date between #{start_date} and #{attend_date}
+  </if>
+</select> 
+
+<select id="formTeacherSelect"  resultType="com.rensu.education.hctms.userauth.bean.UserAuthority" parameterType="com.rensu.education.hctms.userauth.bean.UserAuthority">
+  select 
+  ui.user_name,
+  ua.auth_id 
+  from USER_AUTHORITY ua 
+  left join ROLE_INFO ri 
+  on ua.role_id=ri.role_id 
+  left join USER_INFO ui 
+  on ua.user_id=ui.user_id 
+  where ua.state='Y' and ri.role_code='R_TEA'
+  <if test="orga_id != null and orga_id != ''" >
+	    and ua.orga_id = #{orga_id}
+  </if>
+</select>  
+
+
+<select id="selectAttendanceList"  resultType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo" parameterType="com.rensu.education.hctms.teach.bean.StuAttendanceInfo">
+  select 
+  t.id,
+  decode(t.attend_state,0,'未签到',1,'已签到',2,'请假',-10,'请假（上午）',-20,'请假（下午）') as attend_state_str,
+  to_char(t.attend_time,'yyyy-MM-dd') as attend_time_str 
+  from STU_ATTENDANCE_INFO t 
+  where t.state='Y'
+  <if test="stu_auth_id != null and stu_auth_id != ''" >
+	    and t.stu_auth_id = #{stu_auth_id}
+  </if>
+  <if test="attend_date != null and attend_date != ''" >
+	    and t.attend_date = #{attend_date}
+  </if>
+</select>  
+
+<!-- 科教科角色首页的学生详情 -->
+<select id="getStudentInfo"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+   select p.type_name as typeName,count(t.stu_auth_id) as counts from train_plan  t
+  left join user_authority a  on a.auth_id=t.stu_auth_id
+  left join stu_type p on p.id=a.stu_type_id
+  where t.state='Y' 
+
+	 <if test="trainStatus != null and trainStatus != ''" >
+	    and t.train_status in (${trainStatus}) 
+	</if>
+	and a.stu_type_id is not null
+ group by p.type_name
+</select>
+
+<!-- 查询考勤表  得到出科审核页面的个人的基本信息 -->
+<select id="getBasicInformation"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+  select ui.user_name as name,
+       oi.orga_name,
+       to_char(tp.dept_receive_date, 'yyyy-MM-dd') as deptReceiveStr,
+       uio.user_name as teach_name,
+       to_char(tp.train_start_time, 'yyyy-MM-dd') as train_start_str,
+       to_char(tp.train_end_time, 'yyyy-MM-dd') as train_end_str,
+       tp.train_end_time
+  from TRAIN_PLAN tp
+  left join USER_AUTHORITY ua
+    on tp.stu_auth_id = ua.auth_id
+  left join USER_INFO ui
+    on ua.user_id = ui.user_id
+  left join ORGA_INFO oi
+    on tp.train_dept_id = oi.orga_id
+  left join USER_AUTHORITY uay
+    on tp.teacher_auth_id = uay.auth_id
+  left join USER_INFO uio
+    on uay.user_id = uio.user_id
+ where tp.state = 'Y'
+ <if test="stu_auth_id != null and stu_auth_id != ''" >
+	    and tp.stu_auth_id = #{stu_auth_id}
+ </if>
+ <if test="train_dept_id != null and train_dept_id != ''" >
+	    and tp.train_dept_id = #{train_dept_id}
+ </if>
+ <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+ <!-- 
+ <if test="hos_id != null and hos_id != ''" >
+	    and tp.hos_id = #{hos_id}
+ </if>
+ -->
+</select>
+
+<!--将时间上达到出科条件的学生 当前科室Train_status更新为58  -->
+<update id="updateTrain_status58" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	update train_plan t set 
+	
+	<if test="train_status != null and train_status !='' ">
+		train_status=#{train_status,jdbcType=INTEGER}
+	</if>
+	 where 
+	 t.state = 'Y'
+	 and t.train_status in (57) 
+	 and t.train_end_date &lt; to_char(sysdate,'YYYYMMDD')
+</update>
+
+<!-- 将时间上达到出科条件的学生 下一科室Train_status更新为52 -->
+<update id="updateTrain_status52" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	update train_plan t set 
+	<if test="train_status != null and train_status !=''   ">
+		train_status=#{train_status,jdbcType=INTEGER}
+	</if>
+	 where 
+	 t.state = 'Y'
+	 and t.id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 查询时间上达到出科条件的学生 的唯一stu_auth_id -->
+<select id="getAuth_id" resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select distinct t.stu_auth_id from TRAIN_PLAN t
+	 where 
+	 t.state = 'Y'
+	 and t.train_status in (53,54,55,56,57) 
+	 and t.train_end_date &lt; to_char(sysdate,'YYYYMMDD')
+</select>
+
+<!-- 获取时间上达到出科条件的学生的Train_status -->
+<select id="getTrain_status" resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+
+	  select id,stu_auth_id,train_dept_id,teacher_auth_id from 
+	  (select t.* from train_plan t where  t.stu_auth_id=#{stu_auth_id,jdbcType=INTEGER} and t.train_status = 51 and t.train_start_date &lt;= to_char(sysdate,'YYYYMMDD') order by t.train_start_date )
+	  where rownum=1
+
+</select>
+
+<select id="orgaPageInfo"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+  select o.orga_id,o.orga_name, (NVL(e.q_num, '0')+NVL(e1.q_b_num, '0'))as q_num,  NVL( f.d_num,'0')as d_num, NVL( d.tea_num,'0')as tea_num,NVL( a.wstu_num,'0')as wstu_num  ,NVL( b.zstu_num,'0')as zstu_num,NVL( c.ystu_num,'0')as ystu_num   from   orga_info o  
+  left join (select count(distinct u.stu_auth_id ) as wstu_num , u.train_dept_id from train_plan u where u.train_status in (${wtrainStatusStr})  and u.state='Y' 
+
+  group by u.train_dept_id)a on  o.orga_id=a.train_dept_id
+  left join 
+  (select count(distinct u.stu_auth_id ) as zstu_num , u.train_dept_id from train_plan u where  ( u.train_status in (${ztrainStatusStr})  ) and u.state='Y' 
+
+  group by u.train_dept_id)b on b.train_dept_id=o.orga_id 
+left join 
+(select count(distinct u.stu_auth_id ) as ystu_num , u.train_dept_id from train_plan u where  ( u.train_status in (${ytrainStatusStr})  ) and u.state='Y'  
+
+  group by u.train_dept_id)c on c.train_dept_id=o.orga_id
+  left join
+  (select count(distinct(t.teacher_auth_id)) as tea_num ,t.train_dept_id as train_dept_id from TRAIN_PLAN t where t.state='Y'
+
+ group by t.train_dept_id) d on d.train_dept_id=o.orga_id 
+ left join(  select count(distinct u.stu_auth_id ) as q_num , u.train_dept_id as train_dept_id from train_plan u  where u.stu_auth_id
+ in ( select sa.stu_auth_id from STU_ATTENDANCE_INFO sa   where (sa.attend_state=0 or sa.attend_state=2)  and sa.attend_date=to_char(sysdate,'YYYYMMDD')  )  and u.state = 'Y'  and u.train_status in (${trainStatusStrZ})   
+
+  group by u.train_dept_id)e on e.train_dept_id=o.orga_id
+  left join(  select count(distinct u.stu_auth_id ) as q_b_num , u.train_dept_id as train_dept_id from train_plan u  where u.stu_auth_id
+ in ( select sa.stu_auth_id from STU_ATTENDANCE_INFO sa   where (sa.attend_state=-10 or sa.attend_state=-20)  and sa.attend_date=to_char(sysdate,'YYYYMMDD')  )  and u.state = 'Y'  and u.train_status in (${trainStatusStrZ})   
+  group by u.train_dept_id)e1 on e1.train_dept_id=o.orga_id
+  left join(   select count(distinct u.stu_auth_id ) as d_num , u.train_dept_id as train_dept_id from train_plan u  where u.stu_auth_id not
+  in ( select sa.stu_auth_id from STU_ATTENDANCE_INFO sa   where (sa.attend_state=0 or sa.attend_state=2)  and sa.attend_date=to_char(sysdate,'YYYYMMDD')  ) and u.state = 'Y'  and u.train_status in (${trainStatusStrZ})  
+
+   group by u.train_dept_id)f on f.train_dept_id=o.orga_id
+   where 1=1
+ <if test="orga_name != null and orga_name != ''" >
+	    and o.orga_name = #{orga_name}
+ </if>
+</select>   
+
+<!-- 根据教学秘书id查询学生信息 -->
+<select id="selectListBySecretaryAuthId" resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select 
+	tp.stu_auth_id,tp.train_dept_id,ui.user_name as name,st.type_name as typeName 
+	from TRAIN_PLAN tp 
+	left join USER_AUTHORITY ua 
+	on tp.stu_auth_id=ua.auth_id 
+	left join USER_INFO ui 
+	on ua.user_id=ui.user_id 
+	left join STU_TYPE st 
+	on ua.stu_type_id=st.id 
+	where tp.state='Y' and ua.state='Y' and st.state='Y' and ui.state='Y'
+	<if test="train_dept_id != null and train_dept_id != ''">
+		and tp.train_dept_id=#{train_dept_id}
+	</if>
+	<if test="train_status_str != null and train_status_str != ''">
+		and tp.train_status in (${train_status_str})
+	</if>
+	order by tp.train_start_time asc
+</select>
+<!-- 根据类型bean查询轮转计划表 -->
+<select id="selectPlanList" resultType="com.rensu.education.hctms.teach.bean.TrainPlan"  parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select 
+	id,stu_auth_id,state,train_dept_id,train_start_date,train_end_date,tpc_id as config_id,orga_name,tsc_id,days
+	from (select t.*,o.orga_name,c.tsc_id,decode(c.duration_unit,'M',30,'W',7,'D',1)*c.duration as days
+		from TRAIN_PLAN t left join ORGA_INFO o on t.train_dept_id = o.orga_id 
+		left join train_plan_config c on t.tpc_id = c.id
+		where o.state='Y' and c.state='Y'
+		) 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+<!-- 得到当前科室下待轮转的学生 -->
+<select id="getAdvanceStuInfo"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">	
+select i.user_code as userCode,
+       a.auth_id   as stu_auth_id,
+        a.auth_id  as id,
+       i.user_name as name,
+       i.user_code as userCode,
+       t.train_start_date,
+       t.train_end_date,
+       sc.stu_class as stuClassName,
+       st.type_name as typeName
+  from TRAIN_PLAN t
+  left join USER_AUTHORITY a
+    on a.auth_id = t.stu_auth_id
+  left join USER_INFO i
+    on i.user_id = a.user_id
+    left join student_info si
+    on si.user_code=i.user_code
+    left join stu_class sc 
+    on sc.id=si.stu_class
+    left join stu_type st 
+    on st.id=a.stu_type_id
+ where t.state = 'Y'
+	
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and t.train_dept_id =  #{train_dept_id}
+	</if>
+	<if test="train_status != null and train_status != ''" >
+	    and t.train_status =  #{train_status}
+	</if>
+	and a.state='Y' and i.state='Y' and si.state='Y'
+</select>
+
+<select id="getOrga_name" resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select orga_name from 
+		  (select oi.orga_name 
+		  from TRAIN_PLAN tp 
+		  left join ORGA_INFO oi 
+		  on tp.train_dept_id=oi.orga_id 
+		  where tp.state='Y' 
+		  <if test="stu_auth_id != null and stu_auth_id !='' ">
+			 and tp.stu_auth_id=#{stu_auth_id,jdbcType=INTEGER}
+		  </if>
+		  <if test="train_start_date != null and train_start_date !='' ">
+			 and tp.train_start_date &lt; #{train_start_date,jdbcType=INTEGER}
+		  </if>
+		  order by tp.train_start_date desc) a
+	where rownum=1
+</select> 
+ 
+<select id="selectDiscussantInfo" resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select 
+	tp.stu_auth_id,ui.user_name as name
+	from TRAIN_PLAN tp 
+	left join USER_AUTHORITY ua 
+	on tp.stu_auth_id=ua.auth_id 
+	left join USER_INFO ui 
+	on ua.user_id=ui.user_id 
+	where 1=1
+	<if test="state != null and state != ''" >
+	    and tp.state = #{state}
+	</if>
+	<if test="train_dept_id != null and train_dept_id != ''" >
+	    and tp.train_dept_id = #{train_dept_id}
+	</if>
+	<if test="teacher_auth_id != null and teacher_auth_id != ''" >
+	    and tp.teacher_auth_id = #{teacher_auth_id}
+	</if>
+	<if test="train_status != null and train_status != ''" >
+	    and tp.train_status = #{train_status}
+	</if>
+	<if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>  
+
+<select id="selectAllStuByTea"  resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select distinct a.auth_id as stu_auth_id,i.user_name  as name 
+	
+	from TRAIN_PLAN  t
+left join user_authority a on a.auth_id=t.stu_auth_id
+left join user_info i on i.user_id=a.user_id 
+where 1=1 
+<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and t.train_dept_id =  #{train_dept_id}
+	</if>	
+	 <if test="trainStatus != null and trainStatus != ''" >
+	   and train_status in (${trainStatus})
+	</if>	
+	<if test="teacher_auth_id != null" >
+	    and t.teacher_auth_id =  #{teacher_auth_id}
+	</if>
+	 <if test="state != null and state != ''" >
+	    and t.state =  #{state} and a.state=#{state} and i.state=#{state}
+	</if>
+</trim>
+order by name desc
+</select>
+
+<select id="selectListByHomeworkAuthId" resultType="com.rensu.education.hctms.teach.bean.TrainPlan" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	select 
+	tp.stu_auth_id,tp.train_dept_id,ui.user_name as name,st.type_name as typeName 
+	from TRAIN_PLAN tp 
+	left join USER_AUTHORITY ua 
+	on tp.stu_auth_id=ua.auth_id 
+	left join USER_INFO ui 
+	on ua.user_id=ui.user_id 
+	left join STU_TYPE st 
+	on ua.stu_type_id=st.id 
+	where tp.state='Y' and ua.state='Y' and st.state='Y' and ui.state='Y'
+	<if test="train_dept_id != null and train_dept_id != ''">
+		and tp.train_dept_id=#{train_dept_id}
+	</if>
+	<if test="train_status_str != null and train_status_str != ''">
+		and tp.train_status in (${train_status_str})
+	</if>
+	order by name desc
+</select>
+
+<select id="getTrainStudent" resultMap="BaseResultMap" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+select i.user_code as userCode,a.auth_id as stu_auth_id,i.user_name  as name ,st.type_name as typeName,sc.stu_class as stuClassName,a.auth_id as id ,t.train_start_date,
+       t.train_end_date from TRAIN_PLAN  t
+left join user_authority a on a.auth_id=t.stu_auth_id
+left join user_info i on i.user_id=a.user_id 
+left join stu_type st on st.id=a.stu_type_id
+left join student_info si on si.user_code=i.user_code
+left join stu_class sc on sc.id=si.stu_class
+where 1=1
+<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and t.train_dept_id =  #{train_dept_id}
+	</if>
+	<if test="train_status != null" >
+	    and t.train_status =  #{train_status}
+	</if>
+	
+	 	<if test="state != null and state != ''" >
+	    and t.state =  #{state} and i.state=#{state} and a.state=#{state} and si.state=#{state} 
+	</if>
+</trim>
+  order by a.auth_id asc
+</select>
+
+<select id="getTrainStudentCount" resultType="java.lang.Integer" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan"> 
+select count(1) from TRAIN_PLAN  t
+left join user_authority a on a.auth_id=t.stu_auth_id
+left join user_info i on i.user_id=a.user_id 
+left join stu_type st on st.id=a.stu_type_id
+left join student_info si on si.user_code=i.user_code
+left join stu_class sc on sc.id=si.stu_class
+where 1=1
+<trim  suffixOverrides="," >
+	 <if test="train_dept_id != null and train_dept_id != ''" >
+	    and t.train_dept_id =  #{train_dept_id}
+	</if>
+	<if test="train_status != null" >
+	    and t.train_status =  #{train_status}
+	</if>
+	
+	 	<if test="state != null and state != ''" >
+	    and t.state =  #{state} and i.state=#{state} and a.state=#{state} and si.state=#{state} 
+	</if>
+</trim>
+</select>
+
+<select id="selectListTrain" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan" resultType="com.rensu.education.hctms.teach.bean.TrainPlan" >
+select id,
+       tpc_id as config_id,
+       stu_auth_id,
+       train_dept_id,
+       train_start_date,
+       train_end_date,
+       train_start_time,
+       train_end_time,
+       state,
+       orga_name,
+       tsc_id
+  from (select t.*, o.orga_name, c.tsc_id
+          from TRAIN_PLAN t
+          left join ORGA_INFO o
+            on t.train_dept_id = o.orga_id
+          left join train_plan_config c
+            on t.tpc_id = c.id
+         where o.state ='Y'
+           and t.state ='Y'
+           and c.state ='Y'
+           and t.train_status in(51,52))
+ where 1 = 1
+   and stu_auth_id =#{stu_auth_id}
+   and state ='Y'  
+ order by train_start_time asc
+</select>
+
+<update id="deleteList" parameterType="com.rensu.education.hctms.teach.bean.TrainPlan">
+	delete from TRAIN_PLAN where 1=1
+		<if test="stu_auth_id != null  ">
+			and stu_auth_id=#{stu_auth_id,jdbcType=INTEGER}
+		</if>
+		<if test="train_status != null" >
+	    and train_status =  #{train_status}
+	   </if>
+</update>
+</mapper>

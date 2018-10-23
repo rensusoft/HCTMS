@@ -1,0 +1,23 @@
+.peopleChooseTable tr td{
+    vertical-align: top;
+}
+.peopleChooseTable{
+    margin-bottom: 50px;
+
+}
+.peopleChooseTable tr td:first-child{
+    padding-top: 8px;
+    font-weight: bold;
+}
+.btns{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    height: 45px;
+    text-align: center;
+}
+.zTreeBackground{
+    overflow: auto;
+    width: 300px;
+}

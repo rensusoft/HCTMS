@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.CathedraConditionMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.CathedraCondition" >
+	<result column="id" property="id"/>
+	<result column="cp_id" property="cp_id"/>
+	<result column="condition_type" property="condition_type"/>
+	<result column="condition_value" property="condition_value"/>
+</resultMap>
+       
+<!-- CATHEDRA_CONDITION table all fields -->
+<sql id="Base_Column_List" >
+	 id,cp_id,condition_type,condition_value
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="cp_id != null" >
+	    and cp_id =  #{cp_id}
+	</if>
+	<if test="condition_type != null" >
+	    and condition_type =  #{condition_type}
+	</if>
+	<if test="condition_value != null" >
+	    and condition_value =  #{condition_value}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition" >
+  insert into CATHEDRA_CONDITION(id,cp_id,condition_type,condition_value)
+ values(#{id,jdbcType=INTEGER},#{cp_id,jdbcType=INTEGER},#{condition_type,jdbcType=INTEGER},#{condition_value,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition" >
+	update CATHEDRA_CONDITION set 
+	<trim  suffixOverrides="," >
+	<if test="cp_id != null  ">
+		cp_id=#{cp_id,jdbcType=INTEGER},
+	</if>
+	<if test="condition_type != null  ">
+		condition_type=#{condition_type,jdbcType=INTEGER},
+	</if>
+	<if test="condition_value != null  ">
+		condition_value=#{condition_value,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition">
+	delete 	 from CATHEDRA_CONDITION where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 讲座排班条件表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from CATHEDRA_CONDITION where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 讲座排班条件表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_cathedra_condition_id.nextval from dual
+</select>
+
+<!-- 讲座排班条件表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition">
+	select count(1) from CATHEDRA_CONDITION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询讲座排班条件表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition">
+	select 
+	<include refid="Base_Column_List"/>
+	from CATHEDRA_CONDITION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询讲座排班条件表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition">
+	select 
+	<include refid="Base_Column_List"/>
+	from CATHEDRA_CONDITION 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 根据查询讲座排班条件表 -->
+<select id="selectCathedraCondition" resultType="com.rensu.education.hctms.teach.bean.CathedraCondition"  parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition">
+	select 
+	id,cp_id,condition_type,condition_value
+	from CATHEDRA_CONDITION 
+	where 1=1
+	<if test="cp_id != null  ">
+		and cp_id=#{cp_id,jdbcType=INTEGER}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.TeachFormConfigMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.TeachFormConfig" >
+	<result column="id" property="id"/>
+	<result column="tf_code" property="tf_code"/>
+	<result column="tf_name" property="tf_name"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- TEACH_FORM_CONFIG table all fields -->
+<sql id="Base_Column_List" >
+	 id,tf_code,tf_name,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="tf_code != null and tf_code != ''" >
+	    and tf_code =  #{tf_code}
+	</if>
+	 	<if test="tf_name != null and tf_name != ''" >
+	    and tf_name =  #{tf_name}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.TeachFormConfig" >
+  insert into TEACH_FORM_CONFIG(id,tf_code,tf_name,state)
+ values(#{id,jdbcType=INTEGER},#{tf_code,jdbcType=VARCHAR},#{tf_name,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.TeachFormConfig" >
+	update TEACH_FORM_CONFIG set 
+	<trim  suffixOverrides="," >
+	<if test="tf_code != null  and tf_code != '' ">
+		tf_code=#{tf_code,jdbcType=VARCHAR},
+	</if>
+	<if test="tf_name != null  and tf_name != '' ">
+		tf_name=#{tf_name,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.TeachFormConfig">
+	delete 	 from TEACH_FORM_CONFIG where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 教学模板配置表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from TEACH_FORM_CONFIG where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 教学模板配置表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_teach_form_config_id.nextval from dual
+</select>
+
+<!-- 教学模板配置表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.TeachFormConfig">
+	select count(1) from TEACH_FORM_CONFIG 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询教学模板配置表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.TeachFormConfig">
+	select 
+	<include refid="Base_Column_List"/>
+	from TEACH_FORM_CONFIG 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询教学模板配置表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.TeachFormConfig">
+	select 
+	<include refid="Base_Column_List"/>
+	from TEACH_FORM_CONFIG 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

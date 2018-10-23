@@ -1,0 +1,25 @@
+.info_table{
+    width: 950px;
+    margin: 0 auto;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+.info_table ul{
+    border-bottom: 1px solid #eee;
+    display:inline-block;
+    float:left;
+    width:690px;
+    height:150px;
+    padding-left:55px;
+    padding-top:25px;
+}
+.button_position{
+    height:70px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 1000px;
+    background: #fff;
+    padding-top: 20px;
+}

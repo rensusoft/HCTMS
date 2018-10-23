@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+a{
+    cursor: pointer;
+}
+section{
+    height: 100%;
+    width: 100%;
+}
+#wrap {
+    width: 1900px;
+    overflow: auto;
+    float: right;
+    height: 100%;
+}
+#tit {
+    /*height: 35px;*/
+    font-size: 25px;
+    /*text-align: center;*/
+    float: left;
+    width:80px ;
+
+}
+#tit p, #tit i{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 75px;
+    font-size: 16px;
+    text-align: center;
+    color: #727374;
+    background: #D9DEE4;
+    border-radius: 3px;
+    border: 1px solid #d9dee4;
+    font-style: normal;
+    cursor: pointer;
+    margin: 0;
+}
+#tit i{
+    color: #fff;
+}
+.send_news{
+    float: right;
+    background: #505F91 !important;
+    margin-right: 15px;
+}
+#con{
+    margin: 0;
+    /*float: left;*/
+    width: 310px;
+    padding: 5px;
+    height:100%;
+    border: 1px solid #505F91;
+    overflow:auto;
+}
+#con>li {
+    display: none;
+    width: 100%;
+    height:100%;
+    overflow:auto;
+}
+#tit p.select {
+    background: #505F91;
+    color: #fff;
+    border: 1px solid #505f91;
+}
+#tit p span{
+    color: #fff;
+    background: #EB6100;
+}
+#con li.show_block {
+    display: block;
+}
+.left_btns{
+    float:left;
+    width: 160px;
+    height: 100%;
+    background: #D9DEE4;
+    display: none;
+}
+.left_btns h3{
+    text-align: center;
+    padding: 35px 0;
+    border-bottom: 1px solid #505F91;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.left_btns ul li{
+    line-height: 45px;
+    border-bottom: 1px solid #505F91;
+}
+.left_btns ul li a{
+    margin-left: 15px;
+    text-decoration: none;
+}
+.left_btns ul li a:hover{
+    color: #4C6293;
+}
+.left_btns ul li a span.badge{
+    margin-left: 25px;
+    color: #fff;
+    background: #505F91;
+}
+.hide_btn{
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+.hide_btn i{
+    font-size: 20px;
+}
+.newsCont{
+    width:1000px;
+    height:465px;
+    padding: 15px;
+}
+.zTreeBackground{
+    width: 600px;
+    height: 200px;
+    overflow: auto;
+}
+.input{
+    height:30px;
+    width:567px;
+    line-height: 30px;
+    padding-left: 5px;
+    border: 1px solid #505F91;
+    border-radius: 3px;
+}
+.btns{
+    position: fixed;
+    bottom: 0;
+    padding: 15px;
+    background: #fff;
+    width: 100%;
+}
+#form_content{
+    height: 110px;
+    border: 1px solid #ddd;
+    width: 80%;
+    margin: 15px auto;
+    overflow: auto;
+    padding: 5px;
+}
+.form_cont{
+    width: 560px;
+    height:240px;
+    padding: 10px;
+    position: relative;
+}
+.form_cont table{
+    margin-bottom: 10px;
+    width: 100%;
+}
+.form_cont tr td:first-child{
+    width:120px;
+    text-align: right;
+    line-height:30px;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    word-break:normal;
+}
+.form_cont tr td:first-child i{
+    font-style: normal;
+    color: red;
+}
+.form_cont tr td:last-child{
+    width:350px;
+    height:45px;
+}
+.form_cont tr td input[type=text]{
+    border: 1px solid #505F91;
+    width: 300px;
+    height:30px;
+    border-radius: 3px;
+    color: #333;
+    padding-left: 10px;
+    margin-right:10px;
+    outline: none;
+    margin-bottom:15px;
+}
+#form_content span{
+    border: 1px solid #505F91;
+    padding: 3px;
+    border-radius: 3px;
+    margin-right: 3px;
+}
+#form_content span a{
+    font-size: 16px;
+}
+div#form_content span a{
+    cursor: pointer;
+}
+.zTreebg2{
+   /*height:500px;*/
+    overflow: auto;
+}

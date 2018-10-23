@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.ForumInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.publicdata.bean.ForumInfo" >
+	<result column="id" property="id"/>
+	<result column="type_code" property="type_code"/>
+	<result column="title" property="title"/>
+	<result column="content" property="content"/>
+	<result column="publisher_auth_id" property="publisher_auth_id"/>
+	<result column="publish_time" property="publish_time"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- FORUM_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_code,title,content,publisher_auth_id,publish_time,state,checked_num
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="type_code != null" >
+	    and type_code =  #{type_code}
+	</if>
+	 	<if test="title != null and title != ''" >
+	    and title =  #{title}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="publisher_auth_id != null" >
+	    and publisher_auth_id =  #{publisher_auth_id}
+	</if>
+	<if test="publish_time != null" >
+	    and publish_time =  #{publish_time}
+	</if>
+	 <if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if> 
+	<if test="checked_num != null and checked_num != ''" >
+	    and checked_num =  #{checked_num}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo" >
+  insert into FORUM_INFO(id,type_code,title,content,publisher_auth_id,publish_time,state,checked_num)
+ values(#{id,jdbcType=INTEGER},#{type_code,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{publisher_auth_id,jdbcType=INTEGER},#{publish_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR},#{checked_num,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo" >
+	update FORUM_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="type_code != null  ">
+		type_code=#{type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="title != null  and title != '' ">
+		title=#{title,jdbcType=VARCHAR},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="publisher_auth_id != null  ">
+		publisher_auth_id=#{publisher_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="publish_time != null  ">
+		publish_time=#{publish_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="checked_num != null  and checked_num != '' ">
+		checked_num=#{checked_num,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+	delete 	 from FORUM_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学习交流区主表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from FORUM_INFO where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学习交流区主表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_forum_info_id.nextval from dual
+</select>
+
+<!-- 学习交流区主表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+	select count(1) from FORUM_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学习交流区主表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from FORUM_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询学习交流区主表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from FORUM_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 根据类型bean查询学习交流区主表 
+<select id="selectForumsList1" resultType="com.rensu.education.hctms.publicdata.bean.ForumInfo"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+  select fi.id,sdm.item_name,fi.title,t.user_name,to_char(fi.publish_time,'yyyy-mm-dd hh24:mi:ss') as publish_time_str,tt.sub_user_name
+  from FORUM_INFO fi 
+  left join SYS_DICT_MAIN sdm on fi.type_code=sdm.item_code 
+  left join 
+  (select uu.auth_id,ui.user_name from USER_AUTHORITY uu left join USER_INFO ui on uu.user_id=ui.user_id) t on fi.publisher_auth_id=t.auth_id
+  left join
+  (select fs.fi_id,t1.user_name as sub_user_name from FORUM_SUB fs left join (select uu.auth_id,ui.user_name from USER_AUTHORITY uu left join USER_INFO ui on uu.user_id=ui.user_id) t1 on fs.publisher_auth_id=t1.auth_id where rownum=1 order by to_char(fs.publish_time,'yyyy-mm-dd hh24:mi:ss') desc) tt
+  on fi.id=tt.fi_id
+  <if test="searchStr == null or searchStr == ''" >
+    where 1=1
+    <if test="state != null and state != ''" >
+      and fi.state=#{state}
+    </if>
+    <if test="publisher_auth_id != null and publisher_auth_id != ''" >
+      and fi.publisher_auth_id=#{publisher_auth_id}
+    </if>
+  </if>
+  <if test="searchStr != null and searchStr != ''" >
+    where fi.state=#{state} and (fi.title like '%'||#{searchStr}||'%' or fi.publisher_auth_id in (select uu.auth_id from USER_AUTHORITY uu left join USER_INFO ui on uu.user_id=ui.user_id where ui.user_name like '%'||#{searchStr}||'%'))  
+  </if> 
+  <if test="queryCondition != null and queryCondition != ''" >
+    ${queryCondition}
+  </if>
+  order by publish_time_str desc
+</select>
+-->
+
+<!-- 根据类型bean查询学习交流区主表 -->
+<select id="selectForumsList" resultType="com.rensu.education.hctms.publicdata.bean.ForumInfo"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+   select fi.id,
+         sdm.item_name,
+         fi.title,
+         t.user_name,
+         to_char(fi.publish_time, 'yyyy-mm-dd hh24:mi:ss') as publish_time_str,
+         ttt.sub_user_name,t.user_code,t.auth_id
+          from FORUM_INFO fi
+          left join SYS_DICT_MAIN sdm
+            on fi.type_code = sdm.item_code
+          left join (select uu.auth_id, ui.user_name,ui.user_code
+                 from USER_AUTHORITY uu
+                 left join USER_INFO ui
+                   on uu.user_id = ui.user_id) t
+            on fi.publisher_auth_id = t.auth_id
+          left join (select tt1.fi_id,t3.user_name as sub_user_name from (select tab1.fi_id,tab1.publisher_auth_id from (select t.fi_id,to_char(t.publish_time,'yyyy-mm-dd hh24:mi:ss') as sub_time_str,t.publisher_auth_id from FORUM_SUB t) tab1 left join (select fs.fi_id,max(to_char(fs.publish_time, 'yyyy-mm-dd hh24:mi:ss')) as sub_publish_time_str
+                 from FORUM_SUB fs
+                 group by fs.fi_id) tab2 on tab1.fi_id=tab2.fi_id where tab1.sub_time_str=tab2.sub_publish_time_str) tt1 left join (select uu.auth_id, ui.user_name
+                             from USER_AUTHORITY uu
+                             left join USER_INFO ui
+                               on uu.user_id = ui.user_id) t3
+                   on tt1.publisher_auth_id = t3.auth_id
+                ) ttt
+            on fi.id = ttt.fi_id
+  <if test="searchStr == null or searchStr == ''" >
+    where 1=1
+    <if test="state != null and state != ''" >
+      and fi.state=#{state}
+    </if>
+    <if test="publisher_auth_id != null and publisher_auth_id != ''" >
+      and fi.publisher_auth_id=#{publisher_auth_id}
+    </if>
+  </if>
+  <if test="searchStr != null and searchStr != ''" >
+    where fi.state=#{state} and (fi.title like '%'||#{searchStr}||'%' or fi.type_code in (select t.item_code from SYS_DICT_MAIN t where t.item_name like '%'||#{searchStr}||'%') or fi.publisher_auth_id in (select uu.auth_id from USER_AUTHORITY uu left join USER_INFO ui on uu.user_id=ui.user_id where ui.user_name like '%'||#{searchStr}||'%'))  
+  </if> 
+  <if test="queryCondition != null and queryCondition != ''" >
+    ${queryCondition}
+  </if>
+  order by publish_time_str desc
+</select>    
+
+<!-- 学习交流区帖子跟帖总数-根据ID查询 -->
+<select id="selectReplyCount" resultType="com.rensu.education.hctms.publicdata.bean.ForumInfo"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+	select fi.checked_num,t.reply_count 
+	from FORUM_INFO fi,
+	(select count(1) as reply_count from FORUM_SUB where fi_id=#{id}) t 
+	where 1=1
+	<if test="id != null and id != ''" >
+      and fi.id=#{id}
+    </if>
+</select>
+
+<!-- 根据类型bean查询学习交流区主表 -->
+<select id="selectForumsById" resultType="com.rensu.education.hctms.publicdata.bean.ForumInfo"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+   select fi.id,
+        sdm.item_name,
+        fi.title,
+        t.user_name,
+        to_char(fi.publish_time, 'yyyy-mm-dd hh24:mi:ss') as publish_time_str,
+        fi.content,
+        t1.type_name,
+        t2.orga_name,
+        t.auth_id,
+        t1.role_id
+   from FORUM_INFO fi
+   left join SYS_DICT_MAIN sdm
+     on fi.type_code = sdm.item_code
+   left join (select uu.auth_id, ui.user_name
+                from USER_AUTHORITY uu
+                left join USER_INFO ui
+                  on uu.user_id = ui.user_id) t
+     on fi.publisher_auth_id = t.auth_id
+   left join (select ua.auth_id, st.type_name,ua.role_id
+                from USER_AUTHORITY ua
+                left join STU_TYPE st
+                  on ua.stu_type_id = st.id) t1
+     on fi.publisher_auth_id = t1.auth_id
+   left join (select ua.auth_id, oi.orga_name
+                from USER_AUTHORITY ua
+                left join ORGA_INFO oi
+                  on ua.orga_id = oi.orga_id) t2
+     on fi.publisher_auth_id = t2.auth_id
+  where fi.state = 'Y'
+    <if test="id != null and id != ''" >
+      and fi.id=#{id}
+    </if>
+</select>  
+
+<!-- 根据ID查询论坛交流回帖信息 -->
+<select id="selectReplyInfo" resultType="com.rensu.education.hctms.publicdata.bean.ForumSub"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumInfo">
+  select t.user_name,t1.type_name,t2.orga_name,fs.id,fs.content,fs.support_num,fs.against_num,fs.cite_state,fs.cite_id,
+       to_char(fs.publish_time,'yyyy-mm-dd hh24:mi:ss') as publish_time_str,t.stu_num
+       from FORUM_SUB fs left join (select uu.auth_id, ui.user_name,si.stu_num
+                 from USER_AUTHORITY uu
+                 left join USER_INFO ui
+                   on uu.user_id = ui.user_id left join student_info si on si.user_code=ui.user_code) t
+            on fs.publisher_auth_id = t.auth_id
+            left join (select ua.auth_id,st.type_name from USER_AUTHORITY ua left join STU_TYPE st on ua.stu_type_id=st.id) t1
+            on fs.publisher_auth_id=t1.auth_id 
+            left join (select ua.auth_id,oi.orga_name from USER_AUTHORITY ua left join ORGA_INFO oi on ua.orga_id=oi.orga_id) t2
+            on fs.publisher_auth_id=t2.auth_id
+            where fs.state='Y'
+    <if test="id != null and id != ''" >
+      and fs.fi_id=#{id}
+    </if>
+    order by publish_time_str asc
+</select>  
+
+<!-- 根据ID查询论坛交流回帖引用信息 -->
+<select id="selectCiteInfo" resultType="com.rensu.education.hctms.publicdata.bean.ForumSub"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub">
+  select t.user_name as cite_user_name,fs.content as cite_content,
+       to_char(fs.publish_time,'yyyy-mm-dd hh24:mi:ss') as cite_publish_time_str
+       from FORUM_SUB fs left join (select uu.auth_id, ui.user_name
+                 from USER_AUTHORITY uu
+                 left join USER_INFO ui
+                   on uu.user_id = ui.user_id) t
+            on fs.publisher_auth_id = t.auth_id
+            where fs.state='Y'
+    <if test="cite_id != null and cite_id != ''" >
+      and fs.id=#{cite_id}
+    </if>
+</select>
+
+<!-- 根据ID查询论坛交流回帖引用信息 
+<select id="selectCiteInfo" resultType="com.rensu.education.hctms.publicdata.bean.ForumSub"  parameterType="com.rensu.education.hctms.publicdata.bean.ForumSub">
+  select t.user_name as cite_user_name,fs.content as cite_content,fs.cite_id,cite_state,
+       to_char(fs.publish_time,'yyyy-mm-dd hh24:mi:ss') as cite_publish_time_str
+       from FORUM_SUB fs left join (select uu.auth_id, ui.user_name
+                 from USER_AUTHORITY uu
+                 left join USER_INFO ui
+                   on uu.user_id = ui.user_id) t
+            on fs.publisher_auth_id = t.auth_id
+            where fs.state='Y'
+    <if test="fi_id != null and fi_id != ''" >
+      and fs.fi_id=#{fi_id}
+    </if>
+    <if test="id != null and id != ''" >
+      and fs.cite_id=#{id}
+    </if>
+</select>
+-->
+</mapper>   

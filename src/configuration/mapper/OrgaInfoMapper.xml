@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.OrgaInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.userauth.bean.OrgaInfo" >
+	<result column="orga_id" property="orga_id"/>
+	<result column="orga_name" property="orga_name"/>
+	<result column="sup_id" property="sup_id"/>
+	<result column="orga_level" property="orga_level"/>
+	<result column="orga_type" property="orga_type"/>
+	<result column="orga_code1" property="orga_code1"/>
+	<result column="orga_code2" property="orga_code2"/>
+	<result column="state" property="state"/>
+	<result column="create_time" property="create_time"/>
+	<result column="limit_num" property="limit_num"/>
+	
+</resultMap>
+       
+<!-- ORGA_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 orga_id,orga_name,sup_id,orga_level,orga_type,orga_code1,orga_code2,state,create_time,limit_num
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	 	<if test="orga_name != null and orga_name != ''" >
+	    and orga_name =  #{orga_name}
+	</if>
+	<if test="sup_id != null" >
+	    and sup_id =  #{sup_id}
+	</if>
+	<if test="orga_level != null" >
+	    and orga_level =  #{orga_level}
+	</if>
+	<if test="orga_type != null" >
+	    and orga_type =  #{orga_type}
+	</if>
+	 	<if test="orga_code1 != null and orga_code1 != ''" >
+	    and orga_code1 =  #{orga_code1}
+	</if>
+	 	<if test="orga_code2 != null and orga_code2 != ''" >
+	    and orga_code2 =  #{orga_code2}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="limit_num != null" >
+	    and limit_num =  #{limit_num}
+	</if>
+	
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.userauth.bean.OrgaInfo" >
+  insert into ORGA_INFO(orga_id,orga_name,sup_id,orga_level,orga_type,orga_code1,orga_code2,state,create_time,limit_num)
+ values(#{orga_id,jdbcType=INTEGER},#{orga_name,jdbcType=VARCHAR},#{sup_id,jdbcType=INTEGER},#{orga_level,jdbcType=INTEGER},#{orga_type,jdbcType=INTEGER},#{orga_code1,jdbcType=VARCHAR},#{orga_code2,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{limit_num,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.userauth.bean.OrgaInfo" >
+	update ORGA_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="orga_name != null  and orga_name != '' ">
+		orga_name=#{orga_name,jdbcType=VARCHAR},
+	</if>
+	<if test="sup_id != null  ">
+		sup_id=#{sup_id,jdbcType=INTEGER},
+	</if>
+	<if test="orga_level != null  ">
+		orga_level=#{orga_level,jdbcType=INTEGER},
+	</if>
+	<if test="orga_type != null  ">
+		orga_type=#{orga_type,jdbcType=INTEGER},
+	</if>
+	<if test="orga_code1 != null  and orga_code1 != '' ">
+		orga_code1=#{orga_code1,jdbcType=VARCHAR},
+	</if>
+	<if test="orga_code2 != null  and orga_code2 != '' ">
+		orga_code2=#{orga_code2,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="limit_num != null  ">
+		limit_num=#{limit_num,jdbcType=INTEGER},
+	</if>
+	</trim> 
+	<if test="ids != null and ids != ''  ">
+	   where orga_id in (${ids})
+	</if>
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.userauth.bean.OrgaInfo">
+	delete 	 from ORGA_INFO where orga_id = #{orga_id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 机构表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from ORGA_INFO where orga_id = #{orga_id,jdbcType=INTEGER}
+</select>
+
+<!-- 机构表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_orga_info_orga_id.nextval from dual
+</select>
+
+<!-- 机构表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.userauth.bean.OrgaInfo">
+	select count(1) from ORGA_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询机构表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.OrgaInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from ORGA_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询机构表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.OrgaInfo">
+	select 
+   a.orga_id, a.orga_name, b.orga_name as sup_name, a.orga_level, decode( a.orga_type,1,'教学','2','行政','3','后勤') as orga_types, a.orga_code1, a.orga_code2,  decode( a.state,'Y','有效','X','失效') as state,a.create_time,a.limit_num
+  from ORGA_INFO a left join ORGA_INFO b on a.sup_id=b.orga_id  where 1=1
+	<if test="state != null" >
+	 and  a.state =  #{state}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+    order by a.orga_id desc
+</select>
+  	<!-- 根据类型bean进行分页查询机构表 -->
+<select id="selectOrgaInfoList" resultType="com.rensu.education.hctms.userauth.bean.OrgaInfo">
+	select t.orga_id,t.orga_name from ORGA_INFO t where t.orga_type=1  and t.state='Y'
+</select>
+</mapper>   

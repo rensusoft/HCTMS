@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MedicalAdviceMainMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.MedicalAdviceMain" >
+	<result column="id" property="id"/>
+	<result column="pk_code" property="pk_code"/>
+	<result column="p_name" property="p_name"/>
+	<result column="p_sex" property="p_sex"/>
+	<result column="p_age" property="p_age"/>
+	<result column="p_deptname" property="p_deptname"/>
+	<result column="p_bednum" property="p_bednum"/>
+	<result column="p_pid" property="p_pid"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="create_time" property="create_time"/>
+	<result column="correct_auth_id" property="correct_auth_id"/>
+	<result column="correct_time" property="correct_time"/>
+	<result column="correct_status" property="correct_status"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MEDICAL_ADVICE_MAIN table all fields -->
+<sql id="Base_Column_List" >
+	 id,pk_code,p_name,p_sex,p_age,p_deptname,p_bednum,p_pid,stu_auth_id,create_time,correct_auth_id,correct_time,correct_status,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="pk_code != null and pk_code != ''" >
+	    and pk_code =  #{pk_code}
+	</if>
+	 	<if test="p_name != null and p_name != ''" >
+	    and p_name =  #{p_name}
+	</if>
+	 	<if test="p_sex != null and p_sex != ''" >
+	    and p_sex =  #{p_sex}
+	</if>
+	 	<if test="p_age != null and p_age != ''" >
+	    and p_age =  #{p_age}
+	</if>
+	 	<if test="p_deptname != null and p_deptname != ''" >
+	    and p_deptname =  #{p_deptname}
+	</if>
+	 	<if test="p_bednum != null and p_bednum != ''" >
+	    and p_bednum =  #{p_bednum}
+	</if>
+	 	<if test="p_pid != null and p_pid != ''" >
+	    and p_pid =  #{p_pid}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="correct_auth_id != null" >
+	    and correct_auth_id =  #{correct_auth_id}
+	</if>
+	<if test="correct_time != null" >
+	    and correct_time =  #{correct_time}
+	</if>
+	 	<if test="correct_status != null and correct_status != ''" >
+	    and correct_status =  #{correct_status}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceMain" >
+  insert into MEDICAL_ADVICE_MAIN(id,pk_code,p_name,p_sex,p_age,p_deptname,p_bednum,p_pid,stu_auth_id,create_time,correct_auth_id,correct_time,correct_status,state)
+ values(#{id,jdbcType=INTEGER},#{pk_code,jdbcType=VARCHAR},#{p_name,jdbcType=VARCHAR},#{p_sex,jdbcType=VARCHAR},#{p_age,jdbcType=VARCHAR},#{p_deptname,jdbcType=VARCHAR},#{p_bednum,jdbcType=VARCHAR},#{p_pid,jdbcType=VARCHAR},#{stu_auth_id,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{correct_auth_id,jdbcType=INTEGER},#{correct_time,jdbcType=TIMESTAMP},#{correct_status,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceMain" >
+	update MEDICAL_ADVICE_MAIN set 
+	<trim  suffixOverrides="," >
+	<if test="pk_code != null  and pk_code != '' ">
+		pk_code=#{pk_code,jdbcType=VARCHAR},
+	</if>
+	<if test="p_name != null  and p_name != '' ">
+		p_name=#{p_name,jdbcType=VARCHAR},
+	</if>
+	<if test="p_sex != null  and p_sex != '' ">
+		p_sex=#{p_sex,jdbcType=VARCHAR},
+	</if>
+	<if test="p_age != null  and p_age != '' ">
+		p_age=#{p_age,jdbcType=VARCHAR},
+	</if>
+	<if test="p_deptname != null  and p_deptname != '' ">
+		p_deptname=#{p_deptname,jdbcType=VARCHAR},
+	</if>
+	<if test="p_bednum != null  and p_bednum != '' ">
+		p_bednum=#{p_bednum,jdbcType=VARCHAR},
+	</if>
+	<if test="p_pid != null  and p_pid != '' ">
+		p_pid=#{p_pid,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="correct_auth_id != null  ">
+		correct_auth_id=#{correct_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="correct_time != null  ">
+		correct_time=#{correct_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="correct_status != null  and correct_status != '' ">
+		correct_status=#{correct_status,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceMain">
+	delete 	 from MEDICAL_ADVICE_MAIN where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 医疗文书-医嘱主表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MEDICAL_ADVICE_MAIN where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 医疗文书-医嘱主表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_medical_advice_main_id.nextval from dual
+</select>
+
+<!-- 医疗文书-医嘱主表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceMain">
+	select count(1) from MEDICAL_ADVICE_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询医疗文书-医嘱主表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_ADVICE_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询医疗文书-医嘱主表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalAdviceMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_ADVICE_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectMedicalAdviceMainById" resultType="com.rensu.education.hctms.teach.bean.MedicalAdviceMain"  parameterType="int">
+	select 
+	mam.id,mam.correct_status,mam.pk_code,
+	(select 4 from dual) as type_id,
+	to_char(mam.correct_time,'yyyy-MM-dd hh24:mi') as correct_time_str,
+	(select '医嘱' from dual) as type_id_str,
+	(select '医嘱' from dual) as mr_name,
+	ui.user_name as stu_auth_id_str,
+	mam.p_name,mam.p_pid
+	from MEDICAL_ADVICE_MAIN mam
+	left join USER_AUTHORITY ua on mam.stu_auth_id=ua.auth_id 
+	left join USER_INFO ui on ua.user_id=ui.user_id
+	where mam.id = #{id}
+</select>
+  	
+</mapper>   

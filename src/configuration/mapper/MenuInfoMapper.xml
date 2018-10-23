@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MenuInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.userauth.bean.MenuInfo" >
+	<result column="menu_id" property="menu_id"/>
+	<result column="menu_name" property="menu_name"/>
+	<result column="url" property="url"/>
+	<result column="sup_id" property="sup_id"/>
+	<result column="sup_name" property="sup_name"/>
+	<result column="remark" property="remark"/>
+	<result column="state" property="state"/>
+	<result column="stateDesc" property="stateDesc"/>
+	<result column="create_time" property="create_time"/>
+	<result column="createTimeStr" property="createTimeStr"/>
+	<result column="icon_cls" property="icon_cls"/>
+	<result column="ordinal" property="ordinal"/>
+</resultMap>
+       
+<!-- MENU_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 menu_id,menu_name,url,sup_id,remark,state,create_time,icon_cls,ordinal
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="menu_id != null" >
+	    and menu_id =  #{menu_id}
+	</if>
+	 	<if test="menu_name != null and menu_name != ''" >
+	    and menu_name like '%${menu_name}%'
+	</if>
+	 	<if test="url != null and url != ''" >
+	    and url =  #{url}
+	</if>
+	<if test="sup_id != null" >
+	    and sup_id =  #{sup_id}
+	</if>
+	 	<if test="remark != null and remark != ''" >
+	    and remark =  #{remark}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="icon_cls != null and icon_cls != ''" >
+	    and icon_cls =  #{icon_cls}
+	</if>
+	<if test="ordinal != null" >
+	    and ordinal =  #{ordinal}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.userauth.bean.MenuInfo" >
+  insert into MENU_INFO(menu_id,menu_name,url,sup_id,remark,state,create_time,icon_cls,ordinal)
+ values(#{menu_id,jdbcType=INTEGER},#{menu_name,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{sup_id,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{icon_cls,jdbcType=VARCHAR},#{ordinal,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.userauth.bean.MenuInfo" >
+	update MENU_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="menu_name != null  and menu_name != '' ">
+		menu_name=#{menu_name,jdbcType=VARCHAR},
+	</if>
+	<if test="url != null  and url != '' ">
+		url=#{url,jdbcType=VARCHAR},
+	</if>
+	<if test="sup_id != null  ">
+		sup_id=#{sup_id,jdbcType=INTEGER},
+	</if>
+	<if test="remark != null">
+		remark=#{remark,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="icon_cls != null ">
+		icon_cls=#{icon_cls,jdbcType=VARCHAR},
+	</if>
+	<if test="ordinal != null  ">
+		ordinal=#{ordinal,jdbcType=INTEGER},
+	</if>
+	</trim> where menu_id=#{menu_id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.userauth.bean.MenuInfo">
+	delete 	 from MENU_INFO where menu_id = #{menu_id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 菜单表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> , 
+       (select b.menu_name from menu_info b where b.menu_id=a.sup_id and rownum=1) sup_name ,
+       to_char(create_time, 'yyyy-mm-dd hh24:mi') createTimeStr, 
+       decode(state, 'Y', '可用', 'X', '删除', '未知') stateDesc 
+	 from MENU_INFO a where a.menu_id = #{menu_id,jdbcType=INTEGER}
+</select>
+
+<!-- 菜单表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_menu_info_menu_id.nextval from dual
+</select>
+
+<!-- 菜单表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.userauth.bean.MenuInfo">
+	select count(1) from MENU_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询菜单表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.MenuInfo">
+	select 
+	<include refid="Base_Column_List"/>, 
+       (select b.menu_name from menu_info b where b.menu_id=a.sup_id and rownum=1) sup_name ,
+       to_char(create_time, 'yyyy-mm-dd hh24:mi') createTimeStr, 
+       decode(state, 'Y', '可用', 'X', '删除', '未知') stateDesc 
+	from MENU_INFO a 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询菜单表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.MenuInfo">
+	select 
+	<include refid="Base_Column_List"/>, 
+       (select b.menu_name from menu_info b where b.menu_id=a.sup_id and rownum=1) sup_name ,
+       to_char(create_time, 'yyyy-mm-dd hh24:mi') createTimeStr, 
+       decode(state, 'Y', '可用', 'X', '删除', '未知') stateDesc 
+	from MENU_INFO a
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 根据角色id获取对应的菜单列表 chenxx 2016.04.26 -->
+<select id="getMenusByRoleId" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	select 
+		a.menu_id,a.menu_name,a.url,a.sup_id,a.remark,a.state,a.create_time,a.icon_cls,a.ordinal, 
+       (select b.menu_name from menu_info b where b.menu_id=a.sup_id and rownum=1) sup_name ,
+       to_char(a.create_time, 'yyyy-mm-dd hh24:mi') createTimeStr, 
+       decode(a.state, 'Y', '可用', 'X', '删除', '未知') stateDesc 
+	from MENU_INFO a, role_menu_rela b
+	where a.menu_id=b.menu_id
+		and a.state='Y' 
+		and b.role_id=${roleId} 
+    <if test="state != null and state != ''" >
+     and b.state=#{state, jdbcType=VARCHAR}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+</mapper>   

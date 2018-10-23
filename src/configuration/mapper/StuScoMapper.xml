@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StuScoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.score.bean.StuSco" >
+	<result column="id" property="id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="subject_id" property="subject_id"/>
+	<result column="sco_num" property="sco_num"/>
+	<result column="create_auth_id" property="create_auth_id"/>
+	<result column="create_time" property="create_time"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- STU_SCO table all fields -->
+<sql id="Base_Column_List" >
+	 id,stu_auth_id,subject_id,sco_num,create_auth_id,create_time,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="subject_id != null" >
+	    and subject_id =  #{subject_id}
+	</if>
+	<if test="sco_num != null" >
+	    and sco_num =  #{sco_num}
+	</if>
+	<if test="create_auth_id != null" >
+	    and create_auth_id =  #{create_auth_id}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.score.bean.StuSco" >
+  insert into STU_SCO(id,stu_auth_id,subject_id,sco_num,create_auth_id,create_time,state)
+ values(#{id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{subject_id,jdbcType=INTEGER},#{sco_num,jdbcType=INTEGER},#{create_auth_id,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.score.bean.StuSco" >
+	update STU_SCO set 
+	<trim  suffixOverrides="," >
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="subject_id != null  ">
+		subject_id=#{subject_id,jdbcType=INTEGER},
+	</if>
+	<if test="sco_num != null  ">
+		sco_num=#{sco_num,jdbcType=INTEGER},
+	</if>
+	<if test="create_auth_id != null  ">
+		create_auth_id=#{create_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.score.bean.StuSco">
+	delete 	 from STU_SCO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学生成绩表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STU_SCO where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学生成绩表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_stu_sco_id.nextval from dual
+</select>
+
+<!-- 学生成绩表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.score.bean.StuSco">
+	select count(1) from STU_SCO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学生成绩表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.StuSco">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_SCO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询学生成绩表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.StuSco">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_SCO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select> 
+
+<!-- 模糊查询学生成绩 -->
+<select id="selectPageWithUserInfo" resultType="com.rensu.education.hctms.score.bean.StuSco">
+ select r.stu_name, r.user_code, r.stu_auth_id
+   from (select a.user_name as stu_name, b.user_code, t.stu_auth_id
+           from (select distinct (stu_auth_id) as stu_auth_id
+                   from STU_SCO
+                  where state = 'Y') t
+          inner join user_authority u
+             on u.auth_id = t.stu_auth_id
+           left join user_info a
+             on a.user_id = u.user_id
+           left join student_info b
+             on b.user_code = a.user_code
+            and b.state = 'Y' order by stu_name asc) r
+  where 1 = 1
+ <if test="stu_name!=null and stu_name!='' ">
+   and (r.stu_name like '%${stu_name}%'
+   or r.user_code like '%${stu_name}%')
+ </if> 
+ <trim>
+   <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+    </trim>
+</select>  
+<select id="selectPageWithUserInfoCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.score.bean.StuSco">
+	select count(1) from ( select r.stu_name, r.user_code, r.stu_auth_id
+   from (select a.user_name as stu_name, b.user_code, t.stu_auth_id
+           from (select distinct (stu_auth_id) as stu_auth_id
+                   from STU_SCO
+                  where state = 'Y') t
+          inner join user_authority u
+             on u.auth_id = t.stu_auth_id
+           left join user_info a
+             on a.user_id = u.user_id
+           left join student_info b
+             on b.user_code = a.user_code
+            and b.state = 'Y' ) r
+  where 1 = 1
+ <if test="stu_name!=null and stu_name!='' ">
+   and (r.stu_name like '%${stu_name}%'
+   or r.stu_num like '%${stu_name}%')
+ </if> )
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+
+
+
+<insert id="insertWithList" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select SEQ_STU_SCO_ID.nextval as id from dual
+		</selectKey>
+	insert into STU_SCO (id,stu_auth_id,subject_id,sco_num,create_auth_id,create_time,state)
+	select SEQ_STU_SCO_ID.nextval, A.* FROM (
+		<foreach collection="list" item="item" index="index" separator="union all">
+ 	select #{item.stu_auth_id,jdbcType=INTEGER} as stu_auth_id,
+ 			#{item.subject_id,jdbcType=INTEGER} as subject_id,
+ 			#{item.sco_num,jdbcType=INTEGER} as sco_num,
+ 			#{item.create_auth_id,jdbcType=INTEGER} as create_auth_id,
+ 			#{item.create_time,jdbcType=TIMESTAMP} as create_time,
+	 		#{item.state,jdbcType=VARCHAR} as state
+ 	from dual 
+		</foreach>) A
+	</insert>
+
+
+<select id="selectAll" resultType="com.rensu.education.hctms.score.bean.StuSco">
+   select s.stu_auth_id,s.subject_id,s.sco_num from stu_sco s
+
+</select>
+
+
+
+
+
+</mapper>   

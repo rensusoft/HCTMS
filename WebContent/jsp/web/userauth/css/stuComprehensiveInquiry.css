@@ -1,0 +1,233 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+body {
+    height: 100%;
+}
+section {
+    height: 100%;
+    padding: 10px;
+}
+.stuList{
+    width: 1100px;
+    border: 1px solid #8D8D8D;
+    margin-bottom: 15px;
+    height: 175px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #fafafa;
+}
+.stuList>div{
+    height: 100%;
+    display: inline-block;
+    float: left;
+    width: 219.6px;
+    border-right: 1px solid #505F91;
+    position: relative;
+}
+.stuList>div:hover{
+    background:#E8EDEE ;
+    cursor: pointer;
+}
+.stuList>div.compare{
+    width: 148px;
+    border: none;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    padding-top: 70px;
+}
+.stuImg:hover{
+    /*background: #505F91;*/
+    background: #fafafa !important;
+}
+.stuImg img{
+    width: 100%;
+    height: 100%;
+}
+.stuImg img{
+    text-align: center;
+    display: inline-block;
+    margin:0 auto;
+}
+.inquiry{
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    background: #fff !important;
+    z-index: 9999999;
+    width: 1103px;
+}
+.inquiry>input{
+    display: inline-block;
+    width: 200px;
+}
+.inquiry b{
+    font-size: 23px;
+    color: #505F91;
+    font-weight: normal;
+    float: right;
+}
+.inquiry b span.departName{
+    font-size: 20px;
+    display: inline-block;
+    padding: 2px 8px ;
+    border: 1px solid #5EB8DA;
+    border-radius: 50%;
+    background: #5EB8DA;
+    color: #fff;
+}
+.resetting{
+    padding: 5px 18px !important;
+    background: #f1f2f6 !important;
+    border: 1px solid #505f91 !important;
+    color: #505f91 !important;
+    border-radius: 4px;
+}
+.resetting:hover{
+    background: #505f91 !important;
+    color: #fff !important;
+}
+.basicInfo{
+    padding: 5px;
+    /*padding-top: 15px;*/
+}
+.basicInfo table b{
+    font-size: 16px;
+    color: #505F91;
+}
+.basicInfo table td{
+    padding: 2px 0;
+}
+.basicInfo table i{
+    font-size: 16px;
+    font-style: normal;
+    margin-left: 15px;
+}
+.atten,.syllabus,.days{
+    padding: 5px ;
+    padding-top: 40px;
+    text-align: center;
+    font-size: 16px;
+}
+.atten p,.syllabus p,.days p{
+    font-size: 19px;
+}
+.atten p:first-child,.syllabus p:first-child,.days p:first-child{
+    font-size: 35px;
+    color: #505F91;
+    font-weight: bold;
+}
+.compare a{
+    display: inline-block;
+}
+.content{
+    width: 1120px;
+    margin: 0 auto;
+    overflow: auto;
+    height: 100%;
+    padding-top: 30px;
+}
+.rotate {
+    position: absolute;
+    width: 10%;
+}
+
+.rotate > i {
+    width: 0;
+    height: 0;
+    border-top: 55px solid #808080;
+    border-right: 55px solid transparent;
+    position: absolute;
+    top: 0;
+}
+.rotate > i.green {
+    border-top: 55px solid #72DB67;
+}
+.rotate > i.yellow {
+    border-top: 55px solid #FEA356;
+}
+.rotate > b {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    font-size: 13px;
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -moz-transform: rotate(-45deg) translate(-6px, 8px); /* Firefox */
+    -webkit-transform: rotate(-45deg) translate(-6px, 8px); /* Safari and Chrome */
+    -o-transform: rotate(-45deg) translate(-6px, 8px); /* Opera */
+    transform: rotate(-45deg) translate(-6px, 8px);
+    width: 45px;
+}
+.dtlBox{
+    width: 100%;
+    margin: 0;
+}
+.dtlBox h5{
+    font-size: 16px;
+}
+.extend{
+    display: none;
+}
+.btnSearch.btn-info{
+    margin: 0 15px 0 30px;
+    padding: 7px 15px;
+    position: relative;
+    top: -2px;
+}
+.bigRestting{
+    padding:8px 18px !important;
+    position: relative;
+    top: -1px;
+    margin-right: 50px;
+}
+.left_nav {
+    position: fixed;
+    width: 45px;
+    height: 100%;
+    background: #505F91;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    z-index: 999;
+    left: 0;
+    top: 0;
+}
+.left_nav span {
+    float: right;
+    margin-right: 15px;
+    margin-top: 50px;
+    cursor: pointer;
+}
+.left_nav b{
+    display: block;
+    margin-top:75px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

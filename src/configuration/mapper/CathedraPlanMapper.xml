@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.CathedraPlanMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.CathedraPlan" >
+	<result column="id" property="id"/>
+	<result column="cath_title" property="cath_title"/>
+	<result column="cath_content" property="cath_content"/>
+	<result column="speaker" property="speaker"/>
+	<result column="cath_date" property="cath_date"/>
+	<result column="cath_time" property="cath_time"/>
+	<result column="cath_place" property="cath_place"/>
+	<result column="create_time" property="create_time"/>
+	<result column="creater_authid" property="creater_authid"/>
+	<result column="status" property="status"/>
+	<result column="speaker_name" property="speaker_name"/>
+	
+</resultMap>
+       
+<!-- CATHEDRA_PLAN table all fields -->
+<sql id="Base_Column_List" >
+	 id,cath_title,cath_content,speaker,cath_date,cath_time,cath_place,create_time,creater_authid,status,speaker_name
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="cath_title != null and cath_title != ''" >
+	    and cath_title =  #{cath_title}
+	</if>
+	<if test="cath_content != null" >
+	    and cath_content =  #{cath_content}
+	</if>
+	<if test="speaker != null" >
+	    and speaker =  #{speaker}
+	</if>
+	<if test="cath_date != null" >
+	    and cath_date =  #{cath_date}
+	</if>
+	<if test="cath_time != null" >
+	    and cath_time =  #{cath_time}
+	</if>
+	 	<if test="cath_place != null and cath_place != ''" >
+	    and cath_place =  #{cath_place}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="creater_authid != null" >
+	    and creater_authid =  #{creater_authid}
+	</if>
+	 	<if test="status != null and status != ''" >
+	    and status =  #{status}
+	</if>
+	<if test="speaker_name != null and speaker_name != ''" >
+	    and speaker_name =  #{speaker_name}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan" >
+  insert into CATHEDRA_PLAN(id,cath_title,cath_content,speaker,cath_date,cath_time,cath_place,create_time,creater_authid,status,speaker_name)
+ values(#{id,jdbcType=INTEGER},#{cath_title,jdbcType=VARCHAR},#{cath_content,jdbcType=VARCHAR},#{speaker,jdbcType=INTEGER},#{cath_date,jdbcType=INTEGER},#{cath_time,jdbcType=TIMESTAMP},#{cath_place,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{creater_authid,jdbcType=INTEGER},#{status,jdbcType=VARCHAR},#{speaker_name,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan" >
+	update CATHEDRA_PLAN set 
+	<trim  suffixOverrides="," >
+	<if test="cath_title != null  and cath_title != '' ">
+		cath_title=#{cath_title,jdbcType=VARCHAR},
+	</if>
+	<if test="cath_content != null  ">
+		cath_content=#{cath_content,jdbcType=VARCHAR},
+	</if>
+	<if test="speaker != null  ">
+		speaker=#{speaker,jdbcType=INTEGER},
+	</if>
+	<if test="cath_date != null  ">
+		cath_date=#{cath_date,jdbcType=INTEGER},
+	</if>
+	<if test="cath_time != null  ">
+		cath_time=#{cath_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="cath_place != null  and cath_place != '' ">
+		cath_place=#{cath_place,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="creater_authid != null  ">
+		creater_authid=#{creater_authid,jdbcType=INTEGER},
+	</if>
+	<if test="status != null  and status != '' ">
+		status=#{status,jdbcType=VARCHAR},
+	</if>
+	<if test="speaker_name != null  and speaker_name != '' ">
+		speaker_name=#{speaker_name,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	delete 	 from CATHEDRA_PLAN where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 讲座排班计划表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" />,
+	to_char(cath_time,'yyyy-mm-dd hh24:mi') as cath_time_str 
+	 from CATHEDRA_PLAN where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 讲座排班计划表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_cathedra_plan_id.nextval from dual
+</select>
+
+<!-- 讲座排班计划表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	select count(1) from CATHEDRA_PLAN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询讲座排班计划表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	select 
+	<include refid="Base_Column_List"/>
+	from CATHEDRA_PLAN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询讲座排班计划表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	select 
+	<include refid="Base_Column_List"/>
+	from CATHEDRA_PLAN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 根据月份的开始和结束按月查询讲座排班计划表 -->
+<select id="selectCathedraPlan" resultType="com.rensu.education.hctms.teach.bean.CathedraPlan"  parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	select 
+	id,cath_title,cath_content,speaker,cath_date,cath_time,cath_place,create_time,creater_authid,status
+	from CATHEDRA_PLAN
+	where 1=1
+	<if test="timeStart != null and timeEnd != null">
+	  and cath_time between #{timeStart} and #{timeEnd}
+	</if>
+	<if test="status != null and status != ''" >
+	    and status =  #{status}
+	</if>
+</select>
+  	
+<!-- 查询届次 -->
+<select id="stuClassCheckbox" resultType="com.rensu.education.hctms.userauth.bean.StuClass">
+	select
+	stu_class
+	from STU_CLASS 
+	where available='Y' order  by  stu_class desc
+</select>
+
+<!-- 查询学生类型 -->
+<select id="stuTypeCheckbox" resultType="com.rensu.education.hctms.userauth.bean.StuType">
+	select
+	type_name
+	from STU_TYPE 
+	where state='Y'
+</select>
+ 
+<!-- String是这样处理的-->
+<select id="countCathedraPlan" resultType="java.lang.Integer"  parameterType="String">
+	select nvl(count(1),0) from CATHEDRA_PLAN 
+	where 1=1 and status = 'Y'
+    <if test="_parameter  != null and _parameter  != ''" >
+    	and cath_date like #{_parameter} || '%'
+    </if>
+</select>
+
+<!-- String是这样处理的-->
+<select id="countCathedraPlanDate"  resultType="com.rensu.education.hctms.teach.bean.CathedraPlan" parameterType="String">
+	select cath_date from CATHEDRA_PLAN 
+	where 1=1 and status = 'Y' and rownum = 1
+    <if test="_parameter  != null and _parameter  != ''" >
+    	and cath_date like #{_parameter} || '%'
+    </if>
+</select>
+
+<!-- 讲座排班计划表列表 -->
+<select id="selectcathedraOnePlan"  resultType="java.lang.String" parameterType="int">
+	select i.user_name as speakerName from user_authority a
+		left join user_info i on  i.user_id=a.user_id where i.user_id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 讲座排班计划表列表 -->
+<select id="getCathDate"  resultType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	select distinct(to_char(t.cath_time,'yyyy-MM')) cath_date_str from CATHEDRA_PLAN t where status = 'Y' order by cath_date_str desc
+</select>
+
+<!-- 根据查询讲座排班条件表 -->
+<select id="selectCathedraCondition" resultType="com.rensu.education.hctms.teach.bean.CathedraCondition"  parameterType="com.rensu.education.hctms.teach.bean.CathedraCondition">
+	select 
+	id,cp_id,condition_type,condition_value
+	from CATHEDRA_CONDITION 
+	where 1=1
+	<if test="cp_id != null  ">
+		and cp_id=#{cp_id,jdbcType=INTEGER}
+	</if>
+	<if test="condition_type != null and condition_type != ''">
+		and condition_type=#{condition_type,jdbcType=INTEGER}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>   
+
+<!-- 统计每月的条数 -->
+<select id="countCathedraNotice" resultType="com.rensu.education.hctms.teach.bean.CathedraPlan"  parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	select id from CATHEDRA_PLAN 
+	where status = 'Y'
+    <if test="cath_date  != null and cath_date  != ''" >
+    	and cath_date like #{cath_date} || '%'
+    </if>
+    
+</select>
+
+<!-- 根据权限id获取类型和届次 -->
+<select id="getClassAndTypeByAuthId" resultType="com.rensu.education.hctms.teach.bean.CathedraDetail"  parameterType="java.lang.Integer">
+select sc.stu_class, st.type_name
+  from STU_CLASS sc
+  left join (select ua.auth_id, ua.state, ua.stu_type_id, t.stu_class
+               from USER_AUTHORITY ua
+               left join (select ui.user_id, si.stu_class
+                           from USER_INFO ui
+                           left join STUDENT_INFO si
+                             on ui.user_code = si.user_code and ui.state='Y' and si.state='Y') t
+                 on ua.user_id = t.user_id) tt
+    on sc.id = tt.stu_class
+  left join STU_TYPE st
+    on tt.stu_type_id = st.id
+ where tt.state = 'Y'
+	<if test="_parameter != null and _parameter != ''">
+		and tt.auth_id=#{_parameter,jdbcType=INTEGER}
+	</if>
+</select>
+
+<!-- 根据月份的开始和结束按月查询讲座通知 -->
+<select id="selectCathedraNotice" resultType="com.rensu.education.hctms.teach.bean.CathedraPlan"  parameterType="com.rensu.education.hctms.teach.bean.CathedraPlan">
+	select id,cath_title,cath_time,speaker_name,cath_place,
+	to_char(cath_time,'yyyy-mm-dd hh24:mi') as cath_time_str
+	from CATHEDRA_PLAN
+	where 1=1
+	<if test="timeStart != null and timeEnd != null">
+	  and cath_time between #{timeStart} and #{timeEnd}
+	</if>
+	<if test="status != null and status != ''" >
+	    and status =  #{status}
+	</if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>  
+
+
+
+</mapper>   

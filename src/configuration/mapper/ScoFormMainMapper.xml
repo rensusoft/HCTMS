@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.ScoFormMainMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.score.bean.ScoFormMain" >
+	<result column="id" property="id"/>
+	<result column="type_id" property="type_id"/>
+	<result column="form_type" property="form_type"/>
+	<result column="form_name" property="form_name"/>
+	<result column="form_sco" property="form_sco"/>
+	<result column="user_auth_id" property="user_auth_id"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="html_content" property="html_content"/>
+	<result column="create_auth_id" property="create_auth_id"/>
+	<result column="create_time" property="create_time"/>
+	<result column="state" property="state"/>
+	<result column="get_sco" property="get_sco"/>
+	<result column="form_id" property="form_id"/>
+	<result column="or_id" property="or_id"/>
+</resultMap>
+       
+<!-- SCO_FORM_MAIN table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_id,form_type,form_name,form_sco,user_auth_id,orga_id,html_content,create_auth_id,create_time,state,get_sco,form_id,or_id
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="type_id != null" >
+	    and type_id =  #{type_id}
+	</if>
+	<if test="form_type != null" >
+	    and form_type =  #{form_type}
+	</if>
+	 	<if test="form_name != null and form_name != ''" >
+	    and form_name =  #{form_name}
+	</if>
+	<if test="form_sco != null" >
+	    and form_sco =  #{form_sco}
+	</if>
+	<if test="user_auth_id != null" >
+	    and user_auth_id =  #{user_auth_id}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	<if test="html_content != null" >
+	    and html_content =  #{html_content}
+	</if>
+	<if test="create_auth_id != null" >
+	    and create_auth_id =  #{create_auth_id}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="get_sco != null" >
+	    and get_sco =  #{get_sco}
+	</if>
+	<if test="form_id != null" >
+	    and form_id =  #{form_id}
+	</if>
+	<if test="or_id != null" >
+	    and or_id =  #{or_id}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.score.bean.ScoFormMain" >
+  insert into SCO_FORM_MAIN(id,type_id,form_type,form_name,form_sco,user_auth_id,orga_id,html_content,create_auth_id,create_time,state,get_sco,form_id,or_id)
+ values(#{id,jdbcType=INTEGER},#{type_id,jdbcType=INTEGER},#{form_type,jdbcType=INTEGER},#{form_name,jdbcType=VARCHAR},#{form_sco,jdbcType=INTEGER},#{user_auth_id,jdbcType=INTEGER},#{orga_id,jdbcType=INTEGER},#{html_content,jdbcType=VARCHAR},#{create_auth_id,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR},#{get_sco,jdbcType=INTEGER},#{form_id,jdbcType=INTEGER},#{or_id,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.score.bean.ScoFormMain" >
+	update SCO_FORM_MAIN set 
+	<trim  suffixOverrides="," >
+	<if test="type_id != null  ">
+		type_id=#{type_id,jdbcType=INTEGER},
+	</if>
+	<if test="form_type != null  ">
+		form_type=#{form_type,jdbcType=INTEGER},
+	</if>
+	<if test="form_name != null  and form_name != '' ">
+		form_name=#{form_name,jdbcType=VARCHAR},
+	</if>
+	<if test="form_sco != null  ">
+		form_sco=#{form_sco,jdbcType=INTEGER},
+	</if>
+	<if test="user_auth_id != null  ">
+		user_auth_id=#{user_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="orga_id != null  ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="html_content != null  ">
+		html_content=#{html_content,jdbcType=VARCHAR},
+	</if>
+	<if test="create_auth_id != null  ">
+		create_auth_id=#{create_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="get_sco != null  ">
+		get_sco=#{get_sco,jdbcType=INTEGER},
+	</if>
+	<if test="form_id != null  ">
+		form_id=#{form_id,jdbcType=INTEGER},
+	</if>
+	<if test="or_id != null  ">
+		or_id=#{or_id,jdbcType=INTEGER},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<update id="updateState" parameterType="com.rensu.education.hctms.score.bean.ScoFormMain" >
+	update SCO_FORM_MAIN set 
+	<trim  suffixOverrides="," >
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> 
+	where state='Y' and or_id is null
+	<if test="user_auth_id != null  ">
+		and user_auth_id=#{user_auth_id,jdbcType=INTEGER}
+	</if>
+	<if test="orga_id != null  ">
+		and orga_id=#{orga_id,jdbcType=INTEGER}
+	</if>
+	<if test="create_auth_id != null  ">
+		and create_auth_id=#{create_auth_id,jdbcType=INTEGER}
+	</if>
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+	delete 	 from SCO_FORM_MAIN where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 表单评分记录主表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from SCO_FORM_MAIN where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 表单评分记录主表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_sco_form_main_id.nextval from dual
+</select>
+
+<!-- 表单评分记录主表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+	select count(1) from SCO_FORM_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+  	
+<!-- 根据类型bean查询表单评分记录主表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from SCO_FORM_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<update id="delStuOldData" parameterType="com.rensu.education.hctms.score.bean.ScoFormMain" >
+	update SCO_FORM_MAIN 
+	set state='X'
+	where 
+	    1 = 1
+		<if test="type_id != null" >
+		    and type_id = #{type_id}
+		</if>
+		<if test="user_auth_id != null" >
+		    and user_auth_id = #{user_auth_id}
+		</if>
+		<if test="orga_id != null" >
+		    and orga_id = #{orga_id}
+		</if>
+</update>    
+
+<!-- 根据类型bean进行分页查询表单评分记录主表 -->
+<select id="querySFMId" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+	select t.id
+	from SCO_FORM_MAIN t 
+	where t.type_id=2 and t.form_type=1 and t.state='Y' 
+	<if test="form_id != null  and form_id != '' ">
+		and t.form_id=#{form_id}
+	</if>
+	<if test="user_auth_id != null  and user_auth_id != '' ">
+		and t.user_auth_id=#{user_auth_id}
+	</if>
+	<if test="orga_id != null  and orga_id != '' ">
+		and t.orga_id=#{orga_id}
+	</if>
+	<if test="create_auth_id != null  and create_auth_id != '' ">
+		and t.create_auth_id=#{create_auth_id}
+	</if>
+</select> 
+
+<!-- 根据form_id查询评分表单子项的主项 -->
+<select id="findMarksheetSubM" resultType="com.rensu.education.hctms.basicdata.bean.MarksheetSub"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	select ms.* 
+	from MARKSHEET_SUB ms 
+	left join (select mm.id,fi.id as form_id from FORM_INFO fi left join MARKSHEET_MAIN mm on fi.related_id=mm.id and fi.type_id=1 and fi.state='Y' and fi.availability='Y') t 
+	on ms.mm_id=t.id
+	where ms.type_code=0 and ms.state='Y'
+	<if test="id != null  and id != '' ">
+		and t.form_id=#{id}
+	</if>
+</select>  
+
+<!-- 根据form_id查询评分表单MARKSHEET_DETAIL表各项 -->
+<select id="findMarksheetDetail" resultType="com.rensu.education.hctms.basicdata.bean.MarksheetDetail"  parameterType="java.lang.Integer">
+	select md.* from MARKSHEET_DETAIL md 
+	where md.state='Y'
+	<if test="_parameter != null  and _parameter != '' ">
+		and md.ms_id=#{_parameter}
+	</if>
+</select>    
+
+<!-- 根据主项查询评分表单项的子项 -->
+<select id="findMarksheetSubS" resultType="com.rensu.education.hctms.basicdata.bean.MarksheetSub"  parameterType="java.lang.Integer">
+	select t.* from MARKSHEET_SUB t 
+	where t.state='Y'
+	<if test="_parameter != null  and _parameter != '' ">
+		and t.ms_id=#{_parameter}
+	</if>
+</select>
+
+<!-- 根据form_id查询这条数据的id标识 -->
+<select id="getSFMId" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+select id from 
+	(select t.id
+	from SCO_FORM_MAIN t 
+	where t.type_id=2 and t.state='Y' and t.or_id is null
+	<if test="form_id != null  and form_id != '' ">
+		and t.form_id=#{form_id}
+	</if>
+	<if test="user_auth_id != null  and user_auth_id != '' ">
+		and t.user_auth_id=#{user_auth_id}
+	</if>
+	<if test="orga_id != null  and orga_id != '' ">
+		and t.orga_id=#{orga_id}
+	</if>
+	<if test="create_auth_id != null  and create_auth_id != '' ">
+		and t.create_auth_id=#{create_auth_id}
+	</if>
+	order by t.id desc) where rownum=1
+</select> 
+
+<!-- 根据pub_num查询这条数据的or_id -->
+<select id="getOrIdByPubNum" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select sfm.* from SCO_FORM_MAIN sfm 
+	where sfm.state='Y' 
+	and sfm.or_id in 
+		(select o.id from OUTDEPT_RECORD o
+		 where o.state='Y'
+		 <if test="stu_auth_id != null  and stu_auth_id != '' ">
+			and o.stu_auth_id=#{stu_auth_id}
+		</if>
+		<if test="orga_id != null  and orga_id != '' ">
+			and o.orga_id=#{orga_id}
+		</if>
+		<if test="pub_num != null  and pub_num != '' ">
+			and o.pub_num=#{pub_num}
+		</if>)
+</select> 
+<!-- 根据pub_num查询这条数据的or_id -->
+<select id="selectByOrId" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from SCO_FORM_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+    	
+</mapper>   

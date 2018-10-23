@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.RoleInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.userauth.bean.RoleInfo" >
+	<result column="role_id" property="role_id"/>
+	<result column="role_code" property="role_code"/>
+	<result column="role_name" property="role_name"/>
+	<result column="state" property="state"/>
+	<result column="create_time" property="create_time"/>
+	<result column="role_type" property="role_type"/>
+</resultMap>
+       
+<!-- role_info table all fields -->
+<sql id="Base_Column_List" >
+	 role_id,role_code,role_name,state,create_time,role_type
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="role_id != null" >
+	    and role_id =  #{role_id}
+	</if>
+	 	<if test="role_code != null and role_code != ''" >
+	    and role_code =  #{role_code}
+	</if>
+	 	<if test="role_name != null and role_name != ''" >
+	    and role_name =  #{role_name}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	 	<if test="create_time != null and create_time != ''" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="role_type != null and role_type != ''" >
+	    and role_type =  #{role_type}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.userauth.bean.RoleInfo" >
+  insert into role_info( role_id,role_code,role_name,state,create_time,role_type)
+ values(#{role_id,jdbcType=INTEGER},#{role_code,jdbcType=VARCHAR},#{role_name,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{role_type,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.userauth.bean.RoleInfo" >
+	update role_info set 
+	<trim  suffixOverrides="," >
+	<if test="role_code != null  and role_code != '' ">
+		role_code=#{role_code,jdbcType=VARCHAR},
+	</if>
+	<if test="role_name != null  and role_name != '' ">
+		role_name=#{role_name,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="role_type != null  and role_type != '' ">
+		role_type=#{role_type,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	</trim> where role_id=#{role_id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.userauth.bean.RoleInfo">
+	delete 	 from role_info where role_id = #{role_id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 用户表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from role_info where role_id = #{role_id,jdbcType=INTEGER}
+</select>
+
+<!-- 用户表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_role_info_role_id.nextval from dual
+</select>
+
+<!-- 用户表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.userauth.bean.RoleInfo">
+	select count(1) from role_info 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询用户表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.RoleInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from role_info 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询用户表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.RoleInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from role_info 
+	<include refid="Example_Where_Clause"/>
+	
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 查询所有 -->
+<select id="getAllRoleInfo" resultMap="BaseResultMap">
+     select
+     <include refid="Base_Column_List"/>
+	 from 
+	 	role_info
+</select>
+
+<!-- 查询所有非学生角色 -->
+<select id="selectTeacherList" resultMap="BaseResultMap">
+   select 
+	<include refid="Base_Column_List"/>
+	from role_info 
+    where role_id !=10
+</select>
+
+
+
+
+</mapper>   

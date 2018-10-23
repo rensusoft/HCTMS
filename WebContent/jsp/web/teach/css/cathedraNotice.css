@@ -1,0 +1,148 @@
+a:hover{
+    cursor: pointer;
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+}
+body{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.hide_btn{
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+.hide_btn:hover{
+    color:#505F91;
+}
+.hide_btn i{
+    font-size: 20px;
+}
+.section_box{
+    float: right;
+    width:100%;
+    padding-left:180px;
+}
+.section_box>p{
+    margin: 10px 0 0 10px;
+}
+.left_btns{
+    float:left;
+    width: 160px;
+    height: 100%;
+    background: #D9DEE4;
+    position:fixed;
+    overflow: auto;
+    z-index:999;
+}
+.left_btns h3{
+    text-align: center;
+    padding: 35px 0;
+    border-bottom: 1px solid #505F91;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.left_btns ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.left_btns ul li{
+    line-height: 45px;
+    border-bottom: 1px solid #505F91;
+}
+.left_btns ul li a{
+    margin-left: 15px;
+    text-decoration: none;
+    display: block;
+}
+.left_btns ul li a:hover{
+    color: #4C6293;
+}
+.left_btns ul li a span.badge{
+    margin-left: 25px;
+    color: #fff;
+    background: #EB6100;
+}
+.bg_color{
+    background: #EDF2F7;
+}
+.lecture{
+    width: 900px;
+    height: 375px;
+    /*border: 1px solid #ddd;*/
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom:75px;
+}
+.lecture td{
+    border: 1px solid #ddd;
+}
+.lecture tr:nth-child(1) td:nth-child(odd),.lecture tr:nth-child(2) td:nth-child(odd),.lecture tr:nth-child(3) td:first-child,.lecture tr:nth-child(4) td:first-child,.lecture tr:nth-child(5) td:first-child{
+    width:150px;
+    background: #F3F3F3;
+    height: 40px;
+    text-align: center;
+}
+.lecture tr:nth-child(6) td:first-child{
+    background: #F9F9F9;
+    text-align: center;
+}
+.lecture tr:nth-child(1) td:nth-child(even),.lecture tr:nth-child(2) td:nth-child(even){
+    width: 300px;
+}
+.lecture select{
+    width: 100%;
+}
+.lecture input[type=text]{
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding-left: 5px;
+    outline: none;
+}
+.btns{
+    margin-top: 20px;
+    text-align: center;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#fff;
+    padding:15px 0;
+}
+a.btn.btn-info.btnSearch{
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

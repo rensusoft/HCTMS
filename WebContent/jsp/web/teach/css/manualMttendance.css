@@ -1,0 +1,70 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+section{
+    height: 100%;
+    padding: 10px;
+}
+.stuList,.leaveStu{
+    border: 1px solid #505F91;
+    border-radius: 5px ;
+    border-top: 5px solid #505F91;
+    margin-bottom: 5px;
+}
+.stuList h4,.leaveStu h4{
+    padding-left: 15px;
+}
+.leaveStuDiv:before,.stuListDiv:before{
+    content:"";
+    display:block;
+}
+.leaveStuDiv:after,.stuListDiv:after{
+    content:"";
+    display:block;
+    clear: both;
+}
+.stuDiv,.leStuDiv{
+    float: left;
+    width: 143px;
+    height: 80px;
+    background: #505F91;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    margin: 3px 10px;
+}
+.stuName{
+    font-size: 25px;
+    text-align: center;
+    margin: 6px 0;
+}
+.stuType{
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+}
+.stuDiv_img{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.dark{
+    background: #9C9C9C;
+}
+.display{
+    display: none;
+}
+.stuListDiv{
+    overflow: auto;
+    height: 165px;
+}
+.btns{
+    text-align: center;
+}

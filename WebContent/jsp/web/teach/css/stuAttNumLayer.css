@@ -1,0 +1,26 @@
+*{
+    padding: 0;
+    margin: 0;
+
+}
+section{
+    width: 1020px;
+    padding: 10px;
+}
+.stuAttenTable{
+    border: 1px solid #505F91;
+    width: 100%;
+    border-radius: 5px ;
+    /*overflow: hidden;*/
+}
+.stuAttenTable td,.stuAttenTable th{
+    border: 1px solid #6A79A7;
+    text-align: center;
+    height: 35px;
+}
+.stuAttenTable th{
+    background: #505F91;
+    font-size: 16px;
+    color: #fff;
+    height: 40px;
+}

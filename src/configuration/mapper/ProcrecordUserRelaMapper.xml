@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.ProcrecordUserRelaMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.log.bean.ProcrecordUserRela" >
+	<result column="id" property="id"/>
+	<result column="pr_id" property="pr_id"/>
+	<result column="user_auth_id" property="user_auth_id"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- PROCRECORD_USER_RELA table all fields -->
+<sql id="Base_Column_List" >
+	 id,pr_id,user_auth_id,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="pr_id != null" >
+	    and pr_id =  #{pr_id}
+	</if>
+	<if test="user_auth_id != null" >
+	    and user_auth_id =  #{user_auth_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.log.bean.ProcrecordUserRela" >
+  insert into PROCRECORD_USER_RELA(id,pr_id,user_auth_id,state)
+ values(#{id,jdbcType=INTEGER},#{pr_id,jdbcType=INTEGER},#{user_auth_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.log.bean.ProcrecordUserRela" >
+	update PROCRECORD_USER_RELA set 
+	<trim  suffixOverrides="," >
+	<if test="pr_id != null  ">
+		pr_id=#{pr_id,jdbcType=INTEGER},
+	</if>
+	<if test="user_auth_id != null  ">
+		user_auth_id=#{user_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.log.bean.ProcrecordUserRela">
+	delete 	 from PROCRECORD_USER_RELA 
+	<include refid="Example_Where_Clause"/>
+</update>
+ 
+<!-- 流程记录表与用户关联表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from PROCRECORD_USER_RELA where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 流程记录表与用户关联表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_procrecord_user_rela_id.nextval from dual
+</select>
+
+<!-- 流程记录表与用户关联表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.log.bean.ProcrecordUserRela">
+	select count(1) from PROCRECORD_USER_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询流程记录表与用户关联表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.ProcrecordUserRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from PROCRECORD_USER_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询流程记录表与用户关联表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.ProcrecordUserRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from PROCRECORD_USER_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

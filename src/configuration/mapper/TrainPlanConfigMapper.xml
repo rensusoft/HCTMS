@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.TrainPlanConfigMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.config.bean.TrainPlanConfig" >
+	<result column="id" property="id"/>
+	<result column="tsc_id" property="tsc_id"/>
+	<result column="stu_type_code" property="stu_type_code"/>
+	<result column="dept_id" property="dept_id"/>
+	<result column="duration" property="duration"/>
+	<result column="duration_unit" property="duration_unit"/>
+	<result column="group_num" property="group_num"/>
+	<result column="ordinal" property="ordinal"/>
+	<result column="train_dept_type" property="train_dept_type"/>
+	<result column="state" property="state"/>
+	<result column="req_content" property="req_content"/>
+	
+</resultMap>
+       
+<!-- TRAIN_PLAN_CONFIG table all fields -->
+<sql id="Base_Column_List" >
+	 id,tsc_id,stu_type_code,dept_id,duration,duration_unit,group_num,ordinal,train_dept_type,state,req_content
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="tsc_id != null" >
+	    and tsc_id =  #{tsc_id}
+	</if>
+	 	<if test="stu_type_code != null and stu_type_code != ''" >
+	    and stu_type_code =  #{stu_type_code}
+	</if>
+	<if test="dept_id != null" >
+	    and dept_id =  #{dept_id}
+	</if>
+	<if test="duration != null" >
+	    and duration =  #{duration}
+	</if>
+	 	<if test="duration_unit != null and duration_unit != ''" >
+	    and duration_unit =  #{duration_unit}
+	</if>
+	 	<if test="group_num != null and group_num != ''" >
+	    and group_num =  #{group_num}
+	</if>
+	<if test="ordinal != null" >
+	    and ordinal =  #{ordinal}
+	</if>
+	<if test="train_dept_type != null" >
+	    and train_dept_type =  #{train_dept_type}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig" >
+  insert into TRAIN_PLAN_CONFIG(id,tsc_id,stu_type_code,dept_id,duration,duration_unit,group_num,ordinal,train_dept_type,state,req_content)
+ values(#{id,jdbcType=INTEGER},#{tsc_id,jdbcType=INTEGER},#{stu_type_code,jdbcType=VARCHAR},#{dept_id,jdbcType=INTEGER},#{duration,jdbcType=INTEGER},#{duration_unit,jdbcType=VARCHAR},#{group_num,jdbcType=VARCHAR},#{ordinal,jdbcType=INTEGER},#{train_dept_type,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{req_content,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig" >
+	update TRAIN_PLAN_CONFIG set 
+	<trim  suffixOverrides="," >
+	<if test="tsc_id != null  ">
+		tsc_id=#{tsc_id,jdbcType=INTEGER},
+	</if>
+	<if test="stu_type_code != null  and stu_type_code != '' ">
+		stu_type_code=#{stu_type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="dept_id != null  ">
+		dept_id=#{dept_id,jdbcType=INTEGER},
+	</if>
+	<if test="duration != null  ">
+		duration=#{duration,jdbcType=INTEGER},
+	</if>
+	<if test="duration_unit != null  and duration_unit != '' ">
+		duration_unit=#{duration_unit,jdbcType=VARCHAR},
+	</if>
+	<if test="group_num != null  and group_num != '' ">
+		group_num=#{group_num,jdbcType=VARCHAR},
+	</if>
+	<if test="ordinal != null  ">
+		ordinal=#{ordinal,jdbcType=INTEGER},
+	</if>
+	<if test="train_dept_type != null  ">
+		train_dept_type=#{train_dept_type,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="req_content != null  and req_content != '' ">
+		req_content=#{req_content,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig">
+	delete 	 from TRAIN_PLAN_CONFIG where
+	<if test="id != null" >
+	id = #{id,jdbcType=INTEGER}
+	</if>
+	<if test="tsc_id != null" >
+	tsc_id =  #{tsc_id,jdbcType=INTEGER}
+	</if>
+</update>
+ 
+<!-- 轮转规则配置表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from TRAIN_PLAN_CONFIG where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 轮转规则配置表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_train_plan_config_id.nextval from dual
+</select>
+
+<!-- 轮转规则配置表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig">
+	select count(1) from TRAIN_PLAN_CONFIG 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询轮转规则配置表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig">
+	select 
+	<include refid="Base_Column_List"/>
+	from TRAIN_PLAN_CONFIG 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询轮转规则配置表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig">
+	select 
+	<include refid="Base_Column_List"/>
+	from TRAIN_PLAN_CONFIG 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+ <select id="findRotaryDepartment" resultType="com.rensu.education.hctms.config.bean.TrainPlanConfig"  parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig">	
+      select t.id,o.orga_name as orga_name,t.duration,decode(t.duration_unit,'D','天','W','周','M','月') as duration_unit,o.limit_num,t.ordinal,t.group_num,t.req_content,t.dept_id from train_plan_config  t
+      left join orga_info o on o.orga_id= t.dept_id 
+	  where 1=1
+<trim  suffixOverrides="," >
+	<if test="tsc_id != null and tsc_id != ''" >
+	    and t.tsc_id =  #{tsc_id}
+	</if>
+	<if test="duration_unit != null and duration_unit !=''"  >
+	    and t.duration_unit =  #{duration_unit}
+	</if> 
+</trim> 
+</select>
+
+
+<update id="updatebyTsc_id" parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig" >
+	update TRAIN_PLAN_CONFIG set 
+	<trim  suffixOverrides="," >
+	<if test="stu_type_code != null  and stu_type_code != '' ">
+		stu_type_code=#{stu_type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="dept_id != null  ">
+		dept_id=#{dept_id,jdbcType=INTEGER},
+	</if>
+	<if test="duration != null  ">
+		duration=#{duration,jdbcType=INTEGER},
+	</if>
+	<if test="duration_unit != null  and duration_unit != '' ">
+		duration_unit=#{duration_unit,jdbcType=INTEGER},
+	</if>
+	<if test="group_num != null  and group_num != '' ">
+		group_num=#{group_num,jdbcType=VARCHAR},
+	</if>
+	<if test="ordinal != null  ">
+		ordinal=#{ordinal,jdbcType=INTEGER},
+	</if>
+	<if test="train_dept_type != null  ">
+		train_dept_type=#{train_dept_type,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="req_content != null  and req_content != '' ">
+		req_content=#{req_content,jdbcType=VARCHAR},
+	</if>
+	</trim> where tsc_id=#{tsc_id,jdbcType=INTEGER}
+</update>
+
+<!-- 批量插入 教职工表 -->
+  <insert id="insertMany" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select seq_train_plan_config_id.nextval as id from dual
+		</selectKey>
+	insert into TRAIN_PLAN_CONFIG(id,tsc_id,stu_type_code,dept_id,duration,duration_unit,group_num,ordinal,train_dept_type,state,req_content)
+	select seq_train_plan_config_id.nextval,A.* FROM(
+		<foreach collection="list" item="item" index="index" separator="union all">
+ 	select  #{item.tsc_id,jdbcType=INTEGER} as tsc_id,
+ 			#{item.stu_type_code,jdbcType=VARCHAR} as stu_type_code,
+ 			#{item.dept_id,jdbcType=INTEGER} as dept_id,
+ 			#{item.duration,jdbcType=INTEGER} as duration,
+ 			#{item.duration_unit,jdbcType=VARCHAR} as duration_unit,
+ 			#{item.group_num,jdbcType=VARCHAR} as group_num,
+			#{item.ordinal,jdbcType=INTEGER} as ordinal,
+			#{item.train_dept_type,jdbcType=INTEGER} as train_dept_type,
+			#{item.state,jdbcType=VARCHAR} as state,
+			#{item.req_content,jdbcType=VARCHAR} as req_content
+ 	from dual 
+		</foreach>) A
+	</insert>
+  
+<select id="selectOrgaInfo" parameterType="com.rensu.education.hctms.config.bean.TrainPlanConfig" resultType="com.rensu.education.hctms.config.bean.TrainPlanConfig">
+select t.dept_id,oi.orga_name from TRAIN_PLAN_CONFIG t left join orga_info oi on oi.orga_id=t.dept_id left join train_scheme_config tsc
+on tsc.id=t.tsc_id left join student_info si on si.tsc_id=tsc.id left join user_info ui on ui.user_code=si.user_code left join user_authority ua 
+on ua.user_id=ui.user_id 
+ where ua.auth_id=#{auth_id} and t.state='Y'
+</select>
+
+<select id="getDeptId" resultType="com.rensu.education.hctms.config.bean.TrainPlanConfig">
+select tpc.id from STUDENT_INFO t left join train_scheme_config tsc on tsc.id=t.tsc_id left join train_plan_config tpc on tpc.tsc_id=tsc.id where t.user_code=#{user_code} and tpc.dept_id=#{dept_id}
+</select>  	  	
+
+<select id="selectOrgaByTscId" resultType="com.rensu.education.hctms.config.bean.TrainPlanConfig">
+select oi.orga_id as dept_id,oi.orga_name from TRAIN_PLAN_CONFIG t  left join orga_info oi on oi.orga_id=t.dept_id
+where t.tsc_id=#{tsc_id} and t.state='Y'
+</select> 
+
+</mapper>   

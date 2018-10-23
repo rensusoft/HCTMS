@@ -1,0 +1,71 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body {
+    height: 100%;
+}
+
+section {
+    height: 100%;
+    padding: 10px;
+}
+
+ul.ztree {
+    margin-top: 5px;
+    border: 1px solid #617775;
+    width: 100%;
+    height: 245px;
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+.chooseTable td{
+    padding:5px 0;
+}
+.chooseTable{
+    margin-bottom: 50px;
+}
+.btns{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 15px 0;
+}
+.newDiv:before{
+    content:"";
+    display:block;
+}
+.newDiv:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+.leftDiv{
+    width: 60%;
+    float: left;
+}
+.rightDiv{
+    width: 40%;
+    float: right;
+}
+.stuNameDiv{
+    height: 100px;
+    border: 1px solid #617775;
+    overflow: auto;
+}
+.stuNameDiv span.stuSpan{
+    display: inline-block;
+    border: 1px solid #505F91;
+    padding: 3px;
+    border-radius: 5px;
+}

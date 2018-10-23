@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.FormInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.FormInfo" >
+	<result column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="total_sconum" property="total_sconum"/>
+	<result column="t_content" property="t_content"/>
+	<result column="type_id" property="type_id"/>
+	<result column="related_id" property="related_id"/>
+	<result column="create_time" property="create_time"/>
+	<result column="state" property="state"/>
+	<result column="availability" property="availability"/>
+	<result column="user_name" property="user_name"/>
+	<result column="time" property="time"/>
+	<result column="create_auth_id" property="create_auth_id"/>
+	<result column="form_state" property="form_state"/>
+	
+</resultMap>
+       
+<!-- FORM_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_id,related_id,create_time,state,availability
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="type_id != null" >
+	    and type_id =  #{type_id}
+	</if>
+	<if test="related_id != null" >
+	    and related_id =  #{related_id}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="availability != null and availability != ''" >
+	    and availability =  #{availability}
+	</if>
+	<if test="create_auth_id != null">
+	    and create_auth_id = #{create_auth_id}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo" >
+  insert into FORM_INFO(id,type_id,related_id,create_time,state,availability)
+ values(#{id,jdbcType=INTEGER},#{type_id,jdbcType=INTEGER},#{related_id,jdbcType=INTEGER},sysdate,#{state,jdbcType=VARCHAR},#{availability,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo" >
+	update FORM_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="type_id != null  ">
+		type_id=#{type_id,jdbcType=INTEGER},
+	</if>
+	<if test="related_id != null  ">
+		related_id=#{related_id,jdbcType=INTEGER},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="availability != null  and availability != '' ">
+		availability=#{availability,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	delete 	 from FORM_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 系统表单表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select * from (select t.id,t.related_id,t.type_id,decode(t.type_id,1,m.mm_name,h.t_name) name,decode(t.type_id,1,to_char(m.total_sconum),'-') total_sconum,h.t_content,to_char(t.create_time,'yyyy-mm-dd hh24:mi:ss') time,decode(t.availability,'Y','启用','禁用') form_state, t.availability,
+		decode(t.type_id,1,m.user_name,h.user_name) user_name,decode(t.type_id,1,m.create_auth_id,h.create_auth_id) create_auth_id,t.state from FORM_INFO t 
+		left join (select m.*,u.user_name from MARKSHEET_MAIN m left join user_authority a on m.create_auth_id = a.auth_id left join user_info u on a.user_id = u.user_id where m.state='Y') m on m.id = t.related_id and t.type_id = 1 
+		left join (select m.*,u.user_name from HTML_TEMPLATE m left join user_authority a on m.create_auth_id = a.auth_id left join user_info u on a.user_id = u.user_id where m.state='Y') h on h.id = t.related_id and t.type_id=2
+		where t.state='Y') 
+	where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 系统表单表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_form_info_id.nextval from dual
+</select>
+
+<!-- 系统表单表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	select count(1) from FORM_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询系统表单表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from FORM_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询系统表单表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	select * from (select t.id,t.related_id,t.type_id,decode(t.type_id,1,m.mm_name,h.t_name) name,decode(t.type_id,1,to_char(m.total_sconum),'-') total_sconum,h.t_content,to_char(t.create_time,'yyyy-mm-dd hh24:mi:ss') time,decode(t.availability,'Y','启用','禁用') form_state, t.availability,
+		decode(t.type_id,1,m.user_name,h.user_name) user_name,decode(t.type_id,1,m.create_auth_id,h.create_auth_id) create_auth_id,t.state from FORM_INFO t 
+		left join (select m.*,u.user_name from MARKSHEET_MAIN m left join user_authority a on m.create_auth_id = a.auth_id left join user_info u on a.user_id = u.user_id where m.state='Y') m on m.id = t.related_id and t.type_id = 1 
+		left join (select m.*,u.user_name from HTML_TEMPLATE m left join user_authority a on m.create_auth_id = a.auth_id left join user_info u on a.user_id = u.user_id where m.state='Y') h on h.id = t.related_id and t.type_id=2
+		where t.state='Y') 
+	<include refid="Example_Where_Clause"/>
+ 	<if test="name != null and name != ''" >
+	    and name like '%${name}%'
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+ <!-- 模糊检索表单填充input --> 	
+<select id="selectFormInfo" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+    select t.id,t.type_id,t.related_id,h.t_name as name from FORM_INFO t 
+    left join html_template h on t.related_id = h.id  and t.type_id=2
+    where h.t_name like  '%'||#{namestr}||'%' and t.state=#{state}  and h.state=#{state} and t.availability='Y' and h.validity='Y'
+union
+    select t.id,t.type_id,t.related_id,m.mm_name from FORM_INFO t 
+    left join marksheet_main m on t.related_id=m.id  and t.type_id=1 
+    where m.mm_name like '%'||#{namestr}||'%'  and t.state=#{state}  and  m.state=#{state}  and t.availability='Y'  and m.VALIDITY='Y'
+</select>
+  	
+<select id="formRelation" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+   select distinct t.form_type,t.type_id,h.t_name as name from RPR_FORM_RELA t 
+   left join html_template h on t.type_id=h.id and t.form_type=2 
+   left join role_proc_rela r on t.rpr_id=r.id where h.validity='Y'
+   <if test="end_proc_id != null and end_proc_id != ''">
+   and r.end_proc_id=${end_proc_id}
+   </if>
+   <if test="state != null and state != ''">
+   and t.state=#{state}  and h.state=#{state} and r.state=#{state} 
+   </if>
+union
+   select distinct t.form_type,t.type_id,m.MM_NAME as name from RPR_FORM_RELA t 
+   left join marksheet_main m on t.type_id=m.id and t.form_type=1 
+   left join role_proc_rela r on t.rpr_id=r.id where m.validity='Y'
+   <if test="end_proc_id != null and end_proc_id != ''">
+   and r.end_proc_id=${end_proc_id}
+   </if>
+   <if test="state != null and state != ''">
+   and t.state=#{state}  and m.state=#{state} and r.state=#{state} 
+   </if>
+</select>
+<!-- 
+<select id="getForm" resultType="com.rensu.education.hctms.basicdata.bean.FormInfo"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	select id,name from (select f.id as id, m.mm_name as  name from    FORM_INFO f
+	left join MARKSHEET_MAIN m on m.id=f.related_id
+	where f.type_id=1 and m.state='Y' 
+	<if test="state != null and state != ''" >
+	    and  f.state= #{state}
+	</if>
+	union all
+	select f.id as id, t.t_name as name  from    FORM_INFO f
+	left join HTML_TEMPLATE t on t.id=f.related_id
+	where f.type_id=2 and t.state='Y' 
+	<if test="state != null and state != ''" >
+	    and  f.state= #{state}
+	</if>
+	) 
+	where 1=1
+ 	<if test="name != null and name != ''" >
+	    and name like '%${name}%'
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+-->
+<!-- 根据form_id获取表单配置的表格内容 -->
+<select id="getTableContent" resultType="com.rensu.education.hctms.basicdata.bean.FormInfo"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	select 
+	t.t_content
+	from    
+	FORM_INFO f
+	left join HTML_TEMPLATE t 
+	on f.related_id=t.id and f.state='Y' and f.type_id=2 and f.availability='Y'
+	where 1=1
+	<if test="id != null  and id != '' ">
+		and f.id=#{id}
+	</if>
+</select>  
+
+
+<select id="getForm" resultType="com.rensu.education.hctms.basicdata.bean.FormInfo"  parameterType="com.rensu.education.hctms.basicdata.bean.FormInfo">
+	select id,name,type_id from (select f.id as id, m.mm_name as  name,f.type_id as type_id from    FORM_INFO f
+	left join MARKSHEET_MAIN m on m.id=f.related_id
+	where f.type_id=1 and m.state='Y' 
+	<if test="state != null and state != ''" >
+	    and  f.state= #{state}
+	</if>
+	union all
+	select f.id as id, t.t_name as name,f.type_id as type_id  from    FORM_INFO f
+	left join HTML_TEMPLATE t on t.id=f.related_id
+	where f.type_id=2 and t.state='Y' 
+	<if test="state != null and state != ''" >
+	    and  f.state= #{state}
+	</if>
+	) 
+	where 1=1
+ 	<if test="name != null and name != ''" >
+	    and name like '%${name}%'
+	</if>
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select> 
+<!-- 根据form_id获取表单配置的表格内容 -->
+<select id="getTableContentFromSFM" resultType="com.rensu.education.hctms.basicdata.bean.FormInfo"  parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+	select t.html_content as t_content,t.id as sfm_id,t.form_name as t_name
+	from SCO_FORM_MAIN t 
+	where t.type_id=2 and t.form_type=2 and t.state='Y' 
+	<if test="id != null  and id != '' ">
+		and t.id=#{id}
+	</if>
+	<!-- 
+	<if test="form_id != null  and form_id != '' ">
+		and t.form_id=#{form_id}
+	</if>
+	<if test="user_auth_id != null  and user_auth_id != '' ">
+		and t.user_auth_id=#{user_auth_id}
+	</if>
+	<if test="orga_id != null  and orga_id != '' ">
+		and t.orga_id=#{orga_id}
+	</if>
+	<if test="create_auth_id != null  and create_auth_id != '' ">
+		and t.create_auth_id=#{create_auth_id}
+	</if>
+	 -->
+</select>
+
+<!-- 系统表单表列表 -->
+<select id="selectOneFromSFM"  resultType="com.rensu.education.hctms.basicdata.bean.FormInfo" parameterType="com.rensu.education.hctms.score.bean.ScoFormMain">
+	select * from (select t.id,t.related_id,t.type_id,decode(t.type_id,1,m.mm_name,h.t_name) name,decode(t.type_id,1,to_char(m.total_sconum),'-') total_sconum,h.t_content,to_char(t.create_time,'yyyy-mm-dd hh24:mi:ss') time,decode(t.availability,'Y','启用','禁用') form_state, t.availability,
+		decode(t.type_id,1,m.user_name,h.user_name) user_name,decode(t.type_id,1,m.create_auth_id,h.create_auth_id) create_auth_id,t.state,sfm.form_sco,sfm.get_sco from FORM_INFO t 
+		left join (select m.*,u.user_name from MARKSHEET_MAIN m left join user_authority a on m.create_auth_id = a.auth_id left join user_info u on a.user_id = u.user_id where m.state='Y') m on m.id = t.related_id and t.type_id = 1 
+		left join (select m.*,u.user_name from HTML_TEMPLATE m left join user_authority a on m.create_auth_id = a.auth_id left join user_info u on a.user_id = u.user_id where m.state='Y') h on h.id = t.related_id and t.type_id=2
+		left join sco_form_main sfm 
+        on t.id=sfm.form_id
+		where t.state='Y'
+		
+		<if test="id != null  and id != '' ">
+			and sfm.id=#{id}
+		</if>
+		) 
+	where id = #{form_id,jdbcType=INTEGER}
+</select>
+  
+</mapper>   

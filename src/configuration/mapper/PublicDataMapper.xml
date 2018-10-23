@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.PublicDataMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.publicdata.bean.PublicData" >
+	<result column="id" property="id"/>
+	<result column="type_code" property="type_code"/>
+	<result column="title" property="title"/>
+	<result column="content" property="content"/>
+	<result column="publisher_auth_id" property="publisher_auth_id"/>
+	<result column="publish_time" property="publish_time"/>
+	<result column="state" property="state"/>
+	<result column="searchstr" property="searchstr"/>
+</resultMap>
+       
+<!-- PUBLIC_DATA table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_code,title,content,publisher_auth_id,publish_time,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+	 	<if test="type_code != null and type_code != ''" >
+	    and type_code =  #{type_code}
+	</if>
+	 	<if test="title != null and title != ''" >
+	    and title =  #{title}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	 	<if test="publisher_auth_id != null and publisher_auth_id != ''" >
+	    and publisher_auth_id =  #{publisher_auth_id}
+	</if>
+	<if test="publish_time != null" >
+	    and publish_time =  #{publish_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.publicdata.bean.PublicData" >
+  insert into PUBLIC_DATA(id,type_code,title,content,publisher_auth_id,publish_time,state)
+ values(#{id,jdbcType=INTEGER},#{type_code,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{publisher_auth_id,jdbcType=VARCHAR},#{publish_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.publicdata.bean.PublicData" >
+	update PUBLIC_DATA set 
+	<trim  suffixOverrides="," >
+	<if test="type_code != null  and type_code != '' ">
+		type_code=#{type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="title != null  and title != '' ">
+		title=#{title,jdbcType=VARCHAR},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="publisher_auth_id != null  and publisher_auth_id != '' ">
+		publisher_auth_id=#{publisher_auth_id,jdbcType=VARCHAR},
+	</if>
+	<if test="publish_time != null  ">
+		publish_time=#{publish_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">
+	delete 	 from PUBLIC_DATA where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 共享资料表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from PUBLIC_DATA where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 共享资料表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_public_data_id.nextval from dual
+</select>
+
+<!-- 共享资料表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">
+	select count(1) from PUBLIC_DATA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询共享资料表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">
+	select 
+	<include refid="Base_Column_List"/>
+	from PUBLIC_DATA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询共享资料表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">
+	select 
+  id,decode( type_code,1,'学习资料','2','日常资料','3','其他资料') as type_code
+  ,title,content,(select user_name from user_info a left join  USER_AUTHORITY b on a.user_id = b.user_id  where b.auth_id =publisher_auth_id) as publisher_auth_id,publish_time,state
+  from PUBLIC_DATA 
+  <if test="searchStr == null or searchStr == ''" >
+	<include refid="Example_Where_Clause"/>
+	</if>
+		<if test="searchStr != null and searchStr != ''" >
+	     where state=#{state} and (title like '%'||#{searchStr}||'%' or type_code=#{type_code,jdbcType=VARCHAR} or publisher_auth_id in (select a.auth_id from  user_authority a left join user_info b on a.user_id=b.user_id where b.user_name like '%'||#{searchStr}||'%')) 
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+<select id="selectOneById" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">
+	select 
+  id,decode( type_code,1,'学习资料','2','日常资料','3','其他资料') as type_code
+  ,title,content,(select user_name from user_info a left join  USER_AUTHORITY b on a.user_id = b.user_id  where b.auth_id =publisher_auth_id) as publisher_auth_id,
+  to_char(publish_time, 'yyyy-mm-dd') as time,
+  state
+  from PUBLIC_DATA  where id=#{id}
+</select>
+  <!-- 根据类型bean进行分页查询共享资料表 -->
+<select id="selectPageOfOthers" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">  
+    select 
+    id,title,publish_time,
+    decode( type_code,1,'学习资料','2','日常资料','3','其他资料') as type_code,
+    (select user_name from user_info a left join  USER_AUTHORITY b on a.user_id = b.user_id  where b.auth_id =publisher_auth_id) || '(' || 
+      (select role_name from ROLE_INFO r left join  USER_AUTHORITY u on r.role_id = u.role_id  where u.auth_id =publisher_auth_id) || ')' as publisher_auth_id
+  	from (select t1.* from PUBLIC_DATA t1 where t1.state='Y'
+  	<if test="publisher_auth_id!=null and publisher_auth_id!=''">
+	     and publisher_auth_id=#{publisher_auth_id}
+	</if>
+  	 ) 
+	<if test="searchStr != null and searchStr != ''" >
+	     where title like '%'||#{searchStr}||'%' or type_code=#{type_code,jdbcType=VARCHAR} or publisher_auth_id in (select a.auth_id from  user_authority a left join user_info b on a.user_id=b.user_id where b.user_name like '%'||#{searchStr}||'%') 
+	</if>
+    order by publish_time desc
+</select> 
+  <!-- 共享资料表 列表总数-根据类型bean查询 -->
+  <select id="selectCountOfOthers" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">
+     select count(1) from 
+	  (select t1.* from PUBLIC_DATA t1 where t1.state='Y') 
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if> 
+  </select>
+  	<select id="selectPageOfSchool" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.publicdata.bean.PublicData">
+  	</select>
+</mapper>   

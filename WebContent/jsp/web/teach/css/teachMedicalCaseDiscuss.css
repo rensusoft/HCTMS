@@ -1,0 +1,336 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+body{
+    height: 100%;
+}
+section{
+    height: 100%;
+    padding: 10px;
+}
+.searchDiv{
+    height: 40px;
+}
+.btnSearch.btn-info {
+    padding: 4px 15px;
+    margin:0 30px 0 15px;
+    background: #5eb8da !important;
+    border: none;
+}
+.extend{
+    display: none;
+}
+.rejectCont{
+    padding: 0 15px;
+}
+.rejectCont table td{
+    padding: 5px 0;
+}
+.rejectCont table td span{
+    display: block;
+    border: 1px solid #ddd;
+    position: relative;
+    margin-left: 15px;
+    min-height: 25px;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 5px;
+}
+.rejectCont table td span img{
+    position: absolute;
+    left: -13px;
+}
+.rightBtn{
+    position: fixed;
+    height: 100%;
+    right: 0;
+    top: 0;
+}
+.rightBtn .rightBtnSpan span{
+    display: inline-block;
+    width: 16px;
+    height: 17px;
+    overflow: hidden;
+}
+.rightBtnSpan{
+    width: 45px;
+    padding-top: 100px;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    background: #505F91;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    height: 99.2%;
+    position: absolute;
+}
+.homeworkCont{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-left: 0;
+    display: inline-block;
+    padding-left: 45px;
+    width: 100%;
+    height: 100%;
+    /*position: absolute;*/
+    /*position: relative;*/
+}
+.homeworkCont table{
+    width: 100%;
+}
+.homeworkCont table td{
+    margin: 10px 0;
+}
+.displayDiv{
+    display: none;
+}
+.addNew{
+    float: right;
+    margin-right: 50px;
+}
+.btns{
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 15px 0;
+    bottom: 0;
+}
+.inforTable{
+    width: 100%;
+}
+.inforTable tr td:nth-child(even){
+    text-align: left;
+    padding-left: 5px;
+}
+.inforTable tr td:nth-child(odd){
+    width: 80px;
+    text-align: right;
+    font-weight: bold;
+}
+.about4 {
+    width: 1000px;
+}
+.about4_ch {
+    font-size: 18px;
+    color: #505f91;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.about4_main {
+    position: relative;
+    padding-left: 100px;
+}
+.line {
+    width: 1px;
+    height: 100%;
+    background-color: #000;
+    position: absolute;
+    left: 106px;
+    z-index: -1;
+}
+.line img{
+    position: absolute;
+    bottom: -12px;
+    left: -8px;
+}
+.about4_main ul li {
+    padding-left: 25px;
+    font-size: 14px;
+    color: #333333;
+    line-height: 22px;
+    margin-bottom: 50px;
+    background: url(../img/about4_icon.png) 0 4px no-repeat;
+    position: relative;
+}
+.about4_main ul li i{
+    font-style: normal;
+    display: inline-block;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background: #F5F5F5;
+}
+.about4_main ul li span{
+    position: absolute;
+    width: 12px;
+    height: 18px;
+    background: url("../img/steparrow.png");
+    top: 3px;
+    left: 14px;
+}
+.about4_main ul li:last-child {
+    margin-bottom: 0;
+}
+.about4_main ul li b{
+    display: inline-block;
+    margin-right: 15px;
+    position: absolute;
+    left: -84px;
+    text-align: center;
+    color: #505f91;
+}
+.leftBtn{
+    position: fixed;
+    height: 99.2%;
+    width:45px;
+    padding-top: 100px;
+    text-align: center;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    background: #505F91;
+    color: #fff;
+    font-weight: bold;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+#wrap{
+    padding-left: 45px;
+    height: 100%;
+}
+#wrap:before{
+    content:"";
+    display:block;
+}
+#wrap:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+.leftDiv{
+    width:40%;
+    height: 100%;
+    overflow: auto;
+    float: left;
+    border-right: 1px solid #ddd;
+    padding-right: 10px;
+}
+.rightDiv{
+    width: 60%;
+    float: right;
+    position: relative;
+    height: 100%;
+    overflow: auto;
+    padding-left: 15px;
+}
+.textDiv{
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+}
+.addDiv{
+    height: 100%;
+}
+.dtlBox {
+    margin: 0;
+}
+.about4_main ul li.myLi i{
+    border: 1px solid #78D034;
+    background: #C9E8B4;
+}
+.about4_main ul li.myLi span{
+    background: url("../img/steparrow2.png");
+}
+.about4_main ul li.teaLi i{
+    border: 1px solid #DD4E42;
+    background: #EDB4AF;
+}
+.about4_main ul li.teaLi span{
+    background: url("../img/steparrow3.png");
+}
+.toggleBtn{
+    z-index: 999;
+}
+.extend{
+    display: none;
+}
+.inforTable td{
+    padding: 5px 0;
+}
+.rightDiv .rejectCont{
+    margin-top: 70px;
+}
+.about4_main ul li b{
+    font-size: 12px;
+}
+.rightBtnSpan span{
+    background: url(../img/arr2.png)0 17px;
+    display: inline-block;
+    width: 16px;
+    height: 17px;
+    overflow: hidden;
+}
+.leftBtn span {
+    background: url(../img/arr2.png)0 17px;
+    display: inline-block;
+    width: 16px;
+    height: 17px;
+    overflow: hidden;
+}
+.about4_main ul li.stuLi i {
+    border: 1px solid #FFC200;
+    background: #F7E3A0;
+}
+.about4_main ul li.stuLi span {
+    background: url(../img/steparrow4.png);
+}
+.colorp{
+    position: absolute;
+    top: 24px;
+    right: 250px;
+    font-size: 14px;
+    background: #fff;
+    z-index: 999;
+}
+.colorp span{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+.colorp span.normalP{
+    background: #F5F5F5;
+}
+.colorp span.yellowP{
+    background: #F7E3A0;
+}
+.colorp span.greenP{
+    background: #C9E8B4;
+}
+.colorp span.redP{
+    background: #EDB4AF;
+}
+.about4_main ul li b{
+    line-height: 13px;
+}
+.delTitle .colorp a{
+    position: static;
+}
+.tableDiv table td p{
+	margin:0;
+}
+.ui-jqgrid-btable .ui-widget-content td p{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow : ellipsis;
+	width: 70%;
+	text-align:center;
+	margin:0 auto;	  
+}
+.ui-jqgrid-btable .ui-widget-content td {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow : ellipsis;
+	width: 70%;
+	text-align:center;
+	margin:0 auto;
+}		

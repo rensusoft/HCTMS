@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MedicalCaseMainMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.MedicalCaseMain" >
+	<result column="id" property="id"/>
+	<result column="title" property="title"/>
+	<result column="in_patient_info" property="in_patient_info"/>
+	<result column="content" property="content"/>
+	<result column="exponent_auth_id" property="exponent_auth_id"/>
+	<result column="exponent_content" property="exponent_content"/>
+	<result column="start_time" property="start_time"/>
+	<result column="finish_time" property="finish_time"/>
+	<result column="create_time" property="create_time"/>
+	<result column="creator_auth_id" property="creator_auth_id"/>
+	<result column="status" property="status"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MEDICAL_CASE_MAIN table all fields -->
+<sql id="Base_Column_List" >
+	 id,title,in_patient_info,content,exponent_auth_id,exponent_content,start_time,finish_time,create_time,creator_auth_id,status,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="title != null and title != ''" >
+	    and title =  #{title}
+	</if>
+	 	<if test="in_patient_info != null and in_patient_info != ''" >
+	    and in_patient_info =  #{in_patient_info}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="exponent_auth_id != null" >
+	    and exponent_auth_id =  #{exponent_auth_id}
+	</if>
+	<if test="exponent_content != null" >
+	    and exponent_content =  #{exponent_content}
+	</if>
+	<if test="start_time != null" >
+	    and start_time =  #{start_time}
+	</if>
+	<if test="finish_time != null" >
+	    and finish_time =  #{finish_time}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="creator_auth_id != null" >
+	    and creator_auth_id =  #{creator_auth_id}
+	</if>
+	 	<if test="status != null and status != ''" >
+	    and status =  #{status}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain" >
+  insert into MEDICAL_CASE_MAIN(id,title,in_patient_info,content,exponent_auth_id,exponent_content,start_time,finish_time,create_time,creator_auth_id,status,state)
+ values(#{id,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{in_patient_info,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{exponent_auth_id,jdbcType=INTEGER},#{exponent_content,jdbcType=VARCHAR},#{start_time,jdbcType=TIMESTAMP},#{finish_time,jdbcType=TIMESTAMP},#{create_time,jdbcType=TIMESTAMP},#{creator_auth_id,jdbcType=INTEGER},#{status,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain" >
+	update MEDICAL_CASE_MAIN set 
+	<trim  suffixOverrides="," >
+	<if test="title != null  and title != '' ">
+		title=#{title,jdbcType=VARCHAR},
+	</if>
+	<if test="in_patient_info != null  and in_patient_info != '' ">
+		in_patient_info=#{in_patient_info,jdbcType=VARCHAR},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="exponent_auth_id != null  ">
+		exponent_auth_id=#{exponent_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="exponent_content != null  ">
+		exponent_content=#{exponent_content,jdbcType=VARCHAR},
+	</if>
+	<if test="start_time != null  ">
+		start_time=#{start_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="finish_time != null  ">
+		finish_time=#{finish_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="creator_auth_id != null  ">
+		creator_auth_id=#{creator_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="status != null  and status != '' ">
+		status=#{status,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	delete 	 from MEDICAL_CASE_MAIN where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 病例讨论主表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MEDICAL_CASE_MAIN where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 病例讨论主表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_medical_case_main_id.nextval from dual
+</select>
+
+<!-- 病例讨论主表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select count(1) from MEDICAL_CASE_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询病例讨论主表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_CASE_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询病例讨论主表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_CASE_MAIN 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectMedicalCaseDiscuss" resultType="com.rensu.education.hctms.teach.bean.MedicalCaseMain"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select
+ 	mcm.id,mcm.content,ui.user_name as creator_auth_id_str,
+ 	to_char(mcm.start_time,'yyyy-MM-dd hh24:mi:ss') as start_time_str,
+ 	to_char(mcm.finish_time,'yyyy-MM-dd hh24:mi:ss') as finish_time_str,
+ 	uio.user_name as exponent_auth_id_str,
+ 	decode(mcm.status,1,'新建讨论',2,'阐述人阐述',3,'学生讨论',4,'已评分') as status_str,mcm.status,
+ 	mcm.creator_auth_id,mcm.exponent_auth_id,mcm.in_patient_info,mcm.exponent_content,
+ 	to_char(mcm.create_time,'yyyy-MM-dd hh24:mi:ss') as create_time_str
+ 	from MEDICAL_CASE_MAIN mcm 
+ 	left join USER_AUTHORITY ua on mcm.creator_auth_id=ua.auth_id left join USER_INFO ui on ua.user_id=ui.user_id
+ 	left join USER_AUTHORITY uay on mcm.exponent_auth_id=uay.auth_id left join USER_INFO uio on uay.user_id=uio.user_id
+ 	where 1=1
+ 	<if test="state != null and state != ''" >
+        and mcm.state = #{state}
+    </if>
+ 	<if test="creator_auth_id != null and creator_auth_id != ''" >
+        and mcm.creator_auth_id = #{creator_auth_id}
+    </if>
+ 	<if test="status != null and status != ''" >
+        and mcm.status = #{status}
+    </if>
+ 	<if test="search_start_time != null and search_end_time == null" >
+    	and mcm.create_time &gt;= to_date('${search_start_time}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="search_end_time != null and search_start_time == null" >
+    	and mcm.create_time &lt;= to_date('${search_end_time}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="search_start_time != null and search_end_time != null" >
+    	and mcm.create_time between to_date('${search_start_time}','yyyy-MM-dd hh24:mi:ss') and to_date('${search_end_time}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="getDiscussants" resultType="com.rensu.education.hctms.teach.bean.MedicalCaseMain"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select 
+	t1.exponent_auth_id,ui.user_name as exponent_auth_id_str,t2.stu_auth_id,uio.user_name as stu_auth_id_str 
+	from MEDICAL_CASE_MAIN t1 
+	left join MEDICAL_CASE_MEMBER t2 
+	on t1.id=t2.mcm_id 
+	left join USER_AUTHORITY ua on t1.exponent_auth_id=ua.auth_id left join USER_INFO ui on ua.user_id=ui.user_id 
+	left join USER_AUTHORITY uay on t2.stu_auth_id=uay.auth_id left join USER_INFO uio on uay.user_id=uio.user_id
+	where 1=1
+ 	<if test="id != null and id != ''" >
+        and t1.id = #{id}
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="getDiscussRecords" resultType="com.rensu.education.hctms.teach.bean.MedicalCaseMain"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select 
+	to_char(mcm.start_time,'yyyy-MM-dd hh24:mi:ss') as start_time_str,
+	ui.user_name as exponent_auth_id_str,mcm.exponent_content,mcm.exponent_auth_id,
+	to_char(mcd.discuss_time,'yyyy-MM-dd hh24:mi:ss') as discuss_time_str,
+	uio.user_name as discuss_auth_id_str,mcd.content as discuss_content
+	from MEDICAL_CASE_MAIN mcm 
+	left join MEDICAL_CASE_DISCUSS mcd 
+	on mcm.id=mcd.mcm_id 
+	left join USER_AUTHORITY ua on mcm.exponent_auth_id=ua.auth_id left join USER_INFO ui on ua.user_id=ui.user_id 
+  	left join USER_AUTHORITY uay on mcd.discuss_auth_id=uay.auth_id left join USER_INFO uio on uay.user_id=uio.user_id
+  	where 1=1
+ 	<if test="id != null and id != ''" >
+        and mcm.id = #{id}
+    </if>
+ 	<if test="discuss_auth_id != null and discuss_auth_id != ''" >
+        and mcd.discuss_auth_id = #{discuss_auth_id}
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectMCDCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select count(1) from (select
+	 	mcm.id
+	 	from MEDICAL_CASE_MAIN mcm 
+	 	where 1=1
+	 	<if test="state != null and state != ''" >
+	        and mcm.state = #{state}
+	    </if>
+	 	<if test="creator_auth_id != null and creator_auth_id != ''" >
+	        and mcm.creator_auth_id = #{creator_auth_id}
+	    </if>
+	 	<if test="status != null and status != ''" >
+	        and mcm.status = #{status}
+	    </if>
+	 	<if test="search_start_time != null and search_end_time == null" >
+	    	and mcm.create_time &gt;= to_date('${search_start_time}','yyyy-MM-dd hh24:mi:ss')
+	    </if>
+	    <if test="search_end_time != null and search_start_time == null" >
+	    	and mcm.create_time &lt;= to_date('${search_end_time}','yyyy-MM-dd hh24:mi:ss')
+	    </if>
+	    <if test="search_start_time != null and search_end_time != null" >
+	    	and mcm.create_time between to_date('${search_start_time}','yyyy-MM-dd hh24:mi:ss') and to_date('${search_end_time}','yyyy-MM-dd hh24:mi:ss')
+	    </if>
+	    <if test="queryCondition != null and queryCondition != ''" >
+	      ${queryCondition}
+	    </if>
+		<if test="orderCondition != null and orderCondition != ''" >
+	     order by ${orderCondition}
+	    </if>)
+</select>
+  	
+ <select id="selectCountDiscuss" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select count(*) from 
+	(select * from MEDICAL_CASE_MAIN t 
+	inner join  MEDICAL_CASE_MEMBER mcmb on t.id=mcmb.mcm_id
+	where 1=1
+	<if test="in_patient_info !='' and in_patient_info != null">
+	and t.in_patient_info=#{in_patient_info}
+	</if>
+	<if test="start_time !=null and finish_time != null">
+	and t.create_time between TO_DATE('${beginTime}','yyyy-mm-dd hh24:mi:ss') and TO_DATE('${endTime}','yyyy-mm-dd hh24:mi:ss') 
+	</if>
+	
+	<if test="status !='' and status != null">
+	and t.status=#{status,jdbcType=INTEGER} 
+	</if> 
+	and t.state='Y' 
+	and mcmb.stu_auth_id=#{discuss_auth_id,jdbcType=INTEGER}
+	)
+	
+</select> 	
+
+<select id="selectPageDiscuss" resultType="com.rensu.education.hctms.teach.bean.MedicalCaseMain"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseMain">
+	select t.id,
+	ui.user_name as exponent_auth_id_str,
+	uio.user_name as creator_auth_id_str,
+	t.content,t.exponent_auth_id,
+	to_char(t.create_time,'yyyy-MM-dd hh24:mi:ss')as create_time_str,
+	t.exponent_content,
+	t.status,
+	t.in_patient_info,to_char(t.start_time,'yyyy-MM-dd hh24:mi:ss') as start_time_str,to_char(t.finish_time,'yyyy-MM-dd hh24:mi:ss') as finish_time_str,t.creator_auth_id,
+	 decode(t.status,1,'新建讨论',2,'阐述人阐述',3,'学生讨论',4,'结束（已评分）') as discussStatus
+	from MEDICAL_CASE_MAIN t 
+	inner join  MEDICAL_CASE_MEMBER mcmb on t.id=mcmb.mcm_id
+	left join user_authority ua 
+     on ua.auth_id=t.exponent_auth_id
+     left join user_info ui
+     on ui.user_id=ua.user_id
+     left join user_authority uay 
+     on uay.auth_id=t.creator_auth_id
+     left join user_info uio
+     on uio.user_id=uay.user_id
+	where 1=1
+	
+	<if test="in_patient_info !='' and in_patient_info != null">
+	and t.in_patient_info=#{in_patient_info}
+	</if>
+	<if test="beginTime !=null and endTime != null">
+	and to_char(t.create_time,'yyyy-mm-dd hh24:mi:ss')  between '${beginTime}' and '${endTime}'
+	</if>	
+	<if test="status !='' and status != null">
+	and t.status=#{status,jdbcType=INTEGER} 
+	</if>
+	and t.state='Y' 
+	and mcmb.stu_auth_id=#{discuss_auth_id,jdbcType=INTEGER}
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+
+
+
+
+  	
+  	
+</mapper>   

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MedicalCaseDiscussMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss" >
+	<result column="id" property="id"/>
+	<result column="mcm_id" property="mcm_id"/>
+	<result column="content" property="content"/>
+	<result column="discuss_auth_id" property="discuss_auth_id"/>
+	<result column="discuss_time" property="discuss_time"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MEDICAL_CASE_DISCUSS table all fields -->
+<sql id="Base_Column_List" >
+	 id,mcm_id,content,discuss_auth_id,discuss_time,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="mcm_id != null" >
+	    and mcm_id =  #{mcm_id}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="discuss_auth_id != null" >
+	    and discuss_auth_id =  #{discuss_auth_id}
+	</if>
+	<if test="discuss_time != null" >
+	    and discuss_time =  #{discuss_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss" >
+  insert into MEDICAL_CASE_DISCUSS(id,mcm_id,content,discuss_auth_id,discuss_time,state)
+ values(#{id,jdbcType=INTEGER},#{mcm_id,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{discuss_auth_id,jdbcType=INTEGER},#{discuss_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss" >
+	update MEDICAL_CASE_DISCUSS set 
+	<trim  suffixOverrides="," >
+	<if test="mcm_id != null  ">
+		mcm_id=#{mcm_id,jdbcType=INTEGER},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="discuss_auth_id != null  ">
+		discuss_auth_id=#{discuss_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="discuss_time != null  ">
+		discuss_time=#{discuss_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss">
+	delete 	 from MEDICAL_CASE_DISCUSS where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 病例讨论-讨论表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MEDICAL_CASE_DISCUSS where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 病例讨论-讨论表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_medical_case_discuss_id.nextval from dual
+</select>
+
+<!-- 病例讨论-讨论表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss">
+	select count(1) from MEDICAL_CASE_DISCUSS 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询病例讨论-讨论表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_CASE_DISCUSS 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询病例讨论-讨论表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_CASE_DISCUSS 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+ <select id="discussinfomation" resultType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss">
+	select ui.user_name,t.content,t.discuss_auth_id,to_char(t.discuss_time,'yyyy-MM-dd hh24:mi:ss') as discuss_time_str
+	from MEDICAL_CASE_DISCUSS t 
+	inner join USER_AUTHORITY ua on ua.auth_id=t.discuss_auth_id
+	inner join USER_INFO ui on ui.user_id=ua.user_id
+	where 1=1
+	<if test="mcm_id != null and mcm_id != ''" >
+     and t.mcm_id=#{mcm_id}
+    </if>
+	order by t.discuss_time asc
+</select>
+
+  <select id="discussinfomation1" resultType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss">
+	select ui.user_name,t.content,t.discuss_auth_id,to_char(t.discuss_time,'yyyy-MM-dd hh24:mi:ss') as discuss_time_str 
+	from MEDICAL_CASE_DISCUSS t 
+	inner join USER_AUTHORITY ua on ua.auth_id=t.discuss_auth_id
+	inner join USER_INFO ui on ui.user_id=ua.user_id
+	where 1=1
+	<if test="mcm_id != null and mcm_id != ''" >
+     and t.mcm_id=#{mcm_id}
+    </if>
+    <if test="discuss_auth_id != null and discuss_auth_id != ''" >
+     and t.discuss_auth_id=#{discuss_auth_id}
+    </if>
+	order by t.discuss_time
+</select>
+
+
+ <select id="discussinfomation2" resultType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss"  parameterType="com.rensu.education.hctms.teach.bean.MedicalCaseDiscuss">
+	select ui.user_name,t.content,t.discuss_auth_id,to_char(t.discuss_time,'yyyy-MM-dd hh24:mi:ss') as discuss_time_str
+	from MEDICAL_CASE_DISCUSS t 
+	inner join USER_AUTHORITY ua on ua.auth_id=t.discuss_auth_id
+	inner join USER_INFO ui on ui.user_id=ua.user_id
+	where 1=1
+	<if test="mcm_id != null and mcm_id != ''" >
+     and t.mcm_id=#{mcm_id}
+    </if>
+    <if test="discuss_auth_id != null and discuss_auth_id != ''" >
+     and t.discuss_auth_id!=#{discuss_auth_id}
+    </if>
+    <if test="creator_id != null and creator_id != ''" >
+     and t.discuss_auth_id!=#{creator_id}
+    </if>
+	order by t.discuss_time
+</select>
+  	
+</mapper>   

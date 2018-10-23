@@ -1,0 +1,204 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+body{
+    height: 100%;
+}
+section{
+    height: 100%;
+    padding: 10px;
+}
+.searchDiv{
+    height: 40px;
+}
+.addNew{
+    float: right;
+    margin-right: 50px;
+}
+.newsCont{
+    width:1000px;
+    padding: 15px;
+}
+.input{
+    height:30px;
+    width:567px;
+    line-height: 30px;
+    padding-left: 5px;
+    border: 1px solid #505F91;
+    border-radius: 3px;
+}
+.btns{
+    margin-top: 30px;
+    position: fixed;
+    bottom: 0;
+    padding: 15px 0;
+    background: #fff;
+    height: 50px !important;
+}
+.leftBtn{
+    position: fixed;
+    height: 99.2%;
+    width:45px;
+    padding-top: 100px;
+    text-align: center;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    background: #505F91;
+    color: #fff;
+    font-weight: bold;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+.left_btns{
+    /*float:left;*/
+    width: 160px;
+    height: 100%;
+    background: #D9DEE4;
+    position: fixed;
+    left: 45px;
+    top: 0;
+}
+.leftBtn span{
+    background: url("../img/arr2.png")0 17px;
+    display: inline-block;
+    width: 16px;
+    height: 17px;
+    overflow: hidden;
+}
+.left_btns p{
+    text-align: center;
+    margin-top: 50px;
+}
+.left_btns h3{
+    text-align: center;
+    padding: 35px 0;
+    border-bottom: 1px solid #505F91;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.left_btns ul li{
+    line-height: 45px;
+    border-bottom: 1px solid #505F91;
+    cursor: pointer;
+    text-align: center;
+}
+.left_btns .select {
+    background: #EDF2F7;
+    color: #505f91;
+}
+.displayDiv{
+    display: none;
+}
+ul#con{
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: 0;
+}
+#wrap {
+    width: 100%;
+    overflow: auto;
+    float: right;
+    height: 100%;
+    padding-left: 210px;
+}
+#con>li {
+    display: none;
+    width: 100%;
+}
+#con li.show_block {
+    display: block;
+}
+#con li>div{
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+#con li{
+    height: 100%;
+    width: 100%;
+}
+.dtlBox{
+    width: 100%;
+    margin: 0;
+}
+.dtlBox h5{
+    font-size: 16px;
+}
+.extend{
+    display: none;
+}
+.rejectCont{
+    padding: 0 15px;
+}
+.rejectCont table td{
+    padding: 5px 0;
+}
+.rejectCont table td span{
+    display: block;
+    border: 1px solid #ddd;
+    position: relative;
+    margin-left: 15px;
+    min-height: 25px;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 5px;
+}
+.rejectCont table td span img{
+    position: absolute;
+    left: -13px;
+}
+.rightBtn{
+    position: fixed;
+    height: 100%;
+    width:45px;
+    padding-top: 100px;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    background: #505F91;
+    color: #fff;
+    font-weight: bold;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+.rightBtn span{
+    display: inline-block;
+    width: 16px;
+    height: 17px;
+    overflow: hidden;
+}
+.rejectCont p i{
+    display: inline-block;
+    width: 200px;
+    font-style: normal;
+}
+.rejectCont p{
+    margin: 10px 0;
+}
+#stuList li.badgec a{
+    color: #fff;
+    background:#7C87AD;
+}
+#stuList li{
+    line-height: 40px;
+    border-bottom: 1px solid rgb(80, 95, 145);
+}
+#stuList li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #505f91;
+    font-weight: bold;
+    font-size: 16px;
+    background: #D9DEE4;
+}

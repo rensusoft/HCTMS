@@ -1,0 +1,173 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+section{
+    padding: 10px;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+.search input.form-control{
+    width: 200px;
+    display:inline;
+}
+.stuInforList{
+    margin-top: 1%;
+}
+.stateList{
+    display: inline-block;
+    margin-left: 50px;
+}
+.stateList a{
+    display: inline-block;
+    padding: 5px 30px;
+    color:#505F91;
+    border-radius: 5px;
+    border: 1px solid #505f91;
+}
+.stateList a.clicked{
+    color: #fff;
+    background: #505F91 url("../img/clicked.png") no-repeat 0;
+}
+.stuInfor{
+    margin-right: 1%;
+    width: 23.7%;
+    border: 1px solid #505f91;
+    float: left;
+    position: relative;
+    margin-bottom: 15px;
+}
+.stuInfor>div.imgInfor{
+    width: 100%;
+    background-color:#FCFCFC;
+}
+.stuInfor>div.imgInfor>span{
+    display: inline-block;
+    float: left;
+    width: 34%;
+}
+.stuInfor>div.imgInfor>p{
+    display: inline-block;
+    float: left;
+    width: 65%;
+    padding-top: 10px;
+}
+.imgInfor p{
+    color: #505f91;
+    padding-top: 10px;
+    font-size: 16px;
+}
+.imgInfor b{
+	margin-bottom:3px;
+    display:inline-block;
+}
+.imgInfor p i{
+    font-style: normal;
+    margin-bottom:3px;
+    display:inline-block;
+}
+.imgInfor:before{
+    Content:"";
+    Display:block;
+}
+.imgInfor:after{
+    Content:"";
+    Display:block;
+    Clear:both;
+}
+.state{
+    text-align: right;
+    padding-right: 20px;
+}
+.state a{
+    color: #E87D16;
+}
+.imgInfor span img{
+    display: inline-block;
+    padding-top: 8px;
+    padding-left: 10px;
+}
+.stuInfor>b.green{
+    border-top: 60px solid #67BC1F;
+    border-right: 60px solid transparent;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+.stuInfor>b.orange{
+    border-top: 60px solid #FEA356;
+    border-right: 60px solid transparent;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+.stuInfor>b>i{
+    font-style: normal;
+    position: absolute;
+    color: #fff;
+    top: 0;
+    font-size: 15px;
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg) translate(34px, -36px);
+    -webkit-transform: rotate(-45deg) translate(34px, -36px);
+    -o-transform: rotate(-45deg) translate(34px, -36px);
+    transform: rotate(-45deg) translate(34px, -36px);
+    width: 45px;
+}
+.rtBtn{
+    position:absolute;
+    height: 100%;
+    width: 45px;
+    color: #fff;
+    background: #505f91;
+    right: 0;
+    padding-top: 100px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+.teaLayer,.attLayer{
+    display: inline-block;
+    padding: 0 5px;
+    border: 1px solid #505F91;
+    border-radius: 5px;
+}
+.teaLayer:hover,.attLayer:hover{
+    background: #505F91;
+    color: #fff;
+}
+.resetting{
+    padding: 5px 18px !important;
+    background: #f1f2f6 !important;
+    border: 1px solid #505f91 !important;
+    color: #505f91 !important;
+    border-radius: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

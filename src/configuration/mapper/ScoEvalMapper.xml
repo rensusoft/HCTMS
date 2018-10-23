@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.ScoEvalMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.score.bean.ScoEval" >
+	<result column="id" property="id"/>
+	<result column="type_id" property="type_id"/>
+	<result column="relation_id" property="relation_id"/>
+	<result column="relation_table" property="relation_table"/>
+	<result column="stu_orga_id" property="stu_orga_id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="eval_auth_id" property="eval_auth_id"/>
+	<result column="eval_date" property="eval_date"/>
+	<result column="eval_time" property="eval_time"/>
+	<result column="eval_content" property="eval_content"/>
+	<result column="eval_score" property="eval_score"/>
+	<result column="template_content" property="template_content"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- SCO_EVAL table all fields -->
+<sql id="Base_Column_List" >
+	 id,type_id,relation_id,relation_table,stu_orga_id,stu_auth_id,eval_auth_id,eval_date,eval_time,eval_content,eval_score,template_content,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="type_id != null" >
+	    and type_id =  #{type_id}
+	</if>
+	<if test="relation_id != null" >
+	    and relation_id =  #{relation_id}
+	</if>
+	 	<if test="relation_table != null and relation_table != ''" >
+	    and relation_table =  #{relation_table}
+	</if>
+	<if test="stu_orga_id != null" >
+	    and stu_orga_id =  #{stu_orga_id}
+	</if>
+	 	<if test="stu_auth_id != null and stu_auth_id != ''" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	 	<if test="eval_auth_id != null and eval_auth_id != ''" >
+	    and eval_auth_id =  #{eval_auth_id}
+	</if>
+	<if test="eval_date != null" >
+	    and eval_date =  #{eval_date}
+	</if>
+	<if test="eval_time != null" >
+	    and eval_time =  #{eval_time}
+	</if>
+	<if test="eval_content != null" >
+	    and eval_content =  #{eval_content}
+	</if>
+	<if test="eval_score != null" >
+	    and eval_score =  #{eval_score}
+	</if>
+	<if test="template_content != null" >
+	    and template_content =  #{template_content}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.score.bean.ScoEval" >
+  insert into SCO_EVAL(id,type_id,relation_id,relation_table,stu_orga_id,stu_auth_id,eval_auth_id,eval_date,eval_time,eval_content,eval_score,template_content,state)
+ values(#{id,jdbcType=INTEGER},#{type_id,jdbcType=INTEGER},#{relation_id,jdbcType=INTEGER},#{relation_table,jdbcType=VARCHAR},#{stu_orga_id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=VARCHAR},#{eval_auth_id,jdbcType=VARCHAR},#{eval_date,jdbcType=INTEGER},#{eval_time,jdbcType=TIMESTAMP},#{eval_content,jdbcType=VARCHAR},#{eval_score,jdbcType=INTEGER},#{template_content,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.score.bean.ScoEval" >
+	update SCO_EVAL set 
+	<trim  suffixOverrides="," >
+	<if test="type_id != null  ">
+		type_id=#{type_id,jdbcType=INTEGER},
+	</if>
+	<if test="relation_id != null  ">
+		relation_id=#{relation_id,jdbcType=INTEGER},
+	</if>
+	<if test="relation_table != null  and relation_table != '' ">
+		relation_table=#{relation_table,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_orga_id != null  ">
+		stu_orga_id=#{stu_orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="stu_auth_id != null  and stu_auth_id != '' ">
+		stu_auth_id=#{stu_auth_id,jdbcType=VARCHAR},
+	</if>
+	<if test="eval_auth_id != null  and eval_auth_id != '' ">
+		eval_auth_id=#{eval_auth_id,jdbcType=VARCHAR},
+	</if>
+	<if test="eval_date != null  ">
+		eval_date=#{eval_date,jdbcType=INTEGER},
+	</if>
+	<if test="eval_time != null  ">
+		eval_time=#{eval_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="eval_content != null  ">
+		eval_content=#{eval_content,jdbcType=VARCHAR},
+	</if>
+	<if test="eval_score != null  ">
+		eval_score=#{eval_score,jdbcType=INTEGER},
+	</if>
+	<if test="template_content != null  ">
+		template_content=#{template_content,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.score.bean.ScoEval">
+	delete 	 from SCO_EVAL where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 学生评分评价表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from SCO_EVAL where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 学生评分评价表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_sco_eval_id.nextval from dual
+</select>
+
+<!-- 学生评分评价表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.score.bean.ScoEval">
+	select count(1) from SCO_EVAL 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询学生评分评价表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.ScoEval">
+	select 
+	<include refid="Base_Column_List"/>
+	from SCO_EVAL 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询学生评分评价表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.score.bean.ScoEval">
+	select 
+	<include refid="Base_Column_List"/>
+	from SCO_EVAL 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

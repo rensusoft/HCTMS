@@ -1,0 +1,212 @@
+* {
+    list-style: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.enable, .add {
+    display: inline-block;
+    float: right;
+    width: 40px;
+    color: #fff;
+    background: #505F91;
+    text-align: center;
+    margin-right: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #505F91;
+}
+
+.disable1, .remove {
+    display: inline-block;
+    float: right;
+    width: 40px;
+    color: #505f91;
+    background: #FFF;
+    text-align: center;
+    margin-right: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #505F91;
+}
+
+.disable1:hover, .remove:hover {
+    color: #505F91;
+}
+
+table tr.child td > span {
+    display: inline-block;
+    padding-left: 30px;
+    margin-left: 15px;
+    background: url("../img/enter.png") no-repeat;
+    border: none;
+}
+
+table tr td span {
+    display: inline-block;
+    padding-left: 10px;
+    margin: 10px 0;
+}
+
+table tr {
+    border-bottom: 1px solid #F9F9F9;
+}
+
+.dtlBox table tr {
+    border: none;
+}
+
+table tr td {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+table tr td a {
+    color: #0097cf;
+}
+
+table tr td i {
+    font-style: normal;
+}
+
+table tr td b {
+    font-weight: normal;
+}
+
+.add_content table tr td:last-child {
+    text-align: right;
+    color: #0097cf;
+    padding-right: 10px;
+}
+
+.entering {
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.add_content {
+    float: right;
+    vertical-align: top;
+    height: 860px;
+    position: relative;
+}
+
+.add_content > span.click_a {
+    float: left;
+    height: 860px;
+    position: absolute;
+    background: #505F91;
+    color: #FFFFFF;
+    width: 40px;
+    top: 0;
+    left: -40px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
+}
+
+.table_cont {
+    display: none;
+    border: 1px solid #505F91;
+    height: 100%;
+    width: 900px;
+    padding: 10px;
+}
+
+tr.ct, tr.child {
+    cursor: pointer !important;
+}
+
+#list {
+    width: 900px;
+}
+
+#list tr td:nth-child(2) a {
+    float: none;
+    margin-left: 10px;
+}
+
+.tableCont {
+    width:100%;
+    padding-bottom: 50px;
+    overflow: auto;
+    position: relative;
+}
+
+.btns {
+    text-align: center;
+    width: 900px;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    padding-top: 20px;
+}
+
+.num {
+    border: none;
+    outline: none;
+    width: 30px;
+}
+
+.opacity {
+    opacity: 0.5;
+    filter: alpha(opacity=30);
+    background-color: #a9a9a9;
+}
+
+.clickBtn {
+    font-size: 20px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.clickBtn:hover {
+    color: #505F91;
+}
+
+#tit span {
+    display: inline-block;
+    padding: 5px 20px;
+  
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+
+    border-bottom:none;
+      color: #505f91;
+    background: #fff;
+}
+
+#tit span.select {
+    color: #fff;
+    background: #505F91;
+}
+
+.tab {
+    width: 950px;
+    padding: 0;
+}
+
+#con li {
+    display: none;
+}
+
+#con li.showtab {
+    display: block;
+}
+.div_boder{
+	border:1px solid #505f91;
+}
+.arrow{
+	position:absolute;
+	top:-19px;
+}
+/*.tab li{*/
+/*border: 1px solid #D5D5D5;*/
+/*}*/

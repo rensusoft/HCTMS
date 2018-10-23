@@ -1,0 +1,24 @@
+.roleSelDiv{
+	text-align:center;
+	font-size:14px;
+	color:#505F91;
+	border-bottom: 1px solid #C0C0C0;
+	padding: 5px;
+	
+}
+.roleSelDiv:HOVER {
+	cursor: pointer;
+	background-color:#FFF68F;
+}
+.orgaSelDiv{
+	text-align:center;
+	font-size:14px;
+	color:#505F91;
+	border-bottom: 1px solid #C0C0C0;
+	padding: 5px;
+	
+}
+.orgaSelDiv:HOVER {
+	cursor: pointer;
+	background-color:#FFF68F;
+}

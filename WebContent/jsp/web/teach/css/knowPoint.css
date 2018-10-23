@@ -1,0 +1,41 @@
+section:before {
+    content: "";
+    display: block;
+}
+
+section:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+section {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.propDiv tr td:last-child{
+    width: 200px;
+}
+.propDiv tr td:last-child input{
+    display: inline-block;
+    width: 150px;
+}
+.propDiv tr td:first-child{
+    padding: 5px 15px;
+    font-weight: bold;
+}

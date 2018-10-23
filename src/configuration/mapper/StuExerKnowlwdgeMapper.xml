@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StuExerKnowlwdgeMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.StuExerKnowlwdge" >
+	<result column="id" property="id"/>
+	<result column="qe_id" property="qe_id"/>
+	<result column="qkb_id" property="qkb_id"/>
+	<result column="proportion" property="proportion"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- STU_EXER_KNOWLWDGE table all fields -->
+<sql id="Base_Column_List" >
+	 id,qe_id,qkb_id,proportion,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="qe_id != null" >
+	    and qe_id =  #{qe_id}
+	</if>
+	<if test="qkb_id != null" >
+	    and qkb_id =  #{qkb_id}
+	</if>
+	<if test="proportion != null" >
+	    and proportion =  #{proportion}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.StuExerKnowlwdge" >
+  insert into STU_EXER_KNOWLWDGE(id,qe_id,qkb_id,proportion,state)
+ values(#{id,jdbcType=INTEGER},#{qe_id,jdbcType=INTEGER},#{qkb_id,jdbcType=INTEGER},#{proportion,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.StuExerKnowlwdge" >
+	update STU_EXER_KNOWLWDGE set 
+	<trim  suffixOverrides="," >
+	<if test="qe_id != null  ">
+		qe_id=#{qe_id,jdbcType=INTEGER},
+	</if>
+	<if test="qkb_id != null  ">
+		qkb_id=#{qkb_id,jdbcType=INTEGER},
+	</if>
+	<if test="proportion != null  ">
+		proportion=#{proportion,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.StuExerKnowlwdge">
+	delete 	 from STU_EXER_KNOWLWDGE where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 练习知识点列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from STU_EXER_KNOWLWDGE where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 练习知识点序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_stu_exer_knowlwdge_id.nextval from dual
+</select>
+
+<!-- 练习知识点 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.StuExerKnowlwdge">
+	select count(1) from STU_EXER_KNOWLWDGE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询练习知识点 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuExerKnowlwdge">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_EXER_KNOWLWDGE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询练习知识点 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuExerKnowlwdge">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_EXER_KNOWLWDGE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

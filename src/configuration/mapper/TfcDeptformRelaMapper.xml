@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.TfcDeptformRelaMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela" >
+	<result column="id" property="id"/>
+	<result column="tfc_id" property="tfc_id"/>
+	<result column="dept_id" property="dept_id"/>
+	<result column="stu_type_id" property="stu_type_id"/>
+	<result column="form_id" property="form_id"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- TFC_DEPTFORM_RELA table all fields -->
+<sql id="Base_Column_List" >
+	 id,tfc_id,dept_id,stu_type_id,form_id,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="tfc_id != null" >
+	    and tfc_id =  #{tfc_id}
+	</if>
+	<if test="dept_id != null" >
+	    and dept_id =  #{dept_id}
+	</if>
+	<if test="stu_type_id != null" >
+	    and stu_type_id =  #{stu_type_id}
+	</if>
+	<if test="form_id != null" >
+	    and form_id =  #{form_id}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela" >
+  insert into TFC_DEPTFORM_RELA(id,tfc_id,dept_id,stu_type_id,form_id,state)
+ values(#{id,jdbcType=INTEGER},#{tfc_id,jdbcType=INTEGER},#{dept_id,jdbcType=INTEGER},#{stu_type_id,jdbcType=INTEGER},#{form_id,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela" >
+	update TFC_DEPTFORM_RELA set 
+	<trim  suffixOverrides="," >
+	<if test="tfc_id != null  ">
+		tfc_id=#{tfc_id,jdbcType=INTEGER},
+	</if>
+	<if test="dept_id != null  ">
+		dept_id=#{dept_id,jdbcType=INTEGER},
+	</if>
+	<if test="stu_type_id != null  ">
+		stu_type_id=#{stu_type_id,jdbcType=INTEGER},
+	</if>
+	<if test="form_id != null  ">
+		form_id=#{form_id,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela">
+	delete 	 from TFC_DEPTFORM_RELA where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 教学模板与科室、学生类型、表单关联表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from TFC_DEPTFORM_RELA where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 教学模板与科室、学生类型、表单关联表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_tfc_deptform_rela_id.nextval from dual
+</select>
+
+<!-- 教学模板与科室、学生类型、表单关联表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela">
+	select count(1) from TFC_DEPTFORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询教学模板与科室、学生类型、表单关联表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from TFC_DEPTFORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询教学模板与科室、学生类型、表单关联表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela">
+	select 
+	<include refid="Base_Column_List"/>
+	from TFC_DEPTFORM_RELA 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+ 
+ 
+<select id="getTfcList"  resultType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela" >
+select r.form_id     as form_id,
+       r.id          as id,
+       r.tfc_id      as tfc_id,
+       r.dept_id     as dept_id,
+       r.stu_type_id as stu_type_id,
+       a.name        as name,
+       a.type_id     as type_id
+  from TFC_DEPTFORM_RELA r
+  left join (select *
+               from (select f.id      as fid,
+                            m.mm_name as name,
+                            f.type_id as type_id
+                       from FORM_INFO f
+                       left join MARKSHEET_MAIN m
+                         on m.id = f.related_id
+                      where f.type_id = 1
+                        and m.validity = 'Y'
+                        and f.availability = 'Y'
+                     union all
+                     select f.id      as fid,
+                            t.t_name  as name,
+                            f.type_id as type_id
+                       from FORM_INFO f
+                       left join HTML_TEMPLATE t
+                         on t.id = f.related_id
+                      where f.type_id = 2
+                        and t.validity = 'Y'
+                        and f.availability = 'Y')) a
+    on a.fid = r.form_id
+
+	
+</select>
+ 
+ 
+ <select id="selectOneTfc"  resultType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela" parameterType="com.rensu.education.hctms.basicdata.bean.TfcDeptformRela">
+	select
+	   a.id,a.tfc_id,a.dept_id,a.stu_type_id,a.form_id,a.state,b.type_id
+	from TFC_DEPTFORM_RELA a,FORM_INFO b
+where 1=1
+and a.form_id = b.id
+<trim  suffixOverrides="," >
+	
+	<if test="tfc_id != null" >
+	    and a.tfc_id =  #{tfc_id}
+	</if>
+	<if test="dept_id != null" >
+	    and a.dept_id =  #{dept_id}
+	</if>
+	<if test="stu_type_id != null" >
+	    and a.stu_type_id =  #{stu_type_id}
+	</if>
+	</trim>
+</select>
+ 
+ 
+  	
+</mapper>   

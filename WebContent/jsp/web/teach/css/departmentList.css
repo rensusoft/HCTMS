@@ -1,0 +1,227 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+body {
+    height: 100%;
+}
+section {
+    height:90%;
+    padding: 10px;
+}
+.inquiry{
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    background: #fff !important;
+    z-index: 9999999;
+    width: 100%;
+}
+.inquiry>input{
+    display: inline-block;
+    width: 400px;
+}
+.resetting{
+    padding: 5px 18px !important;
+    background: #f1f2f6 !important;
+    border: 1px solid #505f91 !important;
+    color: #505f91 !important;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.resetting:hover{
+    background: #505f91 !important;
+    color: #fff !important;
+}
+
+.content{
+    width: 1120px;
+    margin: 0 auto;
+    overflow: auto;
+    height: 100%;
+    margin-top: 50px;
+}
+
+.btnSearch.btn-info{
+    margin: 0 15px 0 30px;
+    padding: 7px 15px;
+    position: relative;
+    top: -2px;
+}
+.bigRestting{
+    padding:8px 18px !important;
+    position: relative;
+    top: -1px;
+}
+.departInfo{
+    width: 1100px;
+    height: 155px;
+    border: 1px solid #505f91;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.departInfo:before{
+    content:"";
+    display:block;
+}
+.departInfo:after{
+    content:"";
+    display:block;
+    clear: both;
+}
+.departInfo>div{
+    float: left;
+    height: 100%;
+}
+.hospName{
+    width: 200px;
+    border-right: 1px solid #505F91;
+    background: #505F91;
+    color: #fff;
+    font-size: 35px;
+    text-align: center;
+    height: 198px;
+    vertical-align: middle;
+    display: inline-table;
+}
+.hospName b{
+    display: table-cell;
+    vertical-align: middle;
+}
+.hospInfo{
+    border-right: 1px solid #505F91;
+    width: 698px;
+    position: relative;
+}
+.hospInfo,.btns{
+    background: #FAFAFA;
+}
+.hospInfo:hover,.btns:hover{
+    background: #E8EDEE;
+}
+.hospInfo div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.hospInfo p{
+    font-size: 16px;
+}
+.btns{
+    width: 199px;
+    float: right;
+    display: inline-table;
+}
+.btns div{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+.hospInfo p{
+    font-size: 23px;
+    /*font-weight: bold;*/
+    /*text-align: center;*/
+    width: 400px;
+}
+.hospInfo p span.remind{
+    background: url("../img/remind.png") no-repeat;
+    padding-left: 26px;
+}
+.hospInfo p span.remind b{
+    color: #FEA356;
+}
+.hospInfo p span.time{
+    background: url("../img/times.png") no-repeat;
+    padding-left: 26px;
+}
+.hospInfo p span.time b{
+    color: #86D050;
+}
+.hospInfo p span.complete{
+    background: url("../img/complete.png") no-repeat;
+    padding-left: 26px;
+}
+.hospInfo p span.complete b{
+    color: #808080;
+}
+.hospInfo p span{
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    font-size: 23px;
+    /*font-weight: bold;*/
+}
+.attenNum span{
+    color: #505f91;
+}
+.attenNum span:nth-child(2){
+    color: #FEA356;
+}
+.left_nav {
+    position: fixed;
+    width: 45px;
+    height: 100%;
+    background: #505F91;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    z-index: 999;
+    left: 0;
+    top: 0;
+}
+.left_nav span {
+    float: right;
+    margin-right: 15px;
+    margin-top: 50px;
+    cursor: pointer;
+}
+.left_nav b{
+    display: block;
+    margin-top:75px;
+    text-align: center;
+}
+
+.inquiry b{
+    font-size: 23px;
+    color: #505F91;
+    font-weight: normal;
+    margin-left: 70px;
+}
+
+.inquiry b span.departName{
+    font-size: 20px;
+    display: inline-block;
+    padding: 2px 8px ;
+    border: 1px solid #5EB8DA;
+    border-radius: 50%;
+    background: #5EB8DA;
+    color: #fff;
+}
+.glyphicon-remove{
+	cursor:pointer;
+}
+.hospInfo p span b{
+    display:inline-block;
+    width:30px;
+    text-align:center;
+}
+.hospInfoCont p span b{
+	display:inline-block;
+    width:30px;
+    text-align:center;
+}
+
+
+
+

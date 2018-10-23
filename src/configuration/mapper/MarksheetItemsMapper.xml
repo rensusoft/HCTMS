@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MarksheetItemsMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.basicdata.bean.MarksheetItems" >
+	<result column="item_code" property="item_code"/>
+	<result column="item_name" property="item_name"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MARKSHEET_ITEMS table all fields -->
+<sql id="Base_Column_List" >
+	 item_code,item_name,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	 	<if test="item_code != null and item_code != ''" >
+	    and item_code =  #{item_code}
+	</if>
+	 	<if test="item_name != null and item_name != ''" >
+	    and item_name =  #{item_name}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetItems" >
+  insert into MARKSHEET_ITEMS(item_code,item_name,state)
+ values(#{item_code,jdbcType=VARCHAR},#{item_name,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetItems" >
+	update MARKSHEET_ITEMS set 
+	<trim  suffixOverrides="," >
+	<if test="item_code != null  and item_code != '' ">
+		item_code=#{item_code,jdbcType=VARCHAR},
+	</if>
+	<if test="item_name != null  and item_name != '' ">
+		item_name=#{item_name,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where 1=#{11}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetItems">
+	delete 	 from MARKSHEET_ITEMS where id = #{1}
+</update>
+ 
+<!-- 评分项目表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MARKSHEET_ITEMS where id = #{1}
+</select>
+
+<!-- 评分项目表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_marksheet_items_id.nextval from dual
+</select>
+
+<!-- 评分项目表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetItems">
+	select count(1) from MARKSHEET_ITEMS 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询评分项目表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetItems">
+	select 
+	<include refid="Base_Column_List"/>
+	from MARKSHEET_ITEMS 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询评分项目表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.basicdata.bean.MarksheetItems">
+	select 
+	<include refid="Base_Column_List"/>
+	from MARKSHEET_ITEMS 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+</mapper>   

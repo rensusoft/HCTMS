@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.StuVacateInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.StuVacateInfo" >
+	<result column="id" property="id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="content" property="content"/>
+	<result column="vacate_status" property="vacate_status"/>
+	<result column="state" property="state"/>
+	<result column="start_time" property="start_time"/>
+	<result column="end_time" property="end_time"/>
+	<result column="start_date" property="start_date"/>
+	<result column="end_date" property="end_date"/>
+	<result column="vacate_type_code" property="vacate_type_code"/>
+	<result column="vacate_type_name" property="vacate_type_name"/>
+	<result column="create_time" property="create_time"/>
+	<result column="create_auth_id" property="create_auth_id"/>
+	<result column="vacate_date_num" property="vacate_date_num"/>
+	
+</resultMap>
+       
+<!-- STU_VACATE_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 id,stu_auth_id,orga_id,content,vacate_status,state,start_time,end_time,start_date,end_date,vacate_type_code,vacate_type_name,create_time,create_auth_id,vacate_date_num
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="vacate_status != null" >
+	    and vacate_status =  #{vacate_status}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="start_time != null" >
+	    and start_time =  #{start_time}
+	</if>
+	<if test="end_time != null" >
+	    and end_time =  #{end_time}
+	</if>
+	<if test="start_date != null" >
+	    and start_date =  #{start_date}
+	</if>
+	<if test="end_date != null" >
+	    and end_date =  #{end_date}
+	</if>
+	 	<if test="vacate_type_code != null and vacate_type_code != ''" >
+	    and vacate_type_code =  #{vacate_type_code}
+	</if>
+	<if test="vacate_type_name != null and vacate_type_name != ''" >
+	    and vacate_type_name =  #{vacate_type_name}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="create_auth_id != null" >
+	    and create_auth_id =  #{create_auth_id}
+	</if>
+	<if test="vacate_date_num != null" >
+	    and vacate_date_num =  #{vacate_date_num}
+	</if>
+	
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo" >
+  insert into STU_VACATE_INFO(id,stu_auth_id,orga_id,content,vacate_status,state,start_time,end_time,start_date,end_date,vacate_type_code,vacate_type_name,create_time,create_auth_id,vacate_date_num)
+ values(#{id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{orga_id,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{vacate_status,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{start_time,jdbcType=TIMESTAMP},#{end_time,jdbcType=TIMESTAMP},#{start_date,jdbcType=INTEGER},#{end_date,jdbcType=INTEGER},#{vacate_type_code,jdbcType=VARCHAR},#{vacate_type_name,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_auth_id,jdbcType=INTEGER},#{vacate_date_num,jdbcType=INTEGER})
+</insert>
+ 
+<!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo" >
+	update STU_VACATE_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="orga_id != null  ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="vacate_status != null  ">
+		vacate_status=#{vacate_status,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="start_time != null  ">
+		start_time=#{start_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="end_time != null  ">
+		end_time=#{end_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="start_date != null  ">
+		start_date=#{start_date,jdbcType=INTEGER},
+	</if>
+	<if test="end_date != null  ">
+		end_date=#{end_date,jdbcType=INTEGER},
+	</if>
+	<if test="vacate_type_code != null  and vacate_type_code != '' ">
+		vacate_type_code=#{vacate_type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="vacate_type_name != null  and vacate_type_name != '' ">
+		vacate_type_name=#{vacate_type_name,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="create_auth_id != null ">
+		create_auth_id=#{create_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="vacate_date_num != null ">
+		vacate_date_num=#{vacate_date_num,jdbcType=INTEGER},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+	delete 	 from STU_VACATE_INFO where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+ 
+<!-- 请假申请表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" />,
+	(select m.user_name from USER_INFO m,USER_AUTHORITY n where m.USER_ID=n.USER_ID and n.AUTH_ID=a.stu_auth_id and rownum=1) stu_name,
+	(select b.orga_name from ORGA_INFO b where a.orga_id=b.orga_id and b.state='Y' and rownum=1) orga_name,
+    to_char( a.start_time, 'yyyy-mm-dd ') as start_time_str,
+    to_char( a.end_time, 'yyyy-mm-dd ') as end_time_str
+	 from STU_VACATE_INFO a where id = #{id,jdbcType=INTEGER}
+</select>
+
+
+<!-- 请假申请表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_stu_vacate_info_id.nextval from dual
+</select>
+
+<!-- 请假申请表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+	select count(1) from STU_VACATE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询请假申请表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_VACATE_INFO
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询请假申请表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from STU_VACATE_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  
+  <select id="selectVacateInfo" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+	  select 
+  	o.orga_name,
+    s.id, 
+    s.stu_auth_id, 
+    s.orga_id,
+    s.content, 
+    s.vacate_status, 
+    s.state,
+    to_char( s.start_time, 'yyyy-mm-dd ') as start_time_str,
+    to_char( s.end_time, 'yyyy-mm-dd ') as end_time_str,
+    s.start_date, s.end_date,
+    s.vacate_type_code, 
+    s.vacate_type_name,
+    s.vacate_date_num,
+    (case t.proc_name  when '学生申请' then '待秘书审核' when '教学秘书审核' then '待科教科审核' when '驳回申请' then '驳回申请' else '申请通过' end )as proc_name,
+     to_char(s.create_time, 'yyyy-mm-dd hh24:mi:ss') as create_time_str,
+    s.create_auth_id 
+  from STU_VACATE_INFO s left join PROCESS_INFO t on  s.vacate_status=t.id 
+   left join ORGA_INFO o on s.orga_id=o.orga_id 
+  where 1=1
+    <if test="id != null" >
+	    and s.id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and s.stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="orga_id != null" >
+	    and s.orga_id =  #{orga_id}
+	</if>
+	<if test="content != null" >
+	    and s.content =  #{content}
+	</if>
+	<if test="vacate_status != null" >
+	    and s.vacate_status =  #{vacate_status}
+	</if>
+	<if test="state != null and state != ''" >
+	    and s.state =  #{state}
+	</if>
+	<if test="start_time != null" >
+	    and s.start_time =  #{start_time}
+	</if>
+	<if test="end_time != null" >
+	    and s.end_time =  #{end_time}
+	</if>
+	<if test="start_date != null" >
+	    and s.start_date =  #{start_date}
+	</if>
+	<if test="end_date != null" >
+	    and s.end_date =  #{end_date}
+	</if>
+	 	<if test="vacate_type_code != null and vacate_type_code != ''" >
+	    and s.vacate_type_code =  #{vacate_type_code}
+	</if>
+	 	<if test="vacate_type_name != null and vacate_type_name != ''" >
+	    and s.vacate_type_name =  #{vacate_type_name}
+	</if>
+	 	<if test="start_time_str != null and start_time_str != '' " >
+	    and to_char(s.create_time, 'yyyy-mm-dd') &gt;=  #{start_time_str} 
+	</if>
+	 	<if test="end_time_str != null and end_time_str != ''" >
+	    and to_char(s.create_time, 'yyyy-mm-dd') &lt;=  #{end_time_str}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+     order by create_time_str desc	
+</select>
+	
+<select id="selectVacateById"  resultMap="BaseResultMap" parameterType="int">
+	select 
+    s.id, 
+    s.stu_auth_id, 
+    s.orga_id, 
+    o.orga_name,
+    s.content, 
+    s.vacate_status, 
+    s.state,
+    to_char( s.start_time, 'yyyy-mm-dd') as start_time_str,
+    to_char( s.end_time, 'yyyy-mm-dd') as end_time_str,
+    s.start_date, s.end_date,
+    s.vacate_type_code, 
+    s.vacate_type_name,
+    t.proc_name,
+    to_char(s.create_time, 'yyyy-mm-dd hh:mm:ss') as create_time_str,
+    s.create_auth_id,
+    s.vacate_date_num
+    from STU_VACATE_INFO s  left join PROCESS_INFO t on  s.vacate_status=t.id 
+    left join orga_info o on s.orga_id=o.orga_id
+	where s.id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 查询带教老师请假申请审批配置信息 -->
+<select id="getVacateProcessOfTeacher"  resultType="com.rensu.education.hctms.basicdata.bean.ProcessInfo" parameterType="int">
+	select * from PROCESS_INFO t where t.type_code='VACATE' and t.state='Y'
+	<if test="_parameter  != null and _parameter  != ''" >
+	and t.proc_num=#{_parameter}
+	</if>
+</select>  
+
+<!-- 查询请假申请审批人角色ID -->
+<select id="selectRoleId"  resultType="java.lang.Integer" parameterType="int">
+	select t.role_id from ROLE_PROC_RELA t 
+	where t.state='Y'
+	<if test="_parameter  != null and _parameter  != ''" >
+		and t.end_proc_id=(select t2.id from PROCESS_INFO t2 where t2.type_code='VACATE' and t2.proc_num=#{_parameter})
+    </if>
+</select> 
+
+<!-- 根据角色ID查询请假申请审批人权限ID -->
+<select id="selectAuthId"  resultType="java.lang.Integer" parameterType="java.lang.Integer">
+	select t.auth_id from USER_AUTHORITY t
+	 where 1=1 
+	<if test="_parameter  != null and _parameter  != ''" >
+		and t.role_id=#{_parameter}
+    </if>
+</select>
+
+<!-- 根据类型bean查询请假申请表 -->
+<select id="selectVacateList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+  select t.id,i.user_name,o.orga_name,t.vacate_type_name,t.vacate_status,t.stu_auth_id,
+  to_char(t.start_time, 'yyyy-mm-dd') as start_time_str,
+  to_char(t.end_time, 'yyyy-mm-dd') as end_time_str,
+  p.proc_result,t.vacate_date_num,t.content 
+  from STU_VACATE_INFO t 
+  left join PROCESS_RECORD p 
+  on t.id = p.related_id 
+  left join USER_AUTHORITY u 
+  on t.stu_auth_id = u.auth_id 
+  left join user_info i 
+  on u.user_id = i.user_id 
+  left join orga_info o 
+  on t.orga_id=o.orga_id 
+  where t.state='Y' 
+  <if test="orga_id != null and orga_id != ''" >
+      and t.orga_id=#{orga_id,jdbcType=INTEGER}
+  </if>
+  <!-- <if test="vacate_status != null and vacate_status != ''" >
+      and t.vacate_status=#{vacate_status}
+  </if> -->
+  <if test="end_proc_id != null and end_proc_id != ''" >
+      and p.end_proc_id=#{end_proc_id}
+  </if>
+  <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+  </if>
+  order by t.start_time asc
+</select>
+
+<!-- 请假申请表 列表总数-根据类型bean查询 -->
+<select id="selectVacateListCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+	select count(1) from (select t.id 
+  from STU_VACATE_INFO t 
+  left join PROCESS_RECORD p 
+  on t.id = p.related_id 
+  where t.state='Y' 
+  <if test="orga_id != null and orga_id != ''" >
+      and t.orga_id=#{orga_id,jdbcType=INTEGER}
+  </if>
+  <!-- <if test="vacate_status != null and vacate_status != ''" >
+      and t.vacate_status=#{vacate_status}
+  </if> -->
+  <if test="end_proc_id != null and end_proc_id != ''" >
+      and p.end_proc_id=#{end_proc_id}
+  </if>
+  <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+  </if>) b
+</select>
+
+<!-- 查询待销假的申请 -->
+<select id="selectVacateListByStatus" resultType="com.rensu.education.hctms.teach.bean.StuVacateInfo"  parameterType="com.rensu.education.hctms.teach.bean.StuVacateInfo">
+	select 
+	svi.id,a.user_name,o.orga_name,svi.vacate_type_name,svi.vacate_date_num,svi.content,svi.vacate_status,svi.stu_auth_id,
+    to_char(svi.start_time, 'yyyy-mm-dd') as start_time_str,
+    to_char(svi.end_time, 'yyyy-mm-dd') as end_time_str
+    from STU_VACATE_INFO svi 
+    left join (select i.user_name as user_name,
+                                   u.auth_id   as auth_id
+                              from USER_AUTHORITY u
+                              left join user_info i
+                                on u.user_id = i.user_id) a
+    on svi.stu_auth_id = a.auth_id
+    left join orga_info o
+    on svi.orga_id = o.orga_id
+    where svi.state='Y' 
+    <if test="vacate_status != null and vacate_status !=''" >
+    	and svi.vacate_status=#{vacate_status} 
+    </if>
+    order by svi.end_time asc
+</select>
+</mapper>   

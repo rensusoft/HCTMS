@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MessageReceiveMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.message.bean.MessageReceive" >
+	<result column="id" property="id"/>
+	<result column="mp_id" property="mp_id"/>
+	<result column="receiver_auth_id" property="receiver_auth_id"/>
+	<result column="progress_state" property="progress_state"/>
+	<result column="check_time" property="check_time"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MESSAGE_RECEIVE table all fields -->
+<sql id="Base_Column_List" >
+	 id,mp_id,receiver_auth_id,progress_state,check_time,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="mp_id != null" >
+	    and mp_id =  #{mp_id}
+	</if>
+	<if test="receiver_auth_id != null" >
+	    and receiver_auth_id =  #{receiver_auth_id}
+	</if>
+	<if test="progress_state != null" >
+	    and progress_state =  #{progress_state}
+	</if>
+	<if test="check_time != null" >
+	    and check_time =  #{check_time}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.message.bean.MessageReceive" >
+  insert into MESSAGE_RECEIVE(id,mp_id,receiver_auth_id,progress_state,check_time,state)
+ values(#{id,jdbcType=INTEGER},#{mp_id,jdbcType=INTEGER},#{receiver_auth_id,jdbcType=INTEGER},#{progress_state,jdbcType=INTEGER},#{check_time,jdbcType=TIMESTAMP},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.message.bean.MessageReceive" >
+	update MESSAGE_RECEIVE set 
+	<trim  suffixOverrides="," >
+	<if test="mp_id != null  ">
+		mp_id=#{mp_id,jdbcType=INTEGER},
+	</if>
+	<if test="receiver_auth_id != null  ">
+		receiver_auth_id=#{receiver_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="progress_state != null  ">
+		progress_state=#{progress_state,jdbcType=INTEGER},
+	</if>
+	<if test="check_time != null  ">
+		check_time=#{check_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<update id="updateAllMsgStateByAuthId" parameterType="com.rensu.education.hctms.message.bean.MessageReceive" >
+	update MESSAGE_RECEIVE set 
+	<trim  suffixOverrides="," >
+	<if test="progress_state != null  ">
+		progress_state=#{progress_state,jdbcType=INTEGER},
+	</if>
+	</trim> 
+	where progress_state=0
+	<if test="state != null  and state != '' ">
+		and state=#{state,jdbcType=VARCHAR}
+	</if>
+	<if test="receiver_auth_id != null  and receiver_auth_id != '' ">
+		and receiver_auth_id=#{receiver_auth_id,jdbcType=INTEGER}
+	</if>
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	delete 	 from MESSAGE_RECEIVE where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 通知公告接收表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MESSAGE_RECEIVE where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 通知公告接收表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_message_receive_id.nextval from dual
+</select>
+<!-- 通知公告接收表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	select count(1) from MESSAGE_RECEIVE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询通知公告接收表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	select 
+	<include refid="Base_Column_List"/>
+	from MESSAGE_RECEIVE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询通知公告接收表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	select 
+	<include refid="Base_Column_List"/>
+	from MESSAGE_RECEIVE 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<!-- 查询接收到消息 -->
+<select id="selectPageAll" resultType="com.rensu.education.hctms.message.bean.MessageReceive"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	select r.id as id, p.title as title,u.user_name as sendName,to_char(p.send_time,'yyyy-mm-dd hh24:mi') as sendTimeStr ,p.content as content,
+	decode(p.type_id,1,'普通消息',2,'系统消息') as type_Name
+	from MESSAGE_RECEIVE r 
+	left join MESSAGE_PUBLISH p on  p.id=r.mp_id
+	left join user_authority a on a.auth_id=p.sender_auth_id
+	left join user_info u on u.user_id=a.user_id	
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="receiver_auth_id != null" >
+	    and r.receiver_auth_id =  #{receiver_auth_id}
+	</if>
+	<if test="progress_state != null" >
+	    and r.progress_state =  #{progress_state}
+	</if>
+	<if test="type_id != null" >
+	    and p.type_id =  #{type_id}
+	</if>
+	<if test="state != null and state != ''" >
+	    and p.state =  #{state}
+	</if>
+	<if test="id != null ">
+	    and r.id =  #{id}
+	</if>
+</trim>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+	
+	
+<select id="selectCountByLei" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	select count(1) from MESSAGE_RECEIVE r	
+ 	left join MESSAGE_PUBLISH p on  p.id=r.mp_id
+	where 1=1 
+<trim  suffixOverrides="," >
+	<if test="receiver_auth_id != null" >
+	    and r.receiver_auth_id =  #{receiver_auth_id}
+	</if>
+	<if test="type_id != null" >
+	    and p.type_id =  #{type_id}
+	</if>
+	<if test="progress_state != null" >
+	    and r.progress_state =  #{progress_state}
+	</if>
+	<if test="state != null and state != ''" >
+	    and p.state =  #{state}
+	</if>
+</trim>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>	
+	<!-- 批量添加    -->
+	<insert id="addMany" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE" >
+		select seq_message_receive_id.nextval as id from dual
+		</selectKey>
+	insert into MESSAGE_RECEIVE(id,mp_id,receiver_auth_id,progress_state,check_time,state)
+	select seq_message_receive_id.nextval,A.* FROM(
+		<foreach collection="list" item="item" index="index" separator="union all">
+ 	select  #{item.mp_id,jdbcType=INTEGER} as mp_id,
+ 			#{item.receiver_auth_id,jdbcType=INTEGER} as receiver_auth_id,
+ 			#{item.progress_state,jdbcType=INTEGER} as progress_state,
+ 			#{item.check_time,jdbcType=TIMESTAMP} as check_time,
+ 			#{item.state,jdbcType=VARCHAR} as state
+ 	from dual 
+		</foreach>) A
+</insert>
+	
+<!-- 查询我发出消息 -->
+<select id="selectListAll" resultType="com.rensu.education.hctms.message.bean.MessageReceive"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	  select r.id as id, p.title as title,u.user_name as receiverName,to_char(p.send_time,'yyyy-mm-dd hh24:mi') as sendTimeStr ,p.content  as content  ,r.mp_id  as mp_id  from MESSAGE_RECEIVE r 
+  	  left join MESSAGE_PUBLISH p on  p.id=r.mp_id
+  	  left join user_authority a on a.auth_id=r.receiver_auth_id
+  	  left join user_info u on u.user_id=a.user_id  
+      where 1=1 
+<trim  suffixOverrides="," >
+	<if test="mp_id != null" >
+	    and r.mp_id =  #{mp_id}
+	</if>
+</trim>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+	
+<update id="updateState" parameterType="com.rensu.education.hctms.message.bean.MessageReceive" >
+	update MESSAGE_RECEIVE set 
+		state=#{state,jdbcType=VARCHAR}
+	where mp_id=#{mp_id,jdbcType=INTEGER}
+</update>	
+
+<select id="getTodo" resultType="com.rensu.education.hctms.message.bean.MessageReceive"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+select *	from (select r.id as id, p.title as title,u.user_name as sendName,to_char(p.send_time,'yyyy-mm-dd hh24:mi') as sendTimeStr ,
+p.content as content ,
+decode(p.type_id,1,'普通消息',2,'系统消息') as type_Name
+from MESSAGE_RECEIVE r 
+left join MESSAGE_PUBLISH p on  p.id=r.mp_id
+left join user_authority a on a.auth_id=p.sender_auth_id
+left join user_info u on u.user_id=a.user_id  
+where 1=1 
+<trim  suffixOverrides="," >
+	<if test="receiver_auth_id != null" >
+	    and r.receiver_auth_id =  #{receiver_auth_id}
+	</if>
+	<if test="progress_state != null" >
+	    and r.progress_state =  #{progress_state}
+	</if>
+	<if test="state != null and state != ''" >
+	    and p.state =  #{state}
+	</if>
+	<if test="id != null ">
+	    and r.id =  #{id}
+	</if>
+</trim>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>)m 
+    where  rownum  &lt;=5
+</select>
+
+<!-- 得到科教科首页的    消息块信息  -->
+<select id="getNews" resultType="com.rensu.education.hctms.message.bean.MessageReceive"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	select r.id, p.title,
+	to_char(p.send_time,'yyyy-mm-dd hh24:mi') as sendTimeStr,
+	decode(p.type_id,1,'普通消息',2,'系统消息') as type_Name
+	from MESSAGE_RECEIVE r 
+	left join MESSAGE_PUBLISH p on  p.id=r.mp_id
+	where rownum  &lt;=5
+	<if test="receiver_auth_id != null" >
+	    and r.receiver_auth_id =  #{receiver_auth_id}
+	</if>
+	<if test="progress_state != null" >
+	    and r.progress_state =  #{progress_state}
+	</if>
+	<if test="state != null and state != ''" >
+	    and p.state =  #{state}
+	</if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+<!-- 查询接收到消息 -->
+<select id="selectNewsProgress_state0" resultType="com.rensu.education.hctms.message.bean.MessageReceive"  parameterType="com.rensu.education.hctms.message.bean.MessageReceive">
+	select r.id as id, p.title as title,u.user_name as sendName,to_char(p.send_time,'yyyy-mm-dd hh24:mi') as sendTimeStr,
+	p.content as content from MESSAGE_RECEIVE r 
+	left join MESSAGE_PUBLISH p on  p.id=r.mp_id
+	left join user_authority a on a.auth_id=p.sender_auth_id
+	left join user_info u on u.user_id=a.user_id	
+	where 1=1
+	<if test="receiver_auth_id != null" >
+	    and r.receiver_auth_id =  #{receiver_auth_id}
+	</if>
+	<if test="progress_state != null" >
+	    and r.progress_state =  #{progress_state}
+	</if>
+	<if test="type_id != null" >
+	    and p.type_id =  #{type_id}
+	</if>
+	<if test="state != null and state != ''" >
+	    and p.state =  #{state} and r.state =  #{state}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+
+
+
+
+
+	
+</mapper>   

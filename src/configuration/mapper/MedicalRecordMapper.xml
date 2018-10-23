@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.MedicalRecordMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.teach.bean.MedicalRecord" >
+	<result column="id" property="id"/>
+	<result column="pk_code" property="pk_code"/>
+	<result column="type_id" property="type_id"/>
+	<result column="mr_name" property="mr_name"/>
+	<result column="p_name" property="p_name"/>
+	<result column="p_sex" property="p_sex"/>
+	<result column="p_age" property="p_age"/>
+	<result column="p_deptname" property="p_deptname"/>
+	<result column="p_bednum" property="p_bednum"/>
+	<result column="p_pid" property="p_pid"/>
+	<result column="content" property="content"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="create_time" property="create_time"/>
+	<result column="correct_auth_id" property="correct_auth_id"/>
+	<result column="correct_time" property="correct_time"/>
+	<result column="correct_status" property="correct_status"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- MEDICAL_RECORD table all fields -->
+<sql id="Base_Column_List" >
+	 id,pk_code,type_id,mr_name,p_name,p_sex,p_age,p_deptname,p_bednum,p_pid,content,stu_auth_id,create_time,correct_auth_id,correct_time,correct_status,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="pk_code != null and pk_code != ''" >
+	    and pk_code =  #{pk_code}
+	</if>
+	<if test="type_id != null" >
+	    and type_id =  #{type_id}
+	</if>
+	 	<if test="mr_name != null and mr_name != ''" >
+	    and mr_name =  #{mr_name}
+	</if>
+	 	<if test="p_name != null and p_name != ''" >
+	    and p_name =  #{p_name}
+	</if>
+	 	<if test="p_sex != null and p_sex != ''" >
+	    and p_sex =  #{p_sex}
+	</if>
+	 	<if test="p_age != null and p_age != ''" >
+	    and p_age =  #{p_age}
+	</if>
+	 	<if test="p_deptname != null and p_deptname != ''" >
+	    and p_deptname =  #{p_deptname}
+	</if>
+	 	<if test="p_bednum != null and p_bednum != ''" >
+	    and p_bednum =  #{p_bednum}
+	</if>
+	 	<if test="p_pid != null and p_pid != ''" >
+	    and p_pid =  #{p_pid}
+	</if>
+	<if test="content != null" >
+	    and content =  #{content}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="correct_auth_id != null" >
+	    and correct_auth_id =  #{correct_auth_id}
+	</if>
+	<if test="correct_time != null" >
+	    and correct_time =  #{correct_time}
+	</if>
+	 	<if test="correct_status != null and correct_status != ''" >
+	    and correct_status =  #{correct_status}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord" >
+  insert into MEDICAL_RECORD(id,pk_code,type_id,mr_name,p_name,p_sex,p_age,p_deptname,p_bednum,p_pid,content,stu_auth_id,create_time,correct_auth_id,correct_time,correct_status,state)
+ values(#{id,jdbcType=INTEGER},#{pk_code,jdbcType=VARCHAR},#{type_id,jdbcType=INTEGER},#{mr_name,jdbcType=VARCHAR},#{p_name,jdbcType=VARCHAR},#{p_sex,jdbcType=VARCHAR},#{p_age,jdbcType=VARCHAR},#{p_deptname,jdbcType=VARCHAR},#{p_bednum,jdbcType=VARCHAR},#{p_pid,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{stu_auth_id,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{correct_auth_id,jdbcType=INTEGER},#{correct_time,jdbcType=TIMESTAMP},#{correct_status,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord" >
+	update MEDICAL_RECORD set 
+	<trim  suffixOverrides="," >
+	<if test="pk_code != null  and pk_code != '' ">
+		pk_code=#{pk_code,jdbcType=VARCHAR},
+	</if>
+	<if test="type_id != null  ">
+		type_id=#{type_id,jdbcType=INTEGER},
+	</if>
+	<if test="mr_name != null  and mr_name != '' ">
+		mr_name=#{mr_name,jdbcType=VARCHAR},
+	</if>
+	<if test="p_name != null  and p_name != '' ">
+		p_name=#{p_name,jdbcType=VARCHAR},
+	</if>
+	<if test="p_sex != null  and p_sex != '' ">
+		p_sex=#{p_sex,jdbcType=VARCHAR},
+	</if>
+	<if test="p_age != null  and p_age != '' ">
+		p_age=#{p_age,jdbcType=VARCHAR},
+	</if>
+	<if test="p_deptname != null  and p_deptname != '' ">
+		p_deptname=#{p_deptname,jdbcType=VARCHAR},
+	</if>
+	<if test="p_bednum != null  and p_bednum != '' ">
+		p_bednum=#{p_bednum,jdbcType=VARCHAR},
+	</if>
+	<if test="p_pid != null  and p_pid != '' ">
+		p_pid=#{p_pid,jdbcType=VARCHAR},
+	</if>
+	<if test="content != null  ">
+		content=#{content,jdbcType=VARCHAR},
+	</if>
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="correct_auth_id != null  ">
+		correct_auth_id=#{correct_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="correct_time != null  ">
+		correct_time=#{correct_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="correct_status != null  and correct_status != '' ">
+		correct_status=#{correct_status,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+	delete 	 from MEDICAL_RECORD where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 医疗文书数据（医嘱除外）列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from MEDICAL_RECORD where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 医疗文书数据（医嘱除外）序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_medical_record_id.nextval from dual
+</select>
+
+<!-- 医疗文书数据（医嘱除外） 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+	select count(1) from MEDICAL_RECORD 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询医疗文书数据（医嘱除外） -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_RECORD 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询医疗文书数据（医嘱除外） -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+	select 
+	<include refid="Base_Column_List"/>
+	from MEDICAL_RECORD 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectMedicalDocument" resultType="com.rensu.education.hctms.teach.bean.MedicalRecord" parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+  select 
+  decode(t.type_id,1,'入院记录',2,'病程记录',3,'其他单据','医嘱') as type_id_str,
+  t.p_name,t.p_pid,t.id,t.type_id,t.correct_status,
+  to_char(t.create_time,'yyyy-MM-dd hh24:mi:ss') as create_time_str,
+  ui.user_name as correct_auth_id_str,
+  decode(t.correct_status,'N','未批改','Y','已批改') as correct_status_str
+  from (
+    select mr.id,mr.type_id,mr.p_name,mr.p_pid,mr.create_time,mr.correct_auth_id,mr.correct_status,mr.stu_auth_id,mr.state from MEDICAL_RECORD mr 
+    union all
+    select mam.id,(select 4 from dual) as type_id,mam.p_name,mam.p_pid,mam.create_time,mam.correct_auth_id,mam.correct_status,mam.stu_auth_id,mam.state from MEDICAL_ADVICE_MAIN mam
+  ) t
+  left join USER_AUTHORITY ua on t.correct_auth_id=ua.auth_id 
+  left join USER_INFO ui on ua.user_id=ui.user_id
+  where 1=1 and t.correct_status is not null 
+    <if test="state != null and state != ''" >
+      and t.state = #{state}
+    </if>
+    <if test="stu_auth_id != null and stu_auth_id != ''" >
+      and t.stu_auth_id = #{stu_auth_id}
+    </if>
+    <if test="start_date != null and end_date == null" >
+      and t.create_time &gt;= to_date('${start_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="end_date != null and start_date == null" >
+      and t.create_time &lt;= to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="start_date != null and end_date != null" >
+      and t.create_time between to_date('${start_date}','yyyy-MM-dd hh24:mi:ss') and to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+  <if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+    
+<select id="selectMedicalDocumentCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+  select count(1) from (
+    select mr.type_id,mr.p_name,mr.p_pid,mr.create_time,mr.correct_auth_id,mr.correct_status,mr.stu_auth_id,mr.state from MEDICAL_RECORD mr 
+    union all
+    select (select 4 from dual) as type_id,mam.p_name,mam.p_pid,mam.create_time,mam.correct_auth_id,mam.correct_status,mam.stu_auth_id,mam.state from MEDICAL_ADVICE_MAIN mam
+  ) t
+  where 1=1 and t.correct_status is not null
+    <if test="state != null and state != ''" >
+      and t.state = #{state}
+    </if>
+    <if test="stu_auth_id != null and stu_auth_id != ''" >
+      and t.stu_auth_id = #{stu_auth_id}
+    </if>
+    <if test="start_date != null and end_date == null" >
+      and t.create_time &gt;= to_date('${start_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="end_date != null and start_date == null" >
+      and t.create_time &lt;= to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="start_date != null and end_date != null" >
+      and t.create_time between to_date('${start_date}','yyyy-MM-dd hh24:mi:ss') and to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+</select>
+
+<select id="selectMedicalDocumentTea" resultType="com.rensu.education.hctms.teach.bean.MedicalRecord" parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+	select 
+	decode(t.type_id,1,'入院记录',2,'病程记录',3,'其他单据','医嘱') as type_id_str,
+	t.p_name,t.p_pid,t.id,t.type_id ,t.correct_status,
+	to_char(t.create_time,'yyyy-MM-dd hh24:mi:ss') as create_time_str,
+	ui.user_name as correct_auth_id_str,
+	uio.user_name as stu_auth_id_str,
+	decode(t.correct_status,'N','未批改','Y','已批改') as correct_status_str
+	from (
+		select mr.id 
+
+,mr.type_id,mr.p_name,mr.p_pid,mr.create_time,mr.correct_auth_id,mr.correct_status,mr.stu_auth_id,mr.state from MEDICAL_RECORD mr 
+		union all
+		select mam.id 
+
+,(select 4 from dual) as type_id,mam.p_name,mam.p_pid,mam.create_time,mam.correct_auth_id,mam.correct_status,mam.stu_auth_id,mam.state from MEDICAL_ADVICE_MAIN mam
+	) t
+	left join USER_AUTHORITY ua on t.correct_auth_id=ua.auth_id 
+	left join USER_INFO ui on ua.user_id=ui.user_id
+	left join USER_AUTHORITY uay on t.stu_auth_id=uay.auth_id 
+	left join USER_INFO uio on uay.user_id=uio.user_id
+	where 1=1 and t.correct_status is not null 
+    <if test="state != null and state != ''" >
+    	and t.state = #{state}
+    </if>
+    <if test="teacher_auth_id != null and teacher_auth_id != ''" >
+    	and t.stu_auth_id in (select tp.stu_auth_id from train_plan tp where tp.teacher_auth_id=#{teacher_auth_id})
+    </if>
+    <if test="start_date != null and end_date == null" >
+    	and t.create_time &gt;= to_date('${start_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="end_date != null and start_date == null" >
+    	and t.create_time &lt;= to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="start_date != null and end_date != null" >
+    	and t.create_time between to_date('${start_date}','yyyy-MM-dd hh24:mi:ss') and to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectMedicalDocumentCountTea" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.teach.bean.MedicalRecord">
+	select count(1) from (
+		select mr.type_id,mr.p_name,mr.p_pid,mr.create_time,mr.correct_auth_id,mr.correct_status,mr.stu_auth_id,mr.state from MEDICAL_RECORD mr 
+		union all
+		select (select 4 from dual) as type_id,mam.p_name,mam.p_pid,mam.create_time,mam.correct_auth_id,mam.correct_status,mam.stu_auth_id,mam.state from MEDICAL_ADVICE_MAIN mam
+	) t
+	where 1=1 and t.correct_status is not null
+    <if test="state != null and state != ''" >
+    	and t.state = #{state}
+    </if>
+    <if test="teacher_auth_id != null and teacher_auth_id != ''" >
+    	and t.stu_auth_id in (select tp.stu_auth_id from train_plan tp where tp.teacher_auth_id=#{teacher_auth_id})
+    </if>
+    <if test="start_date != null and end_date == null" >
+    	and t.create_time &gt;= to_date('${start_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="end_date != null and start_date == null" >
+    	and t.create_time &lt;= to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+    <if test="start_date != null and end_date != null" >
+    	and t.create_time between to_date('${start_date}','yyyy-MM-dd hh24:mi:ss') and to_date('${end_date}','yyyy-MM-dd hh24:mi:ss')
+    </if>
+</select>
+
+<select id="selectMedicalRecordById" resultType="com.rensu.education.hctms.teach.bean.MedicalRecord"  parameterType="int">	
+	select 
+	mr.id,mr.type_id,mr.correct_status,mr.pk_code,
+	to_char(mr.correct_time,'yyyy-MM-dd hh24:mi') as correct_time_str,
+	decode(mr.type_id,1,'入院记录',2,'病程记录',3,'其他单据') as type_id_str,
+	ui.user_name as stu_auth_id_str,
+	mr.p_name,mr.p_pid,mr.mr_name,mr.content
+	from MEDICAL_RECORD mr
+	left join USER_AUTHORITY ua on mr.stu_auth_id=ua.auth_id 
+	left join USER_INFO ui on ua.user_id=ui.user_id
+	where mr.id = #{id}
+</select>
+
+</mapper>   

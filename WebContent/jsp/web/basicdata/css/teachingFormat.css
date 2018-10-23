@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+body {
+    height: 100%;
+}
+.hidden {
+    visibility: hidden;
+}
+a:hover {
+    text-decoration: none !important;
+    cursor: pointer;
+}
+.section_list{
+    width: 20%;
+    float: left;
+    border: 1px solid #ddd;
+    height:100%;
+    overflow-y: auto;
+    background-color: #FCFCFC;
+}
+.main_list{
+    width: 100%;
+    height:100%;
+    overflow-y: auto;
+}
+.list{
+    list-style: none;
+    width: 100%;
+    padding: 5px;
+}
+.list li{
+    height:60px;
+    margin-bottom: 5px;
+    border:2px solid #ddd;
+    overflow: hidden;
+    border-radius: 3px;
+    position: relative;
+}
+.list>li>span{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.list>li>a{
+    display: block;
+    padding-left: 5%;
+    height: 100%;
+    text-decoration: none;
+    color: #505F91;
+    font-size:22px ;
+    position: relative;
+}
+.list>li>a>i{
+    display: inline-block;
+    width: 15%;
+    padding: 12px 0;
+}
+.border{
+    border: 2px solid #505F91 !important;
+    background:#FAFAFA ;
+}
+.stuContent{
+    width: 100%;
+}
+.stuContent tr td:nth-child(odd){
+    width: 230px;
+}
+.stuContent tr td{
+    padding: 5px 0;
+}
+.unify{
+    display: inline-block;
+    float: right;
+    width: 80px;
+    color: #fff;
+    background: #505F91;
+    text-align: center;
+    margin-right: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border:1px solid #505F91;
+    height: 28px;
+    line-height: 28px;
+    position: relative;
+    top: -3px;
+}
+.unify:hover{
+    color: #fff;
+}
+.contPanel{
+    margin-top: 10px;
+}
+.stuContent tr td:nth-child(2){
+    width: 300px;
+}
+.arr{
+    float: right;
+    margin-right: 30px;
+    width: 16px;
+    height: 16px;
+}
+.arrup{
+    background:url(../img/arr.png) -1px 0;
+}
+.arrdown{
+    background:url(../img/arr.png) 17px 0;
+}
+.panel-heading{
+    position: relative;
+    background:#7E89B7 !important;
+}
+.panel-heading>span{
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #E3968E;
+}
+
+.liBackground{
+    background: rgba(80, 95, 145, 0.24);
+}

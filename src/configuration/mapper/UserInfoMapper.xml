@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.UserInfoMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.userauth.bean.UserInfo" >
+	<result column="user_id" property="user_id"/>
+	<result column="user_code" property="user_code"/>
+	<result column="user_password" property="user_password"/>
+	<result column="user_name" property="user_name"/>
+	<result column="mobile" property="mobile"/>
+	<result column="state" property="state"/>
+	<result column="create_time" property="create_time"/>
+	<result column="teacher_auth_id" property="teacher_auth_id"/>
+	<result column="img_path" property="img_path"/>
+</resultMap>
+       
+<!-- USER_INFO table all fields -->
+<sql id="Base_Column_List" >
+	 user_id,user_code,user_password,user_name,mobile,state,create_time,img_path
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="user_id != null" >
+	    and user_id =  #{user_id}
+	</if>
+	 	<if test="user_code != null and user_code != ''" >
+	    and user_code =  #{user_code}
+	</if>
+	 	<if test="user_password != null and user_password != ''" >
+	    and user_password =  #{user_password}
+	</if>
+	 	<if test="user_name != null and user_name != ''" >
+	    and user_name =  #{user_name}
+	</if>
+	 	<if test="mobile != null and mobile != ''" >
+	    and mobile =  #{mobile}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="create_time != null" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="img_path != null and img_path != ''" >
+	    and img_path =  #{img_path}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo" >
+  insert into USER_INFO(user_id,user_code,user_password,user_name,mobile,state,create_time,img_path)
+ values(#{user_id,jdbcType=INTEGER},#{user_code,jdbcType=VARCHAR},#{user_password,jdbcType=VARCHAR},#{user_name,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{img_path,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo" >
+	update USER_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="user_code != null  and user_code != '' ">
+		user_code=#{user_code,jdbcType=VARCHAR},
+	</if>
+	<if test="user_password != null  and user_password != '' ">
+		user_password=#{user_password,jdbcType=VARCHAR},
+	</if>
+	<if test="user_name != null  and user_name != '' ">
+		user_name=#{user_name,jdbcType=VARCHAR},
+	</if>
+	<if test="mobile != null  and mobile != '' ">
+		mobile=#{mobile,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="img_path != null  and img_path != ''">
+		img_path=#{img_path,jdbcType=TIMESTAMP},
+	</if>
+	</trim> where user_id=#{user_id,jdbcType=INTEGER}
+</update>
+
+<update id="updateByUserCode" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo" >
+	update USER_INFO set 
+	<trim  suffixOverrides="," >
+	<if test="user_password != null  and user_password != '' ">
+		user_password=#{user_password,jdbcType=VARCHAR},
+	</if>
+	<if test="user_name != null  and user_name != '' ">
+		user_name=#{user_name,jdbcType=VARCHAR},
+	</if>
+	<if test="mobile != null  and mobile != '' ">
+		mobile=#{mobile,jdbcType=VARCHAR},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time,jdbcType=TIMESTAMP},
+	</if>
+	<if test="img_path != null  and img_path != ''">
+		img_path=#{img_path,jdbcType=TIMESTAMP},
+	</if>
+	</trim> where user_code=#{user_code,jdbcType=VARCHAR}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	delete 	 from USER_INFO where user_id = #{user_id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 用户表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from USER_INFO where user_id = #{user_id,jdbcType=INTEGER}
+</select>
+
+<!-- 用户表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_user_info_user_id.nextval from dual
+</select>
+
+<!-- 用户表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select count(1) from USER_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询用户表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from USER_INFO 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询用户表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select 
+	<include refid="Base_Column_List"/>
+	from USER_INFO 
+	<include refid="Example_Where_Clause"/>
+	
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+
+<select id="loginByCodePsd" 
+		parameterType="java.util.Map"
+		resultType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select 
+	 	*
+	 from 
+	 	USER_INFO
+	 where 
+	 	state ='Y'
+	 	<if test="userCode != null and userCode != ''" >
+			and user_code= '${userCode}'
+		</if>
+		<if test="password != null and password != ''" >
+			and user_password= '${password}'
+		</if>
+</select>
+
+<!-- 查询所有 -->
+<select id="getAllUserInfo" resultMap="BaseResultMap">
+     select
+     <include refid="Base_Column_List"/>
+	 from 
+	 	USER_INFO
+</select>
+
+<!-- 根据uerid查询相关人物的角色信息 -->
+<select id="selectBytpId" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo" resultType="com.rensu.education.hctms.userauth.bean.VUserDetailInfo">
+    select  a.user_id,a.auth_id,i.user_name,a.stu_type_id,r.role_name,o.orga_name,a.state,s.type_name as type_name from user_authority a
+    left join user_info i on i.user_id=a.user_id
+    left join role_info r on r.role_id=a.role_id
+    left join orga_info o on o.orga_id=a.orga_id
+    left join STU_TYPE  s on s.id=a.stu_type_id
+    where 
+    a.user_id= #{user_id,jdbcType=INTEGER}
+     and a.state='Y'
+</select>
+  	
+  <select id="selectPageByMoHu" resultType="com.rensu.education.hctms.userauth.bean.UserInfo"  parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select 
+	distinct ui.*
+	from USER_INFO ui left join USER_AUTHORITY ua 
+	on ui.user_id=ua.user_id
+	where 1=1
+<trim  >
+	 	<if test="user_code != null and user_code != ''" >
+	    and (user_code like '%${user_code}%'  
+	    or user_name like '%${user_code}%'
+	    or mobile like '%${user_code}%')
+	</if>
+		<if test="orga_id!= null and orga_id != ''" >
+	    and ua.orga_id = #{orga_id}
+	</if>
+	
+	 	<if test="role_id != null and role_id != ''" >
+	    and ua.role_id = #{role_id}
+	</if>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+    </trim>
+</select>	
+  	
+  <!-- 查询所有状态为Y的用户 -->
+  <select id="selectKeYonCount" resultType="java.lang.Integer" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select count(1) from USER_INFO 
+	<include refid="Example_Where_Clause"/>
+    and STATE!='X'
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+  <!-- 根据orga_id和auth_id查询带教老师 -->
+  <select id="selectTeacher" resultMap="BaseResultMap" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select t.teacher_auth_id,z.user_name from TRAIN_PLAN t 
+	left join (select u.auth_id as auth_id,i.user_name as user_name  
+	from USER_AUTHORITY u left join user_info i on u.user_id=i.user_id)  z on t.teacher_auth_id=z.auth_id where 1=1
+	<if test="role_id != null and role_id != ''" >
+     and t.stu_auth_id = #{role_id,jdbcType=INTEGER}
+    </if>
+	<if test="orga_id != null and orga_id != ''" >
+     and t.train_dept_id = #{orga_id,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+   <!-- 根据orga_id和role_id查询科教秘书 -->
+  <select id="selectOrgaTea" resultMap="BaseResultMap" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+	select t.user_name ,t.user_id,a.auth_id from USER_INFO t left join user_authority a on t.user_id=a.user_id where 1=1
+	<if test="state != null and state != ''" >
+     and t.state = #{state} and a.state = #{state}
+    </if>
+	<if test="role_id != null and role_id != ''" >
+     and a.role_id = #{role_id,jdbcType=INTEGER}
+    </if>
+	<if test="orga_id != null and orga_id != ''" >
+     and a.orga_id = #{orga_id,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!-- 查询所有用户名称 -->
+	<select id="findAllUserName" resultType="com.rensu.education.hctms.userauth.bean.UserInfo" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+        select i.user_name,a.auth_id from user_Info i
+		left join user_authority a on i.user_id=a.user_id 
+		<if test="user_name != null and user_name != ''" >
+        	where  i.user_name like '%'||#{user_name}||'%' 
+        </if>
+	</select>
+  
+    <!-- 查询当前科室下的所有带教老师 -->
+	<select id="selectTeachersList" resultType="com.rensu.education.hctms.userauth.bean.UserInfo" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+       select i.user_name as user_name,a.auth_id  as teacher_auth_id from user_authority a
+		left join user_info i on  i.user_id=a.user_id
+		where role_id=20 
+		<if test="orga_id != null and orga_id != ''" >
+        	and a.orga_id=#{orga_id,jdbcType=INTEGER}
+        </if>
+	</select>
+  
+  <!-- 查询所有用户名称 -->
+	<select id="findAllUserNameAndId" resultType="com.rensu.education.hctms.userauth.bean.UserInfo" parameterType="com.rensu.education.hctms.userauth.bean.UserInfo">
+        select i.user_name||'['||ri.role_name||']' as user_name,a.auth_id from user_Info i
+		left join user_authority a on i.user_id=a.user_id 
+		left join ROLE_INFO ri on a.role_id=ri.role_id
+        where i.state='Y' and a.state='Y' and ri.state='Y' and ri.role_code!='R_STU'
+		<if test="user_name != null and user_name != ''" >
+        	and  i.user_name like '%'||#{user_name}||'%' 
+        </if>
+	</select>
+  
+  <select id="selecAuthIdBy" resultType="com.rensu.education.hctms.userauth.bean.UserInfo">
+       select * from USER_INFO t left join user_authority ua on ua.user_id=t.user_id where t.user_code=#{user_code} and ua.state !='X' and t.state !='X'
+  </select>
+  
+  <select id="selectTeaList" resultType="com.rensu.education.hctms.userauth.bean.UserInfo">
+  select ua.auth_id,ui.user_name from USER_AUTHORITY ua left join user_info ui on ui.user_id=ua.user_id where 1=1
+	 	<if test="state != null and state != ''" >
+	    and ua.state = #{state}
+	    </if>
+		<if test="orga_id!= null and orga_id != ''" >
+	    and ua.orga_id = #{orga_id}
+	    </if>
+	 	<if test="role_id != null and role_id != ''" >
+	    and ua.role_id = #{role_id}
+	    </if>
+  </select>
+</mapper>   

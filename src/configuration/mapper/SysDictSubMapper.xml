@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.SysDictSubMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.config.bean.SysDictSub" >
+	<result column="sup_code" property="sup_code"/>
+	<result column="item_type_code" property="item_type_code"/>
+	<result column="item_type_name" property="item_type_name"/>
+	<result column="ordinal" property="ordinal"/>
+	<result column="state" property="state"/>
+</resultMap>
+       
+<!-- SYS_DICT_SUB table all fields -->
+<sql id="Base_Column_List" >
+	 sup_code,item_type_code,item_type_name,ordinal,state
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	 	<if test="sup_code != null and sup_code != ''" >
+	    and sup_code =  #{sup_code}
+	</if>
+	 	<if test="item_type_code != null and item_type_code != ''" >
+	    and item_type_code =  #{item_type_code}
+	</if>
+	 	<if test="item_type_name != null and item_type_name != ''" >
+	    and item_type_name =  #{item_type_name}
+	</if>
+	<if test="ordinal != null" >
+	    and ordinal =  #{ordinal}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.config.bean.SysDictSub" >
+  insert into SYS_DICT_SUB(sup_code,item_type_code,item_type_name,ordinal,state)
+ values(#{sup_code,jdbcType=VARCHAR},#{item_type_code,jdbcType=VARCHAR},#{item_type_name,jdbcType=VARCHAR},#{ordinal,jdbcType=INTEGER},#{state,jdbcType=VARCHAR})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.config.bean.SysDictSub" >
+	update SYS_DICT_SUB set 
+	<trim  suffixOverrides="," >
+	<if test="sup_code != null  and sup_code != '' ">
+		sup_code=#{sup_code,jdbcType=VARCHAR},
+	</if>
+	<if test="item_type_code != null  and item_type_code != '' ">
+		item_type_code=#{item_type_code,jdbcType=VARCHAR},
+	</if>
+	<if test="item_type_name != null  and item_type_name != '' ">
+		item_type_name=#{item_type_name,jdbcType=VARCHAR},
+	</if>
+	<if test="ordinal != null  ">
+		ordinal=#{ordinal,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	</trim> where 1=1
+	<if test="sup_code != null  and sup_code != '' ">
+	  and sup_code=#{sup_code}
+	</if>
+	<if test="item_type_code_old != null  and item_type_code_old != '' ">
+	  and item_type_code=#{item_type_code_old}
+	</if>
+	
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.config.bean.SysDictSub">
+	delete 	 from SYS_DICT_SUB where id = #{1}
+</update>
+ 
+<!-- 系统字典子表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from SYS_DICT_SUB where id = #{1}
+</select>
+
+<!-- 系统字典子表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_sys_dict_sub_id.nextval from dual
+</select>
+
+<!-- 系统字典子表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.config.bean.SysDictSub">
+	select count(1) from SYS_DICT_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询系统字典子表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.SysDictSub">
+	select 
+	<include refid="Base_Column_List"/>
+	from SYS_DICT_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询系统字典子表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.config.bean.SysDictSub">
+	select 
+	<include refid="Base_Column_List"/>
+	from SYS_DICT_SUB 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+
+<select id="selectByCode" resultType="com.rensu.education.hctms.config.bean.SysDictSub">
+select * from sys_dict_sub s where s.item_type_code=#{a,jdbcType=VARCHAR} and s.state='Y' and s.sup_code='subject'
+
+</select>  	
+  	
+  	
+</mapper>   

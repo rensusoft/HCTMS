@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="configuration.mapper.OutdeptRecordMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.rensu.education.hctms.log.bean.OutdeptRecord" >
+	<result column="id" property="id"/>
+	<result column="stu_auth_id" property="stu_auth_id"/>
+	<result column="exam_auth_id" property="exam_auth_id"/>
+	<result column="exam_datetime" property="exam_datetime"/>
+	<result column="orga_id" property="orga_id"/>
+	<result column="exam_content" property="exam_content"/>
+	<result column="exam_sco" property="exam_sco"/>
+	<result column="state" property="state"/>
+	<result column="exam_role_id" property="exam_role_id"/>
+	<result column="theory_sco" property="theory_sco"/>
+	<result column="skill_sco" property="skill_sco"/>
+	<result column="pub_num" property="pub_num"/>
+	<result column="exam_result" property="exam_result"/>
+</resultMap>
+       
+<!-- OUTDEPT_RECORD table all fields -->
+<sql id="Base_Column_List" >
+	 id,stu_auth_id,exam_auth_id,exam_datetime,orga_id,exam_content,exam_sco,state,exam_role_id,theory_sco,skill_sco,pub_num,exam_result
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="exam_auth_id != null" >
+	    and exam_auth_id =  #{exam_auth_id}
+	</if>
+	<if test="exam_datetime != null" >
+	    and exam_datetime =  #{exam_datetime}
+	</if>
+	<if test="orga_id != null" >
+	    and orga_id =  #{orga_id}
+	</if>
+	<if test="exam_content != null" >
+	    and exam_content =  #{exam_content}
+	</if>
+	<if test="exam_sco != null" >
+	    and exam_sco =  #{exam_sco}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="exam_role_id != null" >
+	    and exam_role_id =  #{exam_role_id}
+	</if>
+	<if test="theory_sco != null" >
+	    and theory_sco =  #{theory_sco}
+	</if>
+	<if test="skill_sco != null" >
+	    and skill_sco =  #{skill_sco}
+	</if>
+	<if test="pub_num != null" >
+	    and pub_num =  #{pub_num}
+	</if>
+	<if test="exam_result != null" >
+	    and exam_result =  #{exam_result}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord" >
+  insert into OUTDEPT_RECORD(id,stu_auth_id,exam_auth_id,exam_datetime,orga_id,exam_content,exam_sco,state,exam_role_id,theory_sco,skill_sco,pub_num,exam_result)
+ values(#{id,jdbcType=INTEGER},#{stu_auth_id,jdbcType=INTEGER},#{exam_auth_id,jdbcType=INTEGER},#{exam_datetime,jdbcType=TIMESTAMP},#{orga_id,jdbcType=INTEGER},#{exam_content,jdbcType=VARCHAR},#{exam_sco,jdbcType=INTEGER},#{state,jdbcType=VARCHAR},#{exam_role_id,jdbcType=INTEGER},#{theory_sco,jdbcType=INTEGER},#{skill_sco,jdbcType=INTEGER},
+ #{pub_num,jdbcType=INTEGER},#{exam_result,jdbcType=INTEGER})
+</insert>
+ 
+ <!--  -->
+<update id="update" parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord" >
+	update OUTDEPT_RECORD set 
+	<trim  suffixOverrides="," >
+	<if test="stu_auth_id != null  ">
+		stu_auth_id=#{stu_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="exam_auth_id != null  ">
+		exam_auth_id=#{exam_auth_id,jdbcType=INTEGER},
+	</if>
+	<if test="exam_datetime != null  ">
+		exam_datetime=#{exam_datetime,jdbcType=TIMESTAMP},
+	</if>
+	<if test="orga_id != null  ">
+		orga_id=#{orga_id,jdbcType=INTEGER},
+	</if>
+	<if test="exam_content != null  ">
+		exam_content=#{exam_content,jdbcType=VARCHAR},
+	</if>
+	<if test="theory_sco != null  ">
+		theory_sco=#{theory_sco,jdbcType=INTEGER},
+	</if>
+	<if test="skill_sco != null  ">
+		skill_sco=#{skill_sco,jdbcType=INTEGER},
+	</if>
+	<if test="exam_sco != null  ">
+		exam_sco=#{exam_sco,jdbcType=INTEGER},
+	</if>
+	<if test="state != null  and state != '' ">
+		state=#{state,jdbcType=VARCHAR},
+	</if>
+	<if test="exam_role_id != null  ">
+		exam_role_id=#{exam_role_id,jdbcType=INTEGER},
+	</if>
+	<if test="pub_num != null" >
+	     pub_num =  #{pub_num,jdbcType=INTEGER}
+	</if>
+	<if test="exam_result != null" >
+	    exam_result =  #{exam_result,jdbcType=INTEGER}
+	</if>
+	</trim> where id=#{id,jdbcType=INTEGER}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	delete 	 from OUTDEPT_RECORD where id = #{id,jdbcType=INTEGER}
+</update>
+ 
+<!-- 出科审核流程记录表列表 -->
+<select id="selectOne"  resultMap="BaseResultMap" parameterType="int">
+	select <include refid="Base_Column_List" /> 
+	 from OUTDEPT_RECORD where id = #{id,jdbcType=INTEGER}
+</select>
+
+<!-- 出科审核流程记录表序列号 -->
+<select id="getSequence"  resultType="int">
+	select seq_outdept_record_id.nextval from dual
+</select>
+
+<!-- 出科审核流程记录表 列表总数-根据类型bean查询 -->
+<select id="selectCount" resultType="java.lang.Integer"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select count(1) from OUTDEPT_RECORD 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean查询出科审核流程记录表 -->
+<select id="selectList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select 
+	<include refid="Base_Column_List"/>
+	from OUTDEPT_RECORD 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  	
+<!-- 根据类型bean进行分页查询出科审核流程记录表 -->
+<select id="selectPage" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select 
+	<include refid="Base_Column_List"/>
+	from OUTDEPT_RECORD 
+	<include refid="Example_Where_Clause"/>
+    <if test="queryCondition != null and queryCondition != ''" >
+      ${queryCondition}
+    </if>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>
+  
+  <select id="selectFlowList" resultType="com.rensu.education.hctms.log.bean.OutdeptRecord"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select 
+	o.id as id,o.stu_auth_id as stu_auth_id,o.exam_auth_id as exam_auth_id,o.exam_datetime as exam_datetime,
+	o.orga_id as orga_id,o.exam_content as exam_content,o.exam_sco as exam_sco,o.state as state,
+	o.exam_role_id as exam_role_id,o.exam_datetime as exam_datetime,o.pub_num as pub_num,o.exam_role_id as exam_role_id,
+	to_char(o.exam_datetime,'yyyy-mm-dd') as dateTimeStr,
+	to_char(o.exam_datetime,'HH24:mi:ss') as  dateTimeStrEnd,
+	i.user_name as userName,r.role_name as roleName,
+	o.skill_sco,o.theory_sco,o.exam_result
+	from OUTDEPT_RECORD o
+	left join user_authority u on u.auth_id=o.exam_auth_id
+	left join user_info i on i.user_id=u.user_id
+	left join role_info r on r.role_id=o.exam_role_id
+	where 1=1 and o.exam_result is not null
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and o.id =  #{id}
+	</if>
+	<if test="stu_auth_id != null" >
+	    and o.stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="exam_auth_id != null" >
+	    and o.exam_auth_id =  #{exam_auth_id}
+	</if>
+	<if test="exam_datetime != null" >
+	    and o.exam_datetime =  #{exam_datetime}
+	</if>
+	<if test="orga_id != null" >
+	    and o.orga_id =  #{orga_id}
+	</if>
+	<if test="exam_content != null" >
+	    and o.exam_content =  #{exam_content}
+	</if>
+	<if test="exam_sco != null" >
+	    and o.exam_sco =  #{exam_sco}
+	</if>
+	 	<if test="state != null and state != ''" >
+	    and o.state =  #{state}
+	</if>
+	<if test="exam_role_id != null" >
+	    and o.exam_role_id =  #{exam_role_id}
+	</if>
+	<if test="pub_num != null and pub_num != ''" >
+	    and o.pub_num =  #{pub_num}
+	</if>
+</trim>
+	<if test="orderCondition != null and orderCondition != ''" >
+     order by ${orderCondition}
+    </if>
+</select>  
+<!-- 查询学生在本科室的最后一条出科审批记录是否为重新发起审核状态0 -->
+<select id="selectExamResult" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select * from 
+		(select t.* from OUTDEPT_RECORD t where t.state='Y' and t.exam_result is not null
+		and t.stu_auth_id=#{stu_auth_id} and t.orga_id=#{orga_id} 
+		<if test="exam_role_id != null and exam_role_id != ''" >
+	     and t.exam_role_id in (20,30)
+	    </if>
+	     order by t.exam_datetime desc) 
+	where rownum=1
+</select>  
+
+<!-- 获取出科审核记录的组次 -->
+<select id="getGroups" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select pub_num from 
+		(select o.pub_num from OUTDEPT_RECORD o where o.state='Y' and o.stu_auth_id=#{stu_auth_id} and o.orga_id=#{orga_id} group by o.pub_num) 
+	order by pub_num asc
+</select>
+  	
+
+<!-- 获取在本科室学生最后一次发起出科的组次 -->
+<select id="getLastPubNum" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select * from
+		(select * from OUTDEPT_RECORD where state='Y'
+		<if test="stu_auth_id != null and stu_auth_id != ''" >
+		    and stu_auth_id =  #{stu_auth_id}
+		</if>
+		<if test="orga_id != null and orga_id != ''" >
+		    and orga_id =  #{orga_id}
+		</if>
+		<if test="orderCondition != null and orderCondition != ''" >
+	     order by ${orderCondition}
+	    </if>)
+    where rownum=1
+</select>  	
+<!-- 获取学生在本科室当前的出科组次 -->
+<select id="getPubNum" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select * from
+		(select * from OUTDEPT_RECORD where state='Y'
+		<if test="stu_auth_id != null and stu_auth_id != ''" >
+		    and stu_auth_id =  #{stu_auth_id}
+		</if>
+		<if test="orga_id != null and orga_id != ''" >
+		    and orga_id =  #{orga_id}
+		</if>
+		<if test="orderCondition != null and orderCondition != ''" >
+	     order by ${orderCondition}
+	    </if>)
+    where rownum=1
+</select> 
+ 
+<select id="selectOrList" resultMap="BaseResultMap"  parameterType="com.rensu.education.hctms.log.bean.OutdeptRecord">
+	select ord.* 
+	from OUTDEPT_RECORD ord 
+	where 1=1
+	<if test="state != null and state != ''" >
+		and ord.state =  #{state}
+	</if>
+	<if test="stu_auth_id != null and stu_auth_id != ''" >
+		and ord.stu_auth_id =  #{stu_auth_id}
+	</if>
+	<if test="orga_id != null and orga_id != ''" >
+		and ord.orga_id =  #{orga_id}
+	</if>
+	<if test="exam_role_id != null and exam_role_id != ''" >
+		and ord.exam_role_id =  #{exam_role_id}
+	</if>
+	and ord.pub_num=(select pub_num from 
+		(select pub_num from OUTDEPT_RECORD where state=#{state} and stu_auth_id=#{stu_auth_id} and orga_id=#{orga_id} order by pub_num desc) 
+	  where rownum=1)
+	order by ord.id asc
+</select>  
+</mapper>   

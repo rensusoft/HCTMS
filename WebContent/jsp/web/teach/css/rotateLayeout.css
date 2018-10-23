@@ -1,0 +1,253 @@
+body{
+    padding: 1%;
+    width: 99%;
+    height: 100%;
+}
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+div.rotatestep{
+    height: 120px;
+    padding: 10px;
+}
+div.rotatestep ul{
+    width: 100%;
+}
+div.rotatestep ul li{
+    float: left;
+}
+div.rotatestep li b{
+    display: inline-block;
+    width:28px;
+    height: 28px;
+    border: 2px solid #FED16E;
+    background: #FF9E00;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 18px;
+    margin-left: 2px;
+    margin-bottom: 10px;
+}
+div.rotatestep ul li i{
+    display:inline-block;
+    width:50px;
+    position: relative;
+    top:10px;
+    border-top: 3px solid #FF9E00;
+    float: right;
+    right: 1px;
+}
+div.rotatestep ul li span{
+    position: relative;
+    left: -15px;
+}
+div.rotatestep ul li:last-child span{
+    position: relative;
+    left: 0;
+}
+.gray{
+    border: 2px solid #A2A0A0 !important;
+    background: #6C6C6C !important;
+}
+.content_ul>li{
+    display: none;
+    border: 2px solid #D8DCE2;
+    position: relative;
+}
+.content_ul>li div{
+    height: 100%;
+}
+.content_ul>li.show_block {
+    display: block;
+}
+.content_ul>li:first-child div>img{
+    position: absolute;
+    top:-20px;
+    left:10px;
+}
+.content_ul>li:last-child div>img{
+    position: absolute;
+    top:-20px;
+    right: 10px;
+}
+.content_ul>li:nth-child(2) div>img{
+    position: absolute;
+    top:-20px;
+}
+.content_ul>li:nth-child(3) div>img{
+    position: absolute;
+    top:-20px;
+}
+.rotatestep p{
+    font-size: 18px;
+    text-align: center;
+    color: #505f91;
+    margin:0;
+}
+.content_ul>li:last-child div p{
+    font-size: 30px;
+    color: #505F91;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.btns{
+    margin-top: 20px;
+    text-align: center;
+}
+.layui-layer-btn0{
+    margin-top: 20px;
+}
+.content_ul li p{
+    text-align: center;
+    margin-top: 20px;
+}
+.planChoose{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.planChoose a{
+    display: inline-block;
+    margin-left: 20px;
+}
+.stuInfo{
+    color:#505F91;
+    border-bottom: 1px solid #D8DCE2;
+}
+.stuInfo span{
+    display: inline-block;
+    width: 30%;
+    font-size: 20px;
+}
+.stuInfo span i{
+    font-style: normal;
+    color: black;
+}
+.stuInfo p{
+    margin-top: 10px;
+    text-align: right;
+}
+/*���ѧ���б�*/
+.left_btn{
+    /*float:left;*/
+    width: 10%;
+    height: 100%;
+    overflow: auto;
+    overflow-X:hidden;
+    float: left;
+}
+.left_btn p{
+    text-align: center;
+    margin-top: 30px;
+}
+.left_btn h3{
+    text-align: center;
+    padding: 25px 0;
+    border-bottom: 1px solid #505F91;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.left_btn ul li{
+    line-height: 45px;
+    border-bottom: 1px solid #505F91;
+    cursor: pointer;
+    text-align: center;
+}
+.left_btn .select {
+    background: #EDF2F7;
+    color: #505f91;
+}
+.jqueryTable{
+    width: 90%;
+    height: 100%;
+    float: left;
+}
+
+
+
+
+
+
+
+
+/*///////////////*/
+.radioGroup {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    transform: translate(0, 0);
+}
+.radioGroup > legend {
+    color: #505f91;
+    border-bottom: none;
+    text-align: center;
+    width: 30%;
+    font-size: 30px;
+}
+html {
+    height: 100%;
+}
+fieldset {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 30px 60px 50px;
+    border-radius: 20px;
+    margin: 25px auto;
+    font-size: 18px;
+    width: 75%;
+}
+.radioGroup p{
+    height: 47px;
+    line-height: 25px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    color: #505f91;
+    border:1px solid #505F91 ;
+    padding: 10px 25px;
+    border-radius: 5px;
+}
+.radioGroup p i{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 10px;
+    float: left;
+}
+.radioGroup p.tick{
+    background: #6C86C6;
+    color: #fff;
+    box-shadow: 2px 2px 2px 2px #8D8D8D;
+}
+.radioGroup p.tick a{
+    color: #fff;
+}
+.radioGroup p.tick i{
+    background:url("../img/tick.png") no-repeat;
+}
+legend {
+    padding: 0 20px;
+    text-transform: uppercase;
+}
+.radioGroup p a{
+    float: right;
+    margin-left: 20px;
+}
+fieldset:focus {
+    /*border-color: rgba(0, 0, 0, 0.4);*/
+    outline: none;
+}
